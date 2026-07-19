@@ -10,9 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
->
-    <style>
 
+    <style>
+        /* ================= RESET & BASE ================= */
         * {
             margin: 0;
             padding: 0;
@@ -75,6 +75,7 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* ================= HEADER ================= */
         header {
             position: fixed;
             top: 20px;
@@ -228,6 +229,7 @@
             transform: scale(1.08);
         }
 
+        /* ================= MOBILE MENU ================= */
         .mobile-menu {
             position: fixed;
             inset: 0 0 0 auto;
@@ -315,6 +317,7 @@
             cursor: pointer;
         }
 
+        /* ================= LANGUAGE MODAL ================= */
         .lang-modal-overlay {
             position: fixed;
             inset: 0;
@@ -397,6 +400,7 @@
             transform: translateY(-2px);
         }
 
+        /* ================= ABOUT HERO ================= */
         .about-hero {
             position: relative;
             min-height: 100vh;
@@ -451,6 +455,8 @@
             width: min(100%, 980px);
             text-align: center;
         }
+
+        /* --- UPDATED HERO LOGO STYLES --- */
         .hero-logo-shell {
             position: relative;
             width: clamp(220px, 50vw, 360px);
@@ -519,6 +525,7 @@
                 transform: scale(1.06);
             }
         }
+        /* -------------------------------- */
 
         .about-eyebrow {
             display: inline-flex;
@@ -579,6 +586,7 @@
             50% { transform: translateY(7px); }
         }
 
+        /* ================= GENERAL SECTIONS ================= */
         .section {
             position: relative;
             padding: 105px 5%;
@@ -624,7 +632,7 @@
             line-height: 1.9;
         }
 
-
+        /* ================= OUR STORY ================= */
         .story-section {
             background: var(--white);
         }
@@ -723,6 +731,7 @@
             font-weight: 600;
         }
 
+        /* ================= VALUES ================= */
         .values-section {
             overflow: hidden;
             background: linear-gradient(180deg, #f8fbff, #eef6ff);
@@ -826,6 +835,7 @@
             line-height: 1.8;
         }
 
+        /* ================= PROFESSIONAL CARE ================= */
         .professional-section {
             color: var(--white);
             background: var(--navy);
@@ -961,6 +971,7 @@
             line-height: 1.75;
         }
 
+        /* ================= STATS ================= */
         .stats-section {
             padding: 0 5% 105px;
             background: var(--white);
@@ -1009,7 +1020,7 @@
             font-weight: 600;
         }
 
- 
+        /* ================= CTA ================= */
         .about-cta-section {
             padding: 105px 5%;
             background: linear-gradient(135deg, #eef7ff, #ffffff);
@@ -1086,7 +1097,7 @@
             transform: translateY(-5px);
         }
 
-  
+        /* ================= FOOTER ================= */
         .premium-footer {
             position: relative;
             overflow: hidden;
@@ -1249,7 +1260,7 @@
             font-size: 0.93rem;
         }
 
-
+        /* ================= REVEAL ANIMATION ================= */
         .reveal {
             opacity: 0;
             transform: translateY(35px);
@@ -1261,7 +1272,7 @@
             transform: translateY(0);
         }
 
- 
+        /* ================= RESPONSIVE ================= */
         @media (max-width: 1050px) {
             .nav-links {
                 gap: 24px;
@@ -1512,6 +1523,9 @@
             }
         }
 
+        /* =========================================================
+           FINAL RESPONSIVE LAYOUT OVERRIDES
+        ========================================================= */
         .about-hero-content {
             width: min(100%, 980px);
             padding-inline: clamp(0px, 2vw, 18px);
@@ -1767,21 +1781,10 @@
                 transition-duration: 0.01ms !important;
             }
         }
-
-        .footer-contact a[href^="mailto:"] {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.25s ease;
-}
-
-.footer-contact a[href^="mailto:"]:hover {
-    color: #39a9db;
-    text-decoration: underline;
-}
     </style>
 </head>
 <body>
- 
+    <!-- ================= HEADER ================= -->
     <header id="mainHeader">
         <div class="header-left">
             <a href="index.html#home" class="logo-container" aria-label="Zendura home">
@@ -1806,7 +1809,7 @@
         </button>
     </header>
 
-
+    <!-- ================= MOBILE MENU ================= -->
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
         <button type="button" class="close-btn" id="closeMenu" aria-label="Close menu">
             <i class="fa-solid fa-xmark"></i>
@@ -1821,7 +1824,7 @@
         </button>
     </div>
 
- 
+    <!-- ================= LANGUAGE MODAL ================= -->
     <div class="lang-modal-overlay" id="langModal" aria-hidden="true">
         <div class="lang-modal-box" role="dialog" aria-modal="true" aria-labelledby="languageTitle">
             <button type="button" class="close-lang-modal" onclick="closeLangModal()" aria-label="Close language window">
@@ -1834,7 +1837,7 @@
     </div>
 
     <main>
-
+        <!-- ================= ABOUT HERO ================= -->
         <section class="about-hero" id="about-top">
             <div class="about-hero-content">
                 <div class="about-eyebrow i18n" data-en="Welcome to Zendura" data-de="Willkommen bei Zendura">
@@ -1858,7 +1861,7 @@
             </div>
         </section>
 
-
+        <!-- ================= OUR STORY ================= -->
         <section class="section story-section" id="our-story">
             <div class="section-container story-grid">
                 <div class="story-visual reveal">
@@ -1900,7 +1903,7 @@
             </div>
         </section>
 
-
+        <!-- ================= VALUES ================= -->
         <section class="section values-section">
             <div class="section-container">
                 <div class="section-heading-center reveal">
@@ -1951,7 +1954,7 @@
             </div>
         </section>
 
-
+        <!-- ================= PROFESSIONAL CARE ================= -->
         <section class="section professional-section">
             <div class="section-container professional-grid">
                 <div class="professional-copy reveal">
@@ -2008,7 +2011,29 @@
             </div>
         </section>
 
+        <!-- ================= STATS ================= -->
+        <section class="stats-section">
+            <div class="stats-card reveal">
+                <div class="stat-item">
+                    <strong>100%</strong>
+                    <span class="i18n" data-en="Personalized Care" data-de="Individuelle Betreuung">Individuelle Betreuung</span>
+                </div>
+                <div class="stat-item">
+                    <strong>24/7</strong>
+                    <span class="i18n" data-en="Easy Online Requests" data-de="Einfache Online-Anfragen">Einfache Online-Anfragen</span>
+                </div>
+                <div class="stat-item">
+                    <strong>5★</strong>
+                    <span class="i18n" data-en="Premium Mindset" data-de="Premium-Anspruch">Premium-Anspruch</span>
+                </div>
+                <div class="stat-item">
+                    <strong>1</strong>
+                    <span class="i18n" data-en="Promise: Your Satisfaction" data-de="Versprechen: Ihre Zufriedenheit">Versprechen: Ihre Zufriedenheit</span>
+                </div>
+            </div>
+        </section>
 
+        <!-- ================= CTA ================= -->
         <section class="about-cta-section">
             <div class="about-cta reveal">
                 <div class="about-cta-copy">
@@ -2027,6 +2052,7 @@
         </section>
     </main>
 
+    <!-- ================= FOOTER ================= -->
     <footer class="premium-footer" id="contact">
         <div class="footer-container">
             <div class="footer-brand">
@@ -2056,13 +2082,11 @@
                 <ul>
                     <li>
                         <i class="fa-solid fa-location-dot"></i>
-                        <span class="i18n" data-en="Bümplizstrasse 189 3018 Bern" data-de="Bümplizstrasse 189 3018 Bern">Bümplizstrasse 189 3018 Bern</span>
+                        <span class="i18n" data-en="123 Serenity Avenue, Quiet City, QC 45000" data-de="123 Gelassenheitsallee, Ruhige Stadt, 45000">123 Gelassenheitsallee, Ruhige Stadt, 45000</span>
                     </li>
                     <li>
                         <i class="fa-solid fa-envelope"></i>
-                        <a href="mailto:zendurareinigung@gmail.com">
-                            zendurareinigung@gmail.com
-                        </a>
+                        <span>vip@zendura.com</span>
                     </li>
                     <li>
                         <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" class="whatsapp-btn-blue">
@@ -2076,13 +2100,14 @@
 
         <div class="footer-bottom">
             <p class="i18n"
-               data-en="&copy; 2026 Zendura Home Care. All rights reserved."
-               data-de="&copy; 2026 Zendura Heimpflege.">
+               data-en="&copy; 2026 Zendura Home Care. All rights reserved. Designed for Peace of Mind."
+               data-de="&copy; 2026 Zendura Heimpflege. Alle Rechte vorbehalten.">
                 &copy; 2026 Zendura Heimpflege. Alle Rechte vorbehalten.
             </p>
         </div>
     </footer>
 
+    <!-- JS File -->
     <script src="script.js"></script>
 </body>
 </html>
