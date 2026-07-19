@@ -194,33 +194,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+        window.changeLang = function (langCode) {
 
-
-    window.changeLang = function (langCode) {
-        currentLanguage =
-            langCode === 'en' ? 'en' : 'de';
-
+        if (!window.changeLang.initialized) {
+            const savedLanguage =
+                localStorage.getItem('zendura-language') ||
+                localStorage.getItem('zenduraLanguage');
+    
+            currentLanguage =
+                savedLanguage === 'en' || savedLanguage === 'de'
+                    ? savedLanguage
+                    : langCode === 'en'
+                        ? 'en'
+                        : 'de';
+    
+            window.changeLang.initialized = true;
+        } else {
+            currentLanguage =
+                langCode === 'en' ? 'en' : 'de';
+        }
+    
         document.documentElement.lang =
             currentLanguage;
-
+    
         const langDesktop =
             document.getElementById(
                 'currentLangDesktop'
             );
-
+    
         if (langDesktop) {
             langDesktop.textContent =
                 currentLanguage === 'de'
                     ? 'Deutsch'
                     : 'English';
         }
-
+    
         localStorage.setItem(
             'zendura-language',
             currentLanguage
         );
-
-
+    
+        localStorage.setItem(
+            'zenduraLanguage',
+            currentLanguage
+        );
+    
         document
             .querySelectorAll('.i18n')
             .forEach((element) => {
@@ -228,14 +246,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.getAttribute(
                         `data-${currentLanguage}`
                     );
-
+    
                 if (translatedText !== null) {
                     element.innerHTML =
                         translatedText;
                 }
             });
-
-
+    
         document
             .querySelectorAll('.i18n-ph')
             .forEach((element) => {
@@ -243,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.getAttribute(
                         `data-${currentLanguage}`
                     );
-
+    
                 if (translatedPlaceholder !== null) {
                     element.setAttribute(
                         'placeholder',
@@ -251,15 +268,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
                 }
             });
-
+    
         updateSelectedLanguageIcon(
             currentLanguage
         );
-
+    
         window.closeLangModal();
     };
-
-
+    
 
     languageOptions.forEach((option) => {
         option.addEventListener(
