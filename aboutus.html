@@ -45,6 +45,12 @@
             color: var(--text);
             font-family: "Poppins", sans-serif;
             line-height: 1.7;
+            /* Fix for long German words on mobile */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
         }
 
         a,
@@ -1337,7 +1343,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .stat-item:nth-child(2)::after {
+            .stat-item:nth-child(2):after {
                 display: none;
             }
 
@@ -1883,7 +1889,7 @@
                     </h2>
                     <p class="section-description i18n"
                        data-en="Zendura was created to make professional cleaning feel more thoughtful, reliable, and human. We know that no two homes—and no two families—are exactly alike. That is why we never treat your home like another task on a list. We take time to understand your priorities, your routines, and the details that matter most to you."
-                       data-de="Zendura wurde gegründet, um professionelle Reinigung aufmerksamer, zuverlässiger und menschlicher zu gestalten. Wir wissen, dass kein Zuhause und keine Familie gleich ist. Deshalb behandeln wir Ihr Zuhause niemals wie eine weitere Aufgabe auf einer Liste. Wir nehmen uns Zeit, Ihre Prioritäten, Routinen und wichtigen Details zu verstehen.">
+                       data-de="Zendura wurde gegründet, um professionelle Reinigung aufmerksamer, zuverlässiger und menschlicher zu gestalten. Wir wissen, dass kein Zuhause und keine Familie gleich ist. Deshalb behandeln Ihr Zuhause niemals wie eine weitere Aufgabe auf einer Liste. Wir nehmen uns Zeit, Ihre Prioritäten, Routinen und wichtigen Details zu verstehen.">
                         Zendura wurde gegründet, um professionelle Reinigung aufmerksamer, zuverlässiger und menschlicher zu gestalten. Wir wissen, dass kein Zuhause und keine Familie gleich ist. Deshalb behandeln wir Ihr Zuhause niemals wie eine weitere Aufgabe auf einer Liste. Wir nehmen uns Zeit, Ihre Prioritäten, Routinen und wichtigen Details zu verstehen.
                     </p>
                     <p class="section-description i18n"
