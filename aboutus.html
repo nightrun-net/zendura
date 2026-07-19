@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Learn about Zendura, our professional home-care team, our values, and our commitment to creating beautifully clean and peaceful homes.">
+    <title>About Us | Zendura</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #020617;
+            --navy-soft: #0a192f;
+            --blue-dark: #1e3a8a;
+            --blue: #3498db;
+            --blue-light: #4facfe;
+            --cyan: #00f2fe;
+            --white: #ffffff;
+            --surface: #f8fbff;
+            --text: #233044;
+            --muted: #64748b;
+            --line: #e4edf7;
+            --shadow: 0 25px 60px rgba(15, 47, 87, 0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: var(--surface);
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+            line-height: 1.7;
+        }
+
+        a,
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .text-gradient {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--navy-soft), var(--blue-dark), var(--blue-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-light-blue {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--blue-light), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            z-index: 1000;
+            width: 92%;
+            max-width: 1400px;
+            height: 90px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            background: rgba(10, 25, 47, 0.78);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transform: translateX(-50%) translateY(0);
+            transition: transform 0.4s cubic-bezier(0.3, 0, 0.2, 1);
+        }
+
+        header.hide-header {
+            transform: translateX(-50%) translateY(-150%);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            width: auto;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
+            transform: translateY(4px);
+            transition: 0.3s ease;
+        }
+
+        .brand-name {
+            color: var(--white);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .logo-container:hover .site-logo {
+            transform: translateY(4px) scale(1.07);
+        }
+
+        .logo-container:hover .brand-name {
+            color: var(--blue-light);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 38px;
+        }
+
+        .nav-links > a {
+            position: relative;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links > a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            border-radius: 20px;
+            background: var(--blue-light);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links > a:hover,
+        .nav-links > a.active-link {
+            color: var(--blue-light);
+        }
+
+        .nav-links > a:hover::after,
+        .nav-links > a.active-link::after {
+            width: 100%;
+        }
+
+        .lang-btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .lang-btn-nav:hover {
+            border-color: var(--blue);
+            background: var(--blue);
+            box-shadow: 0 8px 22px rgba(52, 152, 219, 0.42);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            width: 46px;
+            height: 46px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            place-items: center;
+            color: var(--white);
+            background: transparent;
+            box-shadow: none;
+            font-size: 28px;
+            line-height: 1;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .hamburger i {
+            display: block;
+            color: inherit;
+            background: transparent;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .hamburger:hover {
+            color: var(--blue-light);
+            transform: scale(1.08);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            inset: 0 0 0 auto;
+            z-index: 2000;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 38px;
+            background: rgba(10, 25, 47, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 26px;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active-link {
+            color: var(--blue-light);
+            transform: translateY(-3px);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 35px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            display: grid;
+            place-items: center;
+            color: var(--white);
+            background: transparent;
+            box-shadow: none;
+            font-size: 38px;
+            line-height: 1;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .close-btn i {
+            display: block;
+            color: inherit;
+            background: transparent;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .close-btn:hover {
+            color: #ff6b6b;
+            transform: rotate(90deg);
+        }
+
+        .lang-btn-mobile {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 45px;
+            border: 0;
+            border-radius: 50px;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .lang-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(5, 12, 23, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.35s ease;
+        }
+
+        .lang-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lang-modal-box {
+            position: relative;
+            width: min(100%, 380px);
+            padding: 45px 35px 30px;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            border-radius: 25px;
+            background: var(--white);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.48);
+            text-align: center;
+            transform: scale(0.9) translateY(20px);
+            transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .lang-modal-overlay.active .lang-modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .close-lang-modal {
+            position: absolute;
+            top: 18px;
+            right: 23px;
+            color: #9aaabd;
+            font-size: 26px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .close-lang-modal:hover {
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        .lang-modal-box h3 {
+            margin-bottom: 28px;
+            color: var(--navy-soft);
+            font-size: 1.55rem;
+            font-weight: 800;
+        }
+
+        .lang-option {
+            display: block;
+            width: 100%;
+            margin-bottom: 14px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            color: var(--navy-soft);
+            background: #f8fafc;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .lang-option:hover {
+            border-color: var(--blue);
+            background: rgba(52, 152, 219, 0.05);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .about-hero {
+            position: relative;
+            min-height: 100vh;
+            padding: 155px 5% 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(2, 6, 23, 0.85), rgba(10, 25, 47, 0.96)),
+                url("https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=85&w=2000&auto=format&fit=crop") center/cover no-repeat;
+        }
+
+        .about-hero::before,
+        .about-hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(90px);
+        }
+
+        .about-hero::before {
+            top: 8%;
+            left: -10%;
+            width: 420px;
+            height: 420px;
+            background: rgba(79, 172, 254, 0.18);
+            animation: driftOne 10s ease-in-out infinite alternate;
+        }
+
+        .about-hero::after {
+            right: -8%;
+            bottom: 0;
+            width: 500px;
+            height: 500px;
+            background: rgba(30, 58, 138, 0.35);
+            animation: driftTwo 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes driftOne {
+            to { transform: translate(70px, 50px); }
+        }
+
+        @keyframes driftTwo {
+            to { transform: translate(-80px, -40px); }
+        }
+
+        .about-hero-content {
+            position: relative;
+            z-index: 2;
+            width: min(100%, 980px);
+            text-align: center;
+        }
+        .hero-logo-shell {
+            position: relative;
+            width: clamp(220px, 50vw, 360px);
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 35px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.6), rgba(79, 172, 254, 0.15));
+            border: 1px solid rgba(79, 172, 254, 0.4);
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                0 0 45px rgba(79, 172, 254, 0.3),
+                inset 0 0 35px rgba(79, 172, 254, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            animation: logoFloat 6s ease-in-out infinite;
+        }
+
+        .hero-logo-shell::before {
+            content: "";
+            position: absolute;
+            inset: -15px;
+            border: 2px solid rgba(79, 172, 254, 0.5);
+            border-radius: 50%;
+            animation: pulseRing 3s ease-in-out infinite;
+        }
+
+        .hero-logo-shell::after {
+            content: "";
+            position: absolute;
+            inset: 15px;
+            border: 1px dashed rgba(0, 242, 254, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-logo-inner {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: grid;
+            place-items: center; 
+            border-radius: 50%;
+        }
+
+        .hero-center-logo {
+            width: 70%; 
+            height: 70%;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .hero-logo-shell:hover .hero-center-logo {
+            transform: scale(1.05); 
+        }
+
+        @keyframes logoFloat {
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes pulseRing {
+            50% {
+                opacity: 0.35;
+                transform: scale(1.06);
+            }
+        }
+
+        .about-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding: 9px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 50px;
+            color: #dbeafe;
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .about-eyebrow i {
+            color: var(--blue-light);
+        }
+
+        .about-hero h1 {
+            margin-bottom: 22px;
+            color: var(--white);
+            font-size: clamp(3rem, 7vw, 6.2rem);
+            font-weight: 800;
+            line-height: 1.02;
+            letter-spacing: -3px;
+            text-shadow: 0 15px 45px rgba(0, 0, 0, 0.48);
+        }
+
+        .about-hero p {
+            width: min(100%, 820px);
+            margin: 0 auto;
+            color: #cbd5e1;
+            font-size: clamp(1.05rem, 2vw, 1.28rem);
+            line-height: 1.9;
+        }
+
+        .hero-scroll-note {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-top: 44px;
+            color: #bfdbfe;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .hero-scroll-note i {
+            font-size: 1.35rem;
+            animation: scrollBounce 1.5s infinite;
+        }
+
+        @keyframes scrollBounce {
+            50% { transform: translateY(7px); }
+        }
+
+        .section {
+            position: relative;
+            padding: 105px 5%;
+        }
+
+        .section-container {
+            width: min(100%, 1250px);
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--blue-dark);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-label::before {
+            content: "";
+            width: 38px;
+            height: 3px;
+            border-radius: 20px;
+            background: linear-gradient(90deg, var(--blue-dark), var(--blue-light));
+        }
+
+        .section-title {
+            margin-bottom: 22px;
+            color: var(--navy-soft);
+            font-size: clamp(2.3rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.13;
+            letter-spacing: -1.5px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 1.08rem;
+            line-height: 1.9;
+        }
+
+
+        .story-section {
+            background: var(--white);
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .story-visual {
+            position: relative;
+            min-height: 570px;
+        }
+
+        .story-main-image {
+            position: absolute;
+            inset: 0 55px 40px 0;
+            overflow: hidden;
+            border-radius: 34px;
+            box-shadow: var(--shadow);
+        }
+
+        .story-main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .story-visual:hover .story-main-image img {
+            transform: scale(1.05);
+        }
+
+        .story-small-image {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 220px;
+            height: 235px;
+            overflow: hidden;
+            border: 10px solid var(--white);
+            border-radius: 28px;
+            box-shadow: 0 20px 45px rgba(15, 47, 87, 0.18);
+        }
+
+        .story-small-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .experience-badge {
+            position: absolute;
+            top: 36px;
+            right: 5px;
+            width: 150px;
+            min-height: 150px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 28px;
+            color: var(--white);
+            background: linear-gradient(145deg, var(--blue-dark), var(--blue-light));
+            box-shadow: 0 20px 45px rgba(52, 152, 219, 0.32);
+            text-align: center;
+        }
+
+        .experience-badge strong {
+            font-size: 2.7rem;
+            line-height: 1;
+        }
+
+        .experience-badge span {
+            margin-top: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .story-copy p + p {
+            margin-top: 18px;
+        }
+
+        .signature-line {
+            margin-top: 30px;
+            padding: 22px 25px;
+            border-left: 4px solid var(--blue-light);
+            border-radius: 0 18px 18px 0;
+            color: var(--navy-soft);
+            background: linear-gradient(90deg, rgba(79, 172, 254, 0.1), rgba(79, 172, 254, 0.02));
+            font-size: 1.02rem;
+            font-weight: 600;
+        }
+
+        .values-section {
+            overflow: hidden;
+            background: linear-gradient(180deg, #f8fbff, #eef6ff);
+        }
+
+        .values-section::before {
+            content: "";
+            position: absolute;
+            top: -180px;
+            right: -180px;
+            width: 460px;
+            height: 460px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 172, 254, 0.18), transparent 70%);
+        }
+
+        .section-heading-center {
+            width: min(100%, 850px);
+            margin: 0 auto 55px;
+            text-align: center;
+        }
+
+        .section-heading-center .section-label {
+            justify-content: center;
+        }
+
+        .section-heading-center .section-label::before {
+            display: none;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .value-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 330px;
+            padding: 38px 32px;
+            border: 1px solid rgba(46, 114, 182, 0.12);
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 18px 45px rgba(42, 78, 123, 0.08);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .value-card::before {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -90px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.18), rgba(0, 242, 254, 0.06));
+            transition: 0.4s ease;
+        }
+
+        .value-card:hover {
+            border-color: rgba(52, 152, 219, 0.3);
+            box-shadow: 0 30px 65px rgba(42, 78, 123, 0.15);
+            transform: translateY(-10px);
+        }
+
+        .value-card:hover::before {
+            transform: scale(1.3);
+        }
+
+        .value-icon {
+            position: relative;
+            z-index: 2;
+            width: 72px;
+            height: 72px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 21px;
+            color: var(--white);
+            background: linear-gradient(145deg, var(--blue-dark), var(--blue-light));
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.28);
+            font-size: 29px;
+        }
+
+        .value-card h3 {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 14px;
+            color: var(--navy-soft);
+            font-size: 1.38rem;
+            font-weight: 750;
+        }
+
+        .value-card p {
+            position: relative;
+            z-index: 2;
+            color: var(--muted);
+            font-size: 0.98rem;
+            line-height: 1.8;
+        }
+
+        .professional-section {
+            color: var(--white);
+            background: var(--navy);
+            overflow: hidden;
+        }
+
+        .professional-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 12% 15%, rgba(79, 172, 254, 0.18), transparent 30%),
+                radial-gradient(circle at 90% 85%, rgba(30, 58, 138, 0.4), transparent 35%);
+            pointer-events: none;
+        }
+
+        .professional-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            gap: 65px;
+            align-items: center;
+        }
+
+        .professional-section .section-label {
+            color: #93c5fd;
+        }
+
+        .professional-section .section-title {
+            color: var(--white);
+        }
+
+        .professional-section .section-description {
+            color: #aebdd0;
+        }
+
+        .professional-list {
+            margin-top: 34px;
+            display: grid;
+            gap: 18px;
+        }
+
+        .professional-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 18px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            transition: 0.3s ease;
+        }
+
+        .professional-item:hover {
+            border-color: rgba(79, 172, 254, 0.35);
+            background: rgba(79, 172, 254, 0.08);
+            transform: translateX(7px);
+        }
+
+        .professional-check {
+            min-width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+        }
+
+        .professional-item h4 {
+            margin-bottom: 4px;
+            color: var(--white);
+            font-size: 1.08rem;
+        }
+
+        .professional-item p {
+            color: #93a4ba;
+            font-size: 0.94rem;
+            line-height: 1.65;
+        }
+
+        .promise-panel {
+            position: relative;
+            overflow: hidden;
+            min-height: 540px;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            border-radius: 34px;
+            background:
+                linear-gradient(180deg, rgba(2, 6, 23, 0.04), rgba(2, 6, 23, 0.9)),
+                url("https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=85&w=1000&auto=format&fit=crop") center/cover no-repeat;
+            box-shadow: 0 35px 75px rgba(0, 0, 0, 0.32);
+        }
+
+        .promise-panel::after {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 25px;
+            pointer-events: none;
+        }
+
+        .promise-panel-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .promise-number {
+            margin-bottom: 12px;
+            color: #7dd3fc;
+            font-size: 4.8rem;
+            font-weight: 800;
+            line-height: 0.85;
+        }
+
+        .promise-panel h3 {
+            margin-bottom: 13px;
+            color: var(--white);
+            font-size: 1.85rem;
+            line-height: 1.25;
+        }
+
+        .promise-panel p {
+            color: #c7d2e1;
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
+        .stats-section {
+            padding: 0 5% 105px;
+            background: var(--white);
+        }
+
+        .stats-card {
+            width: min(100%, 1250px);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-item {
+            position: relative;
+            padding: 38px 25px;
+            text-align: center;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 25%;
+            right: 0;
+            width: 1px;
+            height: 50%;
+            background: var(--line);
+        }
+
+        .stat-item strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--blue-dark);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .stat-item span {
+            color: var(--muted);
+            font-size: 0.93rem;
+            font-weight: 600;
+        }
+
+ 
+        .about-cta-section {
+            padding: 105px 5%;
+            background: linear-gradient(135deg, #eef7ff, #ffffff);
+        }
+
+        .about-cta {
+            position: relative;
+            width: min(100%, 1250px);
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            border-radius: 35px;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--navy-soft), var(--blue-dark));
+            box-shadow: 0 35px 75px rgba(30, 58, 138, 0.25);
+        }
+
+        .about-cta::before {
+            content: "";
+            position: absolute;
+            top: -140px;
+            right: -100px;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            background: rgba(79, 172, 254, 0.2);
+            filter: blur(3px);
+        }
+
+        .about-cta-copy {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+
+        .about-cta h2 {
+            margin-bottom: 15px;
+            font-size: clamp(2rem, 4.5vw, 3.6rem);
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .about-cta p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-cta-btn {
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 30px;
+            border-radius: 50px;
+            color: var(--blue-dark);
+            background: var(--white);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            font-size: 1.03rem;
+            font-weight: 700;
+            transition: 0.35s ease;
+        }
+
+        .about-cta-btn:hover {
+            color: var(--white);
+            background: linear-gradient(135deg, var(--blue-light), var(--blue));
+            transform: translateY(-5px);
+        }
+
+  
+        .premium-footer {
+            position: relative;
+            overflow: hidden;
+            padding: 100px 5% 30px;
+            border-top: 2px solid rgba(52, 152, 219, 0.15);
+            color: #94a3b8;
+            background: linear-gradient(to bottom, var(--navy), #061126);
+        }
+
+        .premium-footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(79, 172, 254, 0.5), transparent);
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.8);
+            transform: translateX(-50%);
+        }
+
+        .footer-container {
+            position: relative;
+            z-index: 2;
+            width: min(100%, 1300px);
+            margin: 0 auto 70px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 60px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            text-decoration: none;
+        }
+
+        .footer-site-logo {
+            width: auto;
+            height: 85px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
+            transition: 0.3s ease;
+        }
+
+        .footer-brand-name {
+            color: var(--white);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: 0.3s ease;
+        }
+
+        .footer-logo:hover .footer-site-logo {
+            transform: scale(1.05);
+        }
+
+        .footer-logo:hover .footer-brand-name {
+            color: var(--blue-light);
+        }
+
+        .footer-brand p {
+            max-width: 430px;
+            color: #a0aec0;
+            font-size: 1.02rem;
+            line-height: 1.9;
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            margin-bottom: 28px;
+            color: var(--white);
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .footer-links ul,
+        .footer-contact ul {
+            list-style: none;
+        }
+
+        .footer-links ul {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--blue-light);
+            transform: translateX(7px);
+        }
+
+        .footer-contact ul {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            color: #cbd5e1;
+        }
+
+        .footer-contact li > i {
+            margin-top: 2px;
+            padding: 10px;
+            border-radius: 50%;
+            color: var(--blue-light);
+            background: rgba(52, 152, 219, 0.1);
+            font-size: 1.25rem;
+        }
+
+        .whatsapp-btn-blue {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 11px;
+            width: fit-content;
+            margin-top: 10px;
+            padding: 15px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: var(--white) !important;
+            background: linear-gradient(135deg, var(--blue-dark), var(--blue-light));
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.35);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.35s ease;
+        }
+
+        .whatsapp-btn-blue:hover {
+            box-shadow: 0 20px 40px rgba(52, 152, 219, 0.55);
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        .footer-bottom {
+            width: min(100%, 1300px);
+            margin: 0 auto;
+            padding-top: 34px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #64748b;
+            text-align: center;
+            font-size: 0.93rem;
+        }
+
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+ 
+        @media (max-width: 1050px) {
+            .nav-links {
+                gap: 24px;
+            }
+
+            .story-grid,
+            .professional-grid {
+                gap: 45px;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .value-card:last-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 950px) {
+            header {
+                height: 80px;
+                padding: 0 30px;
+            }
+
+            .site-logo {
+                height: 65px;
+                transform: translateY(3px);
+            }
+
+            .brand-name {
+                font-size: 22px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: grid;
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+            }
+
+            .about-hero {
+                min-height: 900px;
+                padding-top: 135px;
+            }
+
+            .story-grid,
+            .professional-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .story-copy {
+                order: -1;
+            }
+
+            .story-visual {
+                min-height: 540px;
+            }
+
+            .professional-grid {
+                gap: 50px;
+            }
+
+            .promise-panel {
+                min-height: 500px;
+            }
+
+            .stats-card {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item:nth-child(2)::after {
+                display: none;
+            }
+
+            .stat-item:nth-child(-n + 2) {
+                border-bottom: 1px solid var(--line);
+            }
+
+            .about-cta {
+                padding: 55px 40px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                text-align: center;
+            }
+
+            .footer-logo,
+            .whatsapp-btn-blue {
+                margin-right: auto;
+                margin-left: auto;
+            }
+
+            .footer-brand p {
+                margin: 0 auto;
+            }
+
+            .footer-contact li {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .section {
+                padding: 80px 5%;
+            }
+
+            header {
+                top: 14px;
+                height: 70px;
+                padding: 0 20px;
+            }
+
+            .site-logo {
+                height: 55px;
+                transform: translateY(2px);
+            }
+
+            .brand-name {
+                font-size: 20px;
+            }
+
+            .about-hero {
+                min-height: 820px;
+                padding: 120px 20px 75px;
+            }
+
+            .hamburger {
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                background: transparent !important;
+            }
+
+            .close-btn {
+                top: 24px;
+                right: 22px;
+                width: 48px;
+                height: 48px;
+                padding: 0;
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+            }
+
+            .about-hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .story-visual {
+                min-height: 440px;
+            }
+
+            .story-main-image {
+                inset: 0 25px 35px 0;
+            }
+
+            .story-small-image {
+                width: 165px;
+                height: 175px;
+                border-width: 7px;
+            }
+
+            .experience-badge {
+                top: 20px;
+                right: 0;
+                width: 116px;
+                min-height: 116px;
+                padding: 14px;
+                border-radius: 22px;
+            }
+
+            .experience-badge strong {
+                font-size: 2.1rem;
+            }
+
+            .experience-badge span {
+                font-size: 0.7rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .value-card:last-child {
+                grid-column: auto;
+            }
+
+            .value-card {
+                min-height: auto;
+            }
+
+            .promise-panel {
+                min-height: 440px;
+                padding: 30px;
+            }
+
+            .promise-number {
+                font-size: 3.8rem;
+            }
+
+            .stats-section {
+                padding-bottom: 80px;
+            }
+
+            .stats-card {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                border-bottom: 1px solid var(--line);
+            }
+
+            .stat-item:last-child {
+                border-bottom: 0;
+            }
+
+            .stat-item::after {
+                display: none;
+            }
+
+            .about-cta-section {
+                padding: 80px 5%;
+            }
+
+            .about-cta {
+                padding: 45px 25px;
+                border-radius: 27px;
+            }
+
+            .about-cta-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .premium-footer {
+                padding-top: 80px;
+            }
+        }
+
+        .about-hero-content {
+            width: min(100%, 980px);
+            padding-inline: clamp(0px, 2vw, 18px);
+        }
+
+        .section-container,
+        .stats-card,
+        .about-cta,
+        .footer-container {
+            max-width: 100%;
+        }
+
+        @media (max-width: 1200px) {
+            .section {
+                padding-inline: 4.5%;
+            }
+
+            .story-grid {
+                gap: 55px;
+            }
+
+            .professional-grid {
+                gap: 48px;
+            }
+
+            .footer-container {
+                gap: 38px;
+            }
+
+            .about-cta {
+                padding: 58px;
+            }
+        }
+
+        /* iPad Pro, iPad landscape and smaller laptops */
+        @media (max-width: 1024px) {
+            .about-hero {
+                min-height: auto;
+                padding-top: 145px;
+                padding-bottom: 90px;
+            }
+
+            .about-hero h1 {
+                font-size: clamp(3rem, 8vw, 5rem);
+            }
+
+            .section {
+                padding-top: 92px;
+                padding-bottom: 92px;
+            }
+        }
+
+        /* iPad portrait and tablets */
+        @media (max-width: 820px) {
+            header {
+                width: calc(100% - 28px);
+                max-width: none;
+                padding-inline: 24px;
+            }
+
+            .about-hero {
+                padding: 130px 22px 80px;
+            }
+
+            .about-hero p {
+                font-size: 1.03rem;
+                line-height: 1.8;
+            }
+
+            .story-grid,
+            .professional-grid {
+                gap: 45px;
+            }
+
+            .story-visual {
+                width: min(100%, 600px);
+                margin-inline: auto;
+            }
+
+            .section-title {
+                font-size: clamp(2.2rem, 7vw, 3.5rem);
+            }
+
+            .about-cta {
+                align-items: stretch;
+                padding: 48px 34px;
+            }
+
+            .about-cta-btn {
+                align-self: flex-start;
+            }
+        }
+
+        /* Phones */
+        @media (max-width: 640px) {
+            header {
+                width: calc(100% - 24px);
+                padding-inline: 18px;
+            }
+
+            .logo-container {
+                gap: 3px;
+            }
+
+            .brand-name {
+                font-size: 19px;
+            }
+
+            .about-hero {
+                min-height: auto;
+                padding: 115px 16px 68px;
+            }
+
+            .about-hero-content {
+                padding-inline: 0;
+            }
+
+            .about-eyebrow {
+                max-width: 100%;
+                padding: 8px 14px;
+                font-size: 0.78rem;
+                letter-spacing: 1.1px;
+            }
+
+            .about-hero h1 {
+                margin-bottom: 17px;
+                font-size: clamp(2.65rem, 14vw, 4rem);
+                line-height: 1.03;
+                letter-spacing: -1.8px;
+            }
+
+            .about-hero p {
+                font-size: 0.97rem;
+                line-height: 1.75;
+            }
+
+            .hero-scroll-note {
+                margin-top: 34px;
+            }
+
+            .section {
+                padding: 72px 18px;
+            }
+
+            .section-heading-center {
+                margin-bottom: 38px;
+            }
+
+            .section-title {
+                margin-bottom: 17px;
+                font-size: clamp(2rem, 10vw, 2.85rem);
+                letter-spacing: -1px;
+            }
+
+            .section-description {
+                font-size: 1rem;
+                line-height: 1.75;
+            }
+
+            .story-visual {
+                min-height: 405px;
+            }
+
+            .story-main-image {
+                inset: 0 18px 30px 0;
+                border-radius: 26px;
+            }
+
+            .story-small-image {
+                width: 148px;
+                height: 156px;
+                border-width: 6px;
+                border-radius: 21px;
+            }
+
+            .experience-badge {
+                width: 105px;
+                min-height: 105px;
+                padding: 12px;
+            }
+
+            .value-card {
+                padding: 30px 25px;
+                border-radius: 24px;
+            }
+
+            .professional-item {
+                padding: 16px;
+            }
+
+            .promise-panel {
+                min-height: 410px;
+                padding: 27px;
+                border-radius: 27px;
+            }
+
+            .about-cta {
+                padding: 40px 24px;
+                gap: 28px;
+            }
+
+            .premium-footer {
+                padding-inline: 18px;
+            }
+        }
+
+        /* Very small phones */
+        @media (max-width: 390px) {
+            .site-logo {
+                height: 49px;
+            }
+
+            .brand-name {
+                font-size: 17px;
+            }
+
+            .hamburger {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+
+            .story-visual {
+                min-height: 360px;
+            }
+
+            .story-small-image {
+                width: 125px;
+                height: 134px;
+            }
+
+            .experience-badge {
+                width: 94px;
+                min-height: 94px;
+            }
+
+            .experience-badge strong {
+                font-size: 1.8rem;
+            }
+
+            .about-cta {
+                padding-inline: 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .footer-contact a[href^="mailto:"] {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.footer-contact a[href^="mailto:"]:hover {
+    color: #39a9db;
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+ 
+    <header id="mainHeader">
+        <div class="header-left">
+            <a href="index.html#home" class="logo-container" aria-label="Zendura home">
+                <img src="data:image/png;base64,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" alt="Zendura Logo" class="site-logo">
+                <span class="brand-name">Zendura</span>
+            </a>
+        </div>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+            <a href="index.html#home" class="i18n" data-en="Home" data-de="Startseite">Home</a>
+            <a href="index.html#services" class="i18n" data-en="Services" data-de="Dienstleistungen">Services</a>
+            <a href="#about-top" class="active-link i18n" data-en="About Us" data-de="Über uns">About Us</a>
+            <a href="index.html#request-service" class="i18n" data-en="Contact Us" data-de="Kontakt">Contact Us</a>
+            <button type="button" class="lang-btn-nav" onclick="openLangModal()">
+                <i class="fa-solid fa-globe"></i>
+                <span id="currentLangDesktop">Deutsch</span>
+            </button>
+        </nav>
+
+        <button type="button" class="hamburger" id="hamburgerMenu" aria-label="Open menu">
+            <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+    </header>
+
+
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <button type="button" class="close-btn" id="closeMenu" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="index.html#home" class="i18n" data-en="Home" data-de="Startseite">Home</a>
+        <a href="index.html#services" class="i18n" data-en="Services" data-de="Dienstleistungen">Services</a>
+        <a href="#about-top" class="active-link i18n" data-en="About Us" data-de="Über uns">About Us</a>
+        <a href="index.html#request-service" class="i18n" data-en="Contact Us" data-de="Kontakt">Contact Us</a>
+        <button type="button" class="lang-btn-mobile" onclick="openLangModal()">
+            <i class="fa-solid fa-globe"></i>
+            <span class="i18n" data-en="Language" data-de="Sprache">Sprache</span>
+        </button>
+    </div>
+
+ 
+    <div class="lang-modal-overlay" id="langModal" aria-hidden="true">
+        <div class="lang-modal-box" role="dialog" aria-modal="true" aria-labelledby="languageTitle">
+            <button type="button" class="close-lang-modal" onclick="closeLangModal()" aria-label="Close language window">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="languageTitle" class="i18n" data-en="Select Language" data-de="Sprache wählen">Sprache wählen</h3>
+            <a href="#" class="lang-option" data-language="en">English</a>
+            <a href="#" class="lang-option" data-language="de">Deutsch</a>
+        </div>
+    </div>
+
+    <main>
+
+        <section class="about-hero" id="about-top">
+            <div class="about-hero-content">
+                <div class="about-eyebrow i18n" data-en="Welcome to Zendura" data-de="Willkommen bei Zendura">
+                    <i class="fa-solid fa-sparkles"></i> Willkommen bei Zendura
+                </div>
+
+                <h1 class="i18n" data-en="About <span class='text-light-blue'>Us</span>" data-de="Über <span class='text-light-blue'>uns</span>">
+                    Über <span class="text-light-blue">uns</span>
+                </h1>
+
+                <p class="i18n"
+                   data-en="Zendura is a professional home-care company built around one simple belief: every home deserves to feel beautifully clean, deeply comfortable, and completely personal. We listen to the way you want your home cared for, then our trained team brings that vision to life with precision, respect, and genuine attention to detail."
+                   data-de="Zendura ist ein professionelles Unternehmen für Hauspflege, das auf einer einfachen Überzeugung basiert: Jedes Zuhause verdient es, wunderschön sauber, angenehm und ganz persönlich zu sein. Wir hören auf Ihre Wünsche und unser geschultes Team setzt sie mit Präzision, Respekt und echter Liebe zum Detail um.">
+                    Zendura ist ein professionelles Unternehmen für Hauspflege, das auf einer einfachen Überzeugung basiert: Jedes Zuhause verdient es, wunderschön sauber, angenehm und ganz persönlich zu sein. Wir hören auf Ihre Wünsche und unser geschultes Team setzt sie mit Präzision, Respekt und echter Liebe zum Detail um.
+                </p>
+
+                <a href="#our-story" class="hero-scroll-note">
+                    <span class="i18n" data-en="Discover our story" data-de="Entdecken Sie unsere Geschichte">Entdecken Sie unsere Geschichte</span>
+                    <i class="fa-solid fa-angles-down"></i>
+                </a>
+            </div>
+        </section>
+
+
+        <section class="section story-section" id="our-story">
+            <div class="section-container story-grid">
+                <div class="story-visual reveal">
+                    <div class="story-main-image">
+                        <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?q=85&w=1200&auto=format&fit=crop" alt="Professional Zendura cleaning service">
+                    </div>
+                    <div class="story-small-image">
+                        <img src="https://images.unsplash.com/photo-1585421514738-01798e348b17?q=85&w=700&auto=format&fit=crop" alt="Professional cleaning products">
+                    </div>
+                    <div class="experience-badge">
+                        <strong>100%</strong>
+                        <span class="i18n" data-en="Care in Every Detail" data-de="Sorgfalt in jedem Detail">Sorgfalt in jedem Detail</span>
+                    </div>
+                </div>
+
+                <div class="story-copy reveal">
+                    <span class="section-label i18n" data-en="Our Story" data-de="Unsere Geschichte">Unsere Geschichte</span>
+                    <h2 class="section-title i18n"
+                        data-en="A cleaner home. A calmer life. <span class='text-gradient'>Care designed around you.</span>"
+                        data-de="Ein saubereres Zuhause. Ein ruhigeres Leben. <span class='text-gradient'>Pflege, die zu Ihnen passt.</span>">
+                        Ein saubereres Zuhause. Ein ruhigeres Leben. <span class="text-gradient">Pflege, die zu Ihnen passt.</span>
+                    </h2>
+                    <p class="section-description i18n"
+                       data-en="Zendura was created to make professional cleaning feel more thoughtful, reliable, and human. We know that no two homes—and no two families—are exactly alike. That is why we never treat your home like another task on a list. We take time to understand your priorities, your routines, and the details that matter most to you."
+                       data-de="Zendura wurde gegründet, um professionelle Reinigung aufmerksamer, zuverlässiger und menschlicher zu gestalten. Wir wissen, dass kein Zuhause und keine Familie gleich ist. Deshalb behandeln wir Ihr Zuhause niemals wie eine weitere Aufgabe auf einer Liste. Wir nehmen uns Zeit, Ihre Prioritäten, Routinen und wichtigen Details zu verstehen.">
+                        Zendura wurde gegründet, um professionelle Reinigung aufmerksamer, zuverlässiger und menschlicher zu gestalten. Wir wissen, dass kein Zuhause und keine Familie gleich ist. Deshalb behandeln wir Ihr Zuhause niemals wie eine weitere Aufgabe auf einer Liste. Wir nehmen uns Zeit, Ihre Prioritäten, Routinen und wichtigen Details zu verstehen.
+                    </p>
+                    <p class="section-description i18n"
+                       data-en="Our professionals combine careful training, trusted products, and organized systems with something even more important: respect for your space. Whether you prefer a particular order, special attention in certain rooms, or a cleaning routine shaped around your lifestyle, we follow your wishes and care for your home the way you want it cared for."
+                       data-de="Unsere Fachkräfte verbinden sorgfältige Schulung, vertrauenswürdige Produkte und organisierte Abläufe mit etwas noch Wichtigerem: Respekt für Ihren Raum. Ob Sie eine bestimmte Reihenfolge, besondere Aufmerksamkeit in einzelnen Räumen oder eine Routine passend zu Ihrem Lebensstil wünschen – wir folgen Ihren Vorstellungen.">
+                        Unsere Fachkräfte verbinden sorgfältige Schulung, vertrauenswürdige Produkte und organisierte Abläufe mit etwas noch Wichtigerem: Respekt für Ihren Raum. Ob Sie eine bestimmte Reihenfolge, besondere Aufmerksamkeit in einzelnen Räumen oder eine Routine passend zu Ihrem Lebensstil wünschen – wir folgen Ihren Vorstellungen.
+                    </p>
+                    <div class="signature-line i18n"
+                         data-en="Your home, your preferences, our professional care—delivered beautifully every time."
+                         data-de="Ihr Zuhause, Ihre Wünsche, unsere professionelle Pflege – jedes Mal mit höchster Sorgfalt.">
+                        Ihr Zuhause, Ihre Wünsche, unsere professionelle Pflege – jedes Mal mit höchster Sorgfalt.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section values-section">
+            <div class="section-container">
+                <div class="section-heading-center reveal">
+                    <span class="section-label i18n" data-en="What Defines Zendura" data-de="Was Zendura auszeichnet">Was Zendura auszeichnet</span>
+                    <h2 class="section-title i18n"
+                        data-en="Professional standards with a <span class='text-gradient'>personal touch</span>"
+                        data-de="Professionelle Standards mit einer <span class='text-gradient'>persönlichen Note</span>">
+                        Professionelle Standards mit einer <span class="text-gradient">persönlichen Note</span>
+                    </h2>
+                    <p class="section-description i18n"
+                       data-en="Every visit is guided by clear values that protect your time, your privacy, your belongings, and the comfort of everyone who lives in your home."
+                       data-de="Jeder Besuch wird von klaren Werten geprägt, die Ihre Zeit, Privatsphäre, Ihr Eigentum und den Komfort aller Bewohner schützen.">
+                        Jeder Besuch wird von klaren Werten geprägt, die Ihre Zeit, Privatsphäre, Ihr Eigentum und den Komfort aller Bewohner schützen.
+                    </p>
+                </div>
+
+                <div class="values-grid">
+                    <article class="value-card reveal">
+                        <div class="value-icon"><i class="fa-solid fa-user-shield"></i></div>
+                        <h3 class="i18n" data-en="Trusted Professionals" data-de="Vertrauenswürdige Fachkräfte">Vertrauenswürdige Fachkräfte</h3>
+                        <p class="i18n"
+                           data-en="Our team members are carefully selected, professionally trained, and expected to work with responsibility, discretion, and respect inside every home."
+                           data-de="Unsere Teammitglieder werden sorgfältig ausgewählt, professionell geschult und arbeiten in jedem Zuhause verantwortungsvoll, diskret und respektvoll.">
+                            Unsere Teammitglieder werden sorgfältig ausgewählt, professionell geschult und arbeiten in jedem Zuhause verantwortungsvoll, diskret und respektvoll.
+                        </p>
+                    </article>
+
+                    <article class="value-card reveal">
+                        <div class="value-icon"><i class="fa-solid fa-sliders"></i></div>
+                        <h3 class="i18n" data-en="Cleaning Your Way" data-de="Reinigung nach Ihren Wünschen">Reinigung nach Ihren Wünschen</h3>
+                        <p class="i18n"
+                           data-en="You tell us what matters most. We adapt the visit to your rooms, priorities, preferences, and schedule so the final result feels right for you."
+                           data-de="Sie sagen uns, was Ihnen wichtig ist. Wir passen den Besuch an Ihre Räume, Prioritäten, Wünsche und Ihren Zeitplan an.">
+                            Sie sagen uns, was Ihnen wichtig ist. Wir passen den Besuch an Ihre Räume, Prioritäten, Wünsche und Ihren Zeitplan an.
+                        </p>
+                    </article>
+
+                    <article class="value-card reveal">
+                        <div class="value-icon"><i class="fa-solid fa-gem"></i></div>
+                        <h3 class="i18n" data-en="Beautiful Attention to Detail" data-de="Liebe zum Detail">Liebe zum Detail</h3>
+                        <p class="i18n"
+                           data-en="From visible surfaces to easily missed corners, we work carefully and methodically, creating a polished finish you can see, feel, and enjoy."
+                           data-de="Von sichtbaren Flächen bis zu leicht übersehenen Ecken arbeiten wir sorgfältig und systematisch für ein Ergebnis, das Sie sehen und spüren können.">
+                            Von sichtbaren Flächen bis zu leicht übersehenen Ecken arbeiten wir sorgfältig und systematisch für ein Ergebnis, das Sie sehen und spüren können.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section professional-section">
+            <div class="section-container professional-grid">
+                <div class="professional-copy reveal">
+                    <span class="section-label i18n" data-en="The Zendura Standard" data-de="Der Zendura-Standard">Der Zendura-Standard</span>
+                    <h2 class="section-title i18n"
+                        data-en="We care for your home with the discipline of professionals and the consideration of trusted guests."
+                        data-de="Wir pflegen Ihr Zuhause mit der Disziplin von Profis und der Rücksicht vertrauenswürdiger Gäste.">
+                        Wir pflegen Ihr Zuhause mit der Disziplin von Profis und der Rücksicht vertrauenswürdiger Gäste.
+                    </h2>
+                    <p class="section-description i18n"
+                       data-en="A truly premium cleaning experience is not only about removing dust. It is about arriving prepared, communicating clearly, respecting every instruction, and leaving your home in the condition you hoped to find it."
+                       data-de="Ein wirklich hochwertiges Reinigungserlebnis bedeutet mehr als nur Staub zu entfernen. Es bedeutet, vorbereitet zu sein, klar zu kommunizieren, jede Anweisung zu respektieren und Ihr Zuhause so zu hinterlassen, wie Sie es sich wünschen.">
+                        Ein wirklich hochwertiges Reinigungserlebnis bedeutet mehr als nur Staub zu entfernen. Es bedeutet, vorbereitet zu sein, klar zu kommunizieren, jede Anweisung zu respektieren und Ihr Zuhause so zu hinterlassen, wie Sie es sich wünschen.
+                    </p>
+
+                    <div class="professional-list">
+                        <div class="professional-item">
+                            <div class="professional-check"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="i18n" data-en="Clear communication before every visit" data-de="Klare Kommunikation vor jedem Besuch">Klare Kommunikation vor jedem Besuch</h4>
+                                <p class="i18n" data-en="We confirm the important details so our team arrives understanding your needs." data-de="Wir bestätigen alle wichtigen Details, damit unser Team Ihre Wünsche kennt.">Wir bestätigen alle wichtigen Details, damit unser Team Ihre Wünsche kennt.</p>
+                            </div>
+                        </div>
+
+                        <div class="professional-item">
+                            <div class="professional-check"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="i18n" data-en="Respect for your privacy and belongings" data-de="Respekt für Ihre Privatsphäre und Ihr Eigentum">Respekt für Ihre Privatsphäre und Ihr Eigentum</h4>
+                                <p class="i18n" data-en="We move carefully, work discreetly, and treat your personal space with genuine care." data-de="Wir arbeiten vorsichtig, diskret und behandeln Ihren persönlichen Raum mit echter Sorgfalt.">Wir arbeiten vorsichtig, diskret und behandeln Ihren persönlichen Raum mit echter Sorgfalt.</p>
+                            </div>
+                        </div>
+
+                        <div class="professional-item">
+                            <div class="professional-check"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="i18n" data-en="A result shaped by your expectations" data-de="Ein Ergebnis nach Ihren Erwartungen">Ein Ergebnis nach Ihren Erwartungen</h4>
+                                <p class="i18n" data-en="Your preferences guide the work, from priority areas to the finishing touches." data-de="Ihre Wünsche bestimmen die Arbeit – von den wichtigsten Bereichen bis zum letzten Detail.">Ihre Wünsche bestimmen die Arbeit – von den wichtigsten Bereichen bis zum letzten Detail.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="promise-panel reveal">
+                    <div class="promise-panel-content">
+                        <div class="promise-number">01</div>
+                        <h3 class="i18n" data-en="One home. One tailored care plan." data-de="Ein Zuhause. Ein individueller Pflegeplan.">Ein Zuhause. Ein individueller Pflegeplan.</h3>
+                        <p class="i18n"
+                           data-en="We do not believe in careless, one-size-fits-all cleaning. Zendura creates a thoughtful experience around your home, your standards, and the feeling you want when you walk back through the door."
+                           data-de="Wir glauben nicht an unpersönliche Standardreinigung. Zendura gestaltet ein durchdachtes Erlebnis rund um Ihr Zuhause, Ihre Ansprüche und das Gefühl, das Sie beim Nachhausekommen erleben möchten.">
+                            Wir glauben nicht an unpersönliche Standardreinigung. Zendura gestaltet ein durchdachtes Erlebnis rund um Ihr Zuhause, Ihre Ansprüche und das Gefühl, das Sie beim Nachhausekommen erleben möchten.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="about-cta-section">
+            <div class="about-cta reveal">
+                <div class="about-cta-copy">
+                    <h2 class="i18n" data-en="Ready to experience the Zendura difference?" data-de="Bereit, den Zendura-Unterschied zu erleben?">Bereit, den Zendura-Unterschied zu erleben?</h2>
+                    <p class="i18n"
+                       data-en="Tell us how you want your home cared for. Our team will listen, prepare a thoughtful plan, and contact you to arrange your professional cleaning visit."
+                       data-de="Sagen Sie uns, wie Ihr Zuhause gepflegt werden soll. Unser Team hört zu, erstellt einen passenden Plan und kontaktiert Sie zur Terminvereinbarung.">
+                        Sagen Sie uns, wie Ihr Zuhause gepflegt werden soll. Unser Team hört zu, erstellt einen passenden Plan und kontaktiert Sie zur Terminvereinbarung.
+                    </p>
+                </div>
+                <a href="index.html#request-service" class="about-cta-btn">
+                    <span class="i18n" data-en="Request Your Visit" data-de="Besuch anfragen">Besuch anfragen</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="premium-footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html#home" class="footer-logo">
+                    <img src="data:image/png;base64,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" alt="Zendura Logo" class="footer-site-logo">
+                    <span class="footer-brand-name">Zendura</span>
+                </a>
+                <p class="i18n"
+                   data-en="We are dedicated to elevating your quality of life through mindful, premium home cleaning. Our purpose is to give you back your time and restore total serenity to your personal spaces."
+                   data-de="Wir verbessern Ihre Lebensqualität durch achtsame Premium-Hausreinigung. Unser Ziel ist es, Ihnen Zeit zurückzugeben und Ruhe in Ihre Räume zu bringen.">
+                    Wir verbessern Ihre Lebensqualität durch achtsame Premium-Hausreinigung. Unser Ziel ist es, Ihnen Zeit zurückzugeben und Ruhe in Ihre Räume zu bringen.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h4 class="i18n" data-en="Quick Links" data-de="Schnelle Links">Schnelle Links</h4>
+                <ul>
+                    <li><a href="index.html#home" class="i18n" data-en="Home" data-de="Startseite">Startseite</a></li>
+                    <li><a href="index.html#services" class="i18n" data-en="Our Services" data-de="Unsere Leistungen">Unsere Leistungen</a></li>
+                    <li><a href="#about-top" class="i18n" data-en="About Us" data-de="Über uns">Über uns</a></li>
+                    <li><a href="index.html#request-service" class="i18n" data-en="Contact Us" data-de="Kontakt">Kontakt</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4 class="i18n" data-en="Contact & Support" data-de="Kontakt & Support">Kontakt & Support</h4>
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span class="i18n" data-en="Bümplizstrasse 189 3018 Bern" data-de="Bümplizstrasse 189 3018 Bern">Bümplizstrasse 189 3018 Bern</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <a href="mailto:zendurareinigung@gmail.com">
+                            zendurareinigung@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" class="whatsapp-btn-blue">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span class="i18n" data-en="Connect With Us" data-de="Kontaktieren Sie uns">Kontaktieren Sie uns</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="i18n"
+               data-en="&copy; 2026 Zendura Home Care. All rights reserved."
+               data-de="&copy; 2026 Zendura Heimpflege.">
+                &copy; 2026 Zendura Heimpflege. Alle Rechte vorbehalten.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

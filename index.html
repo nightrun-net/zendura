@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Zendura</title>
+    
+ 
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="splash-screen">
+        <div class="splash-logo-container">
+
+            <h1 class="splash-brand-name">Zendura</h1>
+        </div>
+    </div>
+
+
+    <header id="mainHeader">
+        <div class="header-left">
+            <a href="#home" class="logo-container">
+                <img src="./logo.png" alt="Zendura Logo" class="site-logo">
+                <span class="brand-name">Zendura</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="i18n" data-en="Home" data-de="Startseite">Home</a>
+            <a href="#services" class="i18n" data-en="Services" data-de="Dienstleistungen">Services</a>
+            <a href="./aboutus.html" class="i18n" data-en="About Us" data-de="Über uns">About Us</a>
+            <a href="#request-service" class="i18n" data-en="Contact Us" data-de="Kontakt">Contact Us</a>
+            <button class="lang-btn-nav" onclick="openLangModal()">
+                <i class="fa-solid fa-globe"></i> <span id="currentLangDesktop">Deutsch</span>
+            </button>
+        </div>
+        <div class="hamburger" id="hamburgerMenu">
+            <i class="fa-solid fa-bars-staggered"></i>
+        </div>
+    </header>
+
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-btn" id="closeMenu"><i class="fa-solid fa-xmark"></i></div>
+
+        <a href="#home" class="i18n" data-en="Home" data-de="Startseite" onclick="closeMobileMenu()">Home</a>
+        <a href="#services" class="i18n" data-en="Services" data-de="Dienstleistungen" onclick="closeMobileMenu()">Services</a>
+        <a href="./aboutus.html" class="i18n" data-en="About Us" data-de="Über uns">About Us</a>
+        <a href="#request-service" class="i18n" data-en="Contact Us" data-de="Kontakt" onclick="closeMobileMenu()">Contact Us</a>
+        <button class="lang-btn-mobile" onclick="openLangModal(); closeMobileMenu();">
+            <i class="fa-solid fa-globe"></i> <span class="i18n" data-en="Language" data-de="Sprache">Sprache</span>
+        </button>
+    </div>
+
+
+    <div class="lang-modal-overlay" id="langModal" aria-hidden="true">
+        <div class="lang-modal-box">
+            <i
+                class="fa-solid fa-xmark close-lang-modal"
+                onclick="closeLangModal()"
+            ></i>
+
+            <h3
+                class="i18n"
+                data-en="Select Language"
+                data-de="Sprache wählen"
+            >
+                Sprache wählen
+            </h3>
+
+            <a
+                href="javascript:void(0);"
+                class="lang-option"
+                data-language="en"
+            >
+                <span>English</span>
+                <i class="fa-solid fa-circle-check lang-check"></i>
+            </a>
+
+            <a
+                href="javascript:void(0);"
+                class="lang-option selected"
+                data-language="de"
+            >
+                <span>Deutsch</span>
+                <i class="fa-solid fa-circle-check lang-check"></i>
+            </a>
+        </div>
+    </div>
+
+
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h2 class="i18n" data-en="Experience the Pure Peace of a <br><span class='text-light-blue'>Flawless Home</span>" data-de="Erleben Sie die pure Ruhe eines <br><span class='text-light-blue'>makellosen Zuhauses</span>">
+                    Erleben Sie die pure Ruhe eines <br><span class="text-light-blue">makellosen Zuhauses</span>
+                </h2>
+                <p class="i18n" data-en="Let us gently wash away the stress of your day. We meticulously cleanse and harmonize your living spaces, leaving you with a tranquil, breathing sanctuary where you can truly relax and unwind." data-de="Lassen Sie uns den Stress des Tages behutsam wegwaschen. Wir reinigen und harmonisieren Ihre Wohnräume und hinterlassen Ihnen einen ruhigen Rückzugsort.">
+                    Lassen Sie uns den Stress des Tages behutsam wegwaschen. Wir reinigen und harmonisieren Ihre Wohnräume und hinterlassen Ihnen einen ruhigen Rückzugsort.
+                </p>
+
+            </div>
+            
+            <div class="hero-image">
+                <div class="float-img-1">
+                    <img src="https://images.unsplash.com/photo-1585421514738-01798e348b17?q=80&w=300&auto=format&fit=crop" alt="Cleaning Tools">
+                </div>
+                <div class="premium-image-wrapper">
+                    <img src="./v1.png" alt="Luxury Clean Home">
+                </div>
+                <div class="float-img-2">
+                    <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=300&auto=format&fit=crop" alt="Clean Room">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="master-timeline-section">
+        <div class="timeline-wrapper" id="timelineWrapper">
+            
+            <div class="timeline-track" id="timelineTrack">
+                <div class="timeline-progress-bar" id="progressBar"></div>
+            </div>
+
+
+            <div class="section-header">
+                <h2 class="text-gradient-dark-light i18n" data-en="Your Effortless Path to Peace" data-de="Ihr müheloser Weg zur inneren Ruhe">Ihr müheloser Weg zur inneren Ruhe</h2>
+                <p class="i18n" data-en="We handle every little detail so you don't have to. Relax and trust our seamless, quiet process designed to bring absolute harmony back to your home." data-de="Wir kümmern uns um jedes Detail, damit Sie es nicht müssen. Entspannen Sie sich und vertrauen Sie unserem nahtlosen Prozess.">
+                    Wir kümmern uns um jedes Detail, damit Sie es nicht müssen. Entspannen Sie sich und vertrauen Sie unserem nahtlosen Prozess.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="timeline-card">
+                        <div class="timeline-content">
+                            <div class="icon-wrapper"><i class="fa-regular fa-calendar-check"></i></div>
+                            <h3 class="text-gradient-dark-light i18n" data-en="1. Mindful Listening" data-de="1. Achtsames Zuhören">1. Achtsames Zuhören</h3>
+                            <p class="i18n" data-en="We gently listen to your needs to create a personalized care plan that fits perfectly into your lifestyle without causing any disruption." data-de="Wir hören uns Ihre Wünsche in Ruhe an, um einen persönlichen Pflegeplan zu erstellen.">
+                                Wir hören uns Ihre Wünsche in Ruhe an, um einen persönlichen Pflegeplan zu erstellen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="timeline-card">
+                        <div class="timeline-content">
+                            <div class="icon-wrapper"><i class="fa-solid fa-clipboard-list"></i></div>
+                            <h3 class="text-gradient-dark-light i18n" data-en="2. Gentle Preparation" data-de="2. Sanfte Vorbereitung">2. Sanfte Vorbereitung</h3>
+                            <p class="i18n" data-en="Our trusted professionals select the safest, most soothing eco-friendly products specifically tailored to protect your sanctuary and your loved ones." data-de="Unsere vertrauenswürdigen Profis wählen die sichersten und sanftesten umweltfreundlichen Produkte aus.">
+                                Unsere vertrauenswürdigen Profis wählen die sichersten und sanftesten umweltfreundlichen Produkte aus.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="timeline-card">
+                        <div class="timeline-content">
+                            <div class="icon-wrapper"><i class="fa-solid fa-broom-ball"></i></div>
+                            <h3 class="text-gradient-dark-light i18n" data-en="3. Purifying Care" data-de="3. Reinigende Pflege">3. Reinigende Pflege</h3>
+                            <p class="i18n" data-en="With mindful precision and quiet respect for your space, we gently purify every corner, restoring light, freshness, and positive energy." data-de="Mit achtsamer Präzision und leisem Respekt für Ihre Räume reinigen wir behutsam jede Ecke.">
+                                Mit achtsamer Präzision und leisem Respekt für Ihre Räume reinigen wir behutsam jede Ecke.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="timeline-card">
+                        <div class="timeline-content">
+                            <div class="icon-wrapper"><i class="fa-solid fa-circle-check"></i></div>
+                            <h3 class="text-gradient-dark-light i18n" data-en="4. Perfect Peace" data-de="4. Vollkommene Ruhe">4. Vollkommene Ruhe</h3>
+                            <p class="i18n" data-en="A meticulous final walkthrough ensures everything is beautifully pristine, welcoming you back to a home of pure comfort and undisturbed peace." data-de="Ein sorgfältiger letzter Rundgang stellt sicher, dass alles makellos ist.">
+                                Ein sorgfältiger letzter Rundgang stellt sicher, dass alles makellos ist.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header" id="services" style="margin-top: 80px;">
+                <h2 class="text-gradient-dark-light i18n" data-en="Rejuvenating Home Care" data-de="Verjüngende Heimpflege">Verjüngende Heimpflege</h2>
+                <p class="i18n" data-en="Surrender your daily chores to us. From deep purification to delicate detailing, we meticulously clean every room so your home can naturally nurture you." data-de="Überlassen Sie uns Ihre täglichen Pflichten. Von der tiefen Reinigung bis zur feinen Detailpflege pflegen wir Ihr Zuhause.">
+                    Überlassen Sie uns Ihre täglichen Pflichten. Von der tiefen Reinigung bis zur feinen Detailpflege pflegen wir Ihr Zuhause.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="image-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=800&auto=format&fit=crop" alt="Deep Clean">
+                        </div>
+                        <div class="card-text-content">
+                            <h3 class="text-gradient-dark-light i18n" data-en="Signature Deep Purification" data-de="Signatur-Tiefenreinigung">Signatur-Tiefenreinigung</h3>
+                            <p class="i18n" data-en="A profound cleanse that breathes new life into your home, removing deep-seated dust and invisible burdens for a lighter, purer atmosphere." data-de="Eine tiefgreifende Reinigung, die Ihrem Zuhause neues Leben einhaucht und tiefsitzenden Staub entfernt.">
+                                Eine tiefgreifende Reinigung, die Ihrem Zuhause neues Leben einhaucht und tiefsitzenden Staub entfernt.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="image-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" alt="Kitchen Clean">
+                        </div>
+                        <div class="card-text-content">
+                            <h3 class="text-gradient-dark-light i18n" data-en="Kitchen & Bath Renewal" data-de="Erneuerung von Küche & Bad">Erneuerung von Küche & Bad</h3>
+                            <p class="i18n" data-en="We restore the sparkle and hygiene of your most personal spaces, leaving them sparkling clean, sanitized, and deeply refreshing." data-de="Wir stellen den Glanz und die Hygiene Ihrer persönlichsten Räume wieder her und desinfizieren sie.">
+                                Wir stellen den Glanz und die Hygiene Ihrer persönlichsten Räume wieder her und desinfizieren sie.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="image-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=800&auto=format&fit=crop" alt="Living Room Clean">
+                        </div>
+                        <div class="card-text-content">
+                            <h3 class="text-gradient-dark-light i18n" data-en="Living Room Detailing" data-de="Wohnzimmer-Pflege">Wohnzimmer-Pflege</h3>
+                            <p class="i18n" data-en="We meticulously dust, organize, and refresh your living areas to create a spotless, welcoming environment where your family can truly relax." data-de="Wir stauben akribisch ab und frischen Ihre Wohnräume auf, um eine makellose Umgebung zu schaffen.">
+                                Wir stauben akribisch ab und frischen Ihre Wohnräume auf, um eine makellose Umgebung zu schaffen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="image-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=800&auto=format&fit=crop" alt="Bedroom Sanctuary">
+                        </div>
+                        <div class="card-text-content">
+                            <h3 class="text-gradient-dark-light i18n" data-en="Bedroom Sanctuary" data-de="Schlafzimmer-Heiligtum">Schlafzimmer-Heiligtum</h3>
+                            <p class="i18n" data-en="Your resting space is thoroughly cleansed of allergens and dust, ensuring a peaceful night's sleep in a fresh, breathable room." data-de="Ihr Ruheraum wird gründlich von Allergenen und Staub befreit, was einen ruhigen Schlaf garantiert.">
+                                Ihr Ruheraum wird gründlich von Allergenen und Staub befreit, was einen ruhigen Schlaf garantiert.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="card-border-wrapper">
+                    <div class="image-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=800&auto=format&fit=crop" alt="Floor Cleaning">
+                        </div>
+                        <div class="card-text-content">
+                            <h3 class="text-gradient-dark-light i18n" data-en="Floor & Carpet Revitalization" data-de="Boden- & Teppichrevitalisierung">Boden- & Teppichrevitalisierung</h3>
+                            <p class="i18n" data-en="Deep vacuuming and mopping treatments that remove hidden dirt and footprints, restoring the natural beauty and freshness of your home's foundation." data-de="Tiefenstaubsaugen und Wischbehandlungen, die versteckten Schmutz entfernen und die Böden erneuern.">
+                                Tiefenstaubsaugen und Wischbehandlungen, die versteckten Schmutz entfernen und die Böden erneuern.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2 class="text-gradient-dark-light i18n" data-en="The Zendura Promise of Peace" data-de="Das Zendura-Friedensversprechen">Das Zendura-Friedensversprechen</h2>
+                <p class="i18n" data-en="Your home is your sacred retreat. We promise to treat it with the utmost reverence, delivering a level of cleanliness that instantly calms your soul and frees your mind." data-de="Ihr Zuhause ist Ihr heiliger Rückzugsort. Wir versprechen, es mit größtem Respekt zu behandeln.">
+                    Ihr Zuhause ist Ihr heiliger Rückzugsort. Wir versprechen, es mit größtem Respekt zu behandeln.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="promise-cta-wrapper">
+                    <a href="./aboutus.html" class="huge-premium-btn">
+                        <span class="i18n" data-en="Discover True Serenity" data-de="Wahre Gelassenheit entdecken">Wahre Gelassenheit entdecken</span> <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-circle"></div>
+                <div class="clean-features-list">
+                    <h3 class="text-gradient-dark-light i18n" data-en="A Commitment to Your Wellbeing" data-de="Ein Engagement für Ihr Wohlbefinden" style="font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 800; margin-bottom: 25px;">Ein Engagement für Ihr Wohlbefinden</h3>
+                    <ul>
+                        <li>
+                            <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+                            <div class="list-text">
+                                <h4 class="i18n" data-en="Pure, Breathable Air" data-de="Reine, atmungsaktive Luft">Reine, atmungsaktive Luft</h4>
+                                <p class="i18n" data-en="We use non-toxic, gentle eco-products that leave your home smelling naturally fresh, protecting your loved ones and beloved pets." data-de="Wir verwenden ungiftige, sanfte Öko-Produkte, die Ihr Zuhause natürlich frisch riechen lassen.">Wir verwenden ungiftige, sanfte Öko-Produkte, die Ihr Zuhause natürlich frisch riechen lassen.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+                            <div class="list-text">
+                                <h4 class="i18n" data-en="Trust & Quiet Discretion" data-de="Vertrauen & leise Diskretion">Vertrauen & leise Diskretion</h4>
+                                <p class="i18n" data-en="Our carefully vetted and trained team works with quiet respect, ensuring your privacy and peace remain entirely undisturbed." data-de="Unser sorgfältig geprüftes Team arbeitet mit leisem Respekt und schützt Ihre Privatsphäre.">Unser sorgfältig geprüftes Team arbeitet mit leisem Respekt und schützt Ihre Privatsphäre.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+                            <div class="list-text">
+                                <h4 class="i18n" data-en="Effortless Harmony" data-de="Mühelose Harmonie">Mühelose Harmonie</h4>
+                                <p class="i18n" data-en="Booking is beautifully simple. We adapt to your natural rhythm, making the entire experience completely stress-free from start to finish." data-de="Die Buchung ist einfach. Wir passen uns Ihrem Rhythmus an und machen das Erlebnis stressfrei.">Die Buchung ist einfach. Wir passen uns Ihrem Rhythmus an und machen das Erlebnis stressfrei.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div> 
+    </section>
+
+>
+    <section class="request-section" id="request-service">
+        <div class="request-container">
+            <div class="request-text">
+                <h2 class="i18n" data-en="Invite <span class='text-light-blue'>Calm Into Your Home</span>" data-de="Laden Sie die <span class='text-light-blue'>Ruhe in Ihr Zuhause</span> ein">
+                    Laden Sie die <span class="text-light-blue">Ruhe in Ihr Zuhause</span> ein
+                </h2>
+                <p class="i18n" data-en="Take a deep breath and let us handle the rest. Reach out today, and our caring concierge will gracefully arrange your restorative cleaning experience." data-de="Atmen Sie tief durch und überlassen Sie uns den Rest. Melden Sie sich noch heute.">
+                    Atmen Sie tief durch und überlassen Sie uns den Rest. Melden Sie sich noch heute.
+                </p>
+            </div>
+
+            <div class="request-form-wrapper">
+                <form class="premium-form" id="bookingForm" novalidate>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <input id="firstName" name="firstName" type="text" class="i18n-ph" data-en="First Name" data-de="Vorname" placeholder="Vorname" required>
+                        </div>
+                        <div class="input-group">
+                            <input id="lastName" name="lastName" type="text" class="i18n-ph" data-en="Last Name" data-de="Nachname" placeholder="Nachname" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <input id="email" name="email" type="email" class="i18n-ph" data-en="Email Address" data-de="E-Mail-Adresse" placeholder="E-Mail-Adresse" required>
+                        </div>
+                        <div class="input-group">
+                            <input id="phone" name="phone" type="tel" class="i18n-ph" data-en="Phone Number" data-de="Telefonnummer" placeholder="Telefonnummer" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <input id="address" name="address" type="text" class="i18n-ph" data-en="Address" data-de="Adresse" placeholder="Adresse" required>
+                    </div>
+
+                    <div class="input-group">
+                        <textarea id="message" name="message" class="i18n-ph" data-en="How can we help restore your peace?" data-de="Wie können wir Ihnen helfen, Ihre Ruhe wiederherzustellen?" placeholder="Wie können wir Ihnen helfen, Ihre Ruhe wiederherzustellen?" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-status" id="formStatus"></div>
+
+                    <button type="submit" class="submit-btn" id="submitBookingBtn">
+                        <span
+                            class="i18n"
+                            data-en="Send Request"
+                            data-de="Anfrage senden"
+                        >
+                            Anfrage senden
+                        </span>
+                    
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="premium-footer" id="contact">
+        <div class="footer-container">
+            
+            <div class="footer-brand">
+                <a href="#" class="footer-logo">
+                    <img src="./logo.png" alt="Zendura Logo" class="footer-site-logo">
+                    <span class="footer-brand-name">Zendura</span>
+                </a>
+                <p class="i18n" data-en="We are dedicated to elevating your quality of life through mindful, premium home cleaning. Our purpose is to give you back your time and restore total serenity to your personal spaces." data-de="Wir widmen uns der Steigerung Ihrer Lebensqualität durch achtsame Premium-Reinigung.">
+                    Wir widmen uns der Steigerung Ihrer Lebensqualität durch achtsame Premium-Reinigung.
+                </p>
+            </div>
+            
+            <div class="footer-links">
+                <h4 class="i18n" data-en="Quick Links" data-de="Schnelle Links">Schnelle Links</h4>
+                <ul>
+                    <a href="#home" class="i18n" data-en="Home" data-de="Startseite">Home</a>
+                    <a href="#services" class="i18n" data-en="Services" data-de="Dienstleistungen">Services</a>
+                    <a href="./aboutus.html" class="i18n" data-en="About Us" data-de="Über uns">About Us</a>
+                    <a href="#request-service" class="i18n" data-en="Contact Us" data-de="Kontakt">Contact Us</a>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4 class="i18n" data-en="Contact & Support" data-de="Kontakt & Support">Kontakt & Support</h4>
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span class="i18n" data-en="Bümplizstrasse 189 3018 Bern" data-de="Bümplizstrasse 189 3018 Bern">Bümplizstrasse 189 3018 Bern</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <a href="mailto:zendurareinigung@gmail.com">
+                            zendurareinigung@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/410789642788" target="_blank" class="whatsapp-btn-blue">
+                            <i class="fa-brands fa-whatsapp"></i> <span class="i18n" data-en="Connect With Us" data-de="Verbinden Sie sich mit uns">Verbinden Sie sich mit uns</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="i18n" data-en="&copy; 2026 Zendura Home Care. All rights reserved. Designed for Peace of Mind." data-de="&copy; 2026 Zendura Heimpflege. Alle Rechte vorbehalten.">&copy; 2026 Zendura Heimpflege. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
