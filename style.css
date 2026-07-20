@@ -12,7 +12,7 @@ body {
     hyphens: auto;
 }
 html { scroll-behavior: smooth; }
-
+ 
 .text-gradient-dark-light {
     background: linear-gradient(135deg, #0a192f 0%, #1E3A8A 50%, #3498db 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
