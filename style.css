@@ -1,4 +1,3 @@
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
     font-family: 'Poppins', sans-serif; 
@@ -6,7 +5,6 @@ body {
     overflow-x: hidden; 
     line-height: 1.6; 
     color: #333; 
-    /* Ev beşa xwarê ji bo çareserkirina peyvên dirêj li ser mobaylê ye */
     overflow-wrap: break-word;
     word-wrap: break-word;
     -webkit-hyphens: auto;
@@ -15,19 +13,17 @@ body {
 }
 html { scroll-behavior: smooth; }
 
-
 .text-gradient-dark-light {
     background: linear-gradient(135deg, #0a192f 0%, #1E3A8A 50%, #3498db 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     display: inline-block;
 }
 
-
 #splash-screen {
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: linear-gradient(135deg, #020617 0%, #0a192f 100%);
+    background: linear-gradient(135deg, #0c2145 0%, #173b75 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +60,6 @@ html { scroll-behavior: smooth; }
     100% { filter: drop-shadow(0 0 40px rgba(79, 172, 254, 0.9)); transform: scale(1.05); }
 }
 
-
 header {
     position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(0);
     width: 92%; max-width: 1400px; 
@@ -77,7 +72,6 @@ header {
 header.hide-header { transform: translateX(-50%) translateY(-150%); }
 
 .header-left { display: flex; align-items: center; }
-
 
 .logo-container {
     display: flex;
@@ -129,7 +123,6 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
 .hamburger { display: none; color: white; font-size: 28px; cursor: pointer; transition: 0.3s; }
 .hamburger:hover { color: #4facfe; transform: scale(1.1); }
 
-
 @media (max-width: 950px) {
     .nav-links { display: none; }
     .hamburger { display: block; }
@@ -166,7 +159,6 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
     box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4); transition: 0.3s; display: flex; align-items: center; gap: 10px;
 }
 
-
 .lang-modal-overlay {
     position: fixed; inset: 0; background: rgba(5, 12, 23, 0.85); backdrop-filter: blur(20px);
     z-index: 3000; display: flex; justify-content: center; align-items: center;
@@ -194,16 +186,16 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
 .hero {
     position: relative; min-height: 100vh; padding: 160px 6% 60px; 
     display: flex; align-items: center; justify-content: center; overflow: hidden; 
-    background: #020617; 
+    background: linear-gradient(135deg, #173b75 0%, #0c2145 100%); 
 }
 .hero::before {
     content: ''; position: absolute; top: -20%; left: -10%; width: 60vw; height: 60vw;
-    background: radial-gradient(circle, rgba(52, 152, 219, 0.15) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(52, 152, 219, 0.2) 0%, transparent 60%);
     filter: blur(100px); animation: floatOrb 12s infinite alternate ease-in-out; z-index: 1; pointer-events: none;
 }
 .hero::after {
     content: ''; position: absolute; bottom: -20%; right: -10%; width: 70vw; height: 70vw;
-    background: radial-gradient(circle, rgba(30, 58, 138, 0.25) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(79, 172, 254, 0.15) 0%, transparent 60%);
     filter: blur(120px); animation: floatOrb2 15s infinite alternate-reverse ease-in-out; z-index: 1; pointer-events: none;
 }
 @keyframes floatOrb { 0% { transform: translate(0, 0); } 100% { transform: translate(80px, 60px); } }
@@ -211,9 +203,16 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
 
 .hero-container { position: relative; z-index: 2; display: flex; flex-wrap: wrap; max-width: 1400px; gap: 60px; align-items: center; width: 100%; }
 
-.hero-text { flex: 1.2; min-width: 300px; color: #FFFFFF; text-align: left; }
+.hero-text { 
+    flex: 1.2; min-width: 300px; color: #FFFFFF; text-align: left; 
+    opacity: 0;
+    transform: translateY(60px);
+    animation: slideUpFade 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* Nivîs piştî wêneyê derdikeve, dema derengbûnê hate zêdekirin */
+    animation-delay: 2.7s; 
+}
 .hero-text h2 { font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 800; line-height: 1.15; margin-bottom: 25px; letter-spacing: -1px; text-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-.text-light-blue { background: linear-gradient(to right, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+.text-light-blue { background: linear-gradient(to right, #ffffff, #ffffff); -webkit-background-clip: text;  display: inline-block; }
 .hero-text p { font-size: clamp(1rem, 2vw, 1.25rem); color: #94a3b8; font-weight: 400; max-width: 600px; line-height: 1.8; margin-bottom: 40px; }
 
 .hero-btn {
@@ -225,37 +224,44 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
 
 .hero-image { flex: 1; display: flex; justify-content: center; align-items: center; min-width: 280px; position: relative; }
 
-.premium-image-wrapper {
-    position: relative; width: 100%; max-width: 550px; border-radius: 30px;
-    animation: floatSmooth 6s ease-in-out infinite; z-index: 2;
-}
-@keyframes floatSmooth { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-.premium-image-wrapper img {
-    width: 100%; height: auto; object-fit: cover; border-radius: 30px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.6); border: 2px solid rgba(255,255,255,0.15); position: relative; z-index: 2;
+.hero-logo-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(60px);
+    animation: slideUpFade 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* Wêne destpêkê derdikeve, dema derengbûnê hate kêmkirin */
+    animation-delay: 2.2s; 
 }
 
-.float-img-1, .float-img-2 {
-    position: absolute; border-radius: 20px; overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 2px solid rgba(255,255,255,0.2); z-index: 3; background: #fff;
+.hero-logo-wrapper img {
+    width: 100%; 
+    max-width: 500px; 
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5)); 
 }
-.float-img-1 { width: 140px; height: 140px; top: -30px; left: -40px; animation: floatSlow1 7s infinite alternate ease-in-out; }
-.float-img-2 { width: 160px; height: 120px; bottom: -20px; right: -50px; animation: floatSlow2 8s infinite alternate ease-in-out; }
-.float-img-1 img, .float-img-2 img { width: 100%; height: 100%; object-fit: cover; }
 
-@keyframes floatSlow1 { 0% { transform: translateY(0) rotate(-5deg); } 100% { transform: translateY(-15px) rotate(5deg); } }
-@keyframes floatSlow2 { 0% { transform: translateY(0) rotate(5deg); } 100% { transform: translateY(15px) rotate(-5deg); } }
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(60px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
 
 @media (max-width: 950px) {
-    .hero { padding-top: 140px; }
-    .hero-container { flex-direction: column; text-align: center; gap: 50px; margin-top: 0; }
+    .hero { padding-top: 130px; }
+    .hero-container { flex-direction: column; text-align: center; gap: 15px; margin-top: 0; }
+    /* order: 2 dike ku nivîs li jêr be */
     .hero-text { order: 2; display: flex; flex-direction: column; align-items: center; } 
-    .hero-image { order: 1; margin-top: 10px; } 
-    .hero-text p { max-width: 100%; }
-    .float-img-1 { width: 100px; height: 100px; left: -10px; }
-    .float-img-2 { width: 120px; height: 90px; right: -10px; }
+    /* order: 1 dike ku wêne (logo) li jor be */
+    .hero-image { order: 1; margin-top: 0; } 
+    .hero-text h2 { margin-bottom: 15px; } 
+    .hero-text p { max-width: 100%; margin-bottom: 20px; } 
+    .hero-logo-wrapper img { max-width: 350px; }
 }
-
 
 .master-timeline-section {
     background: #fcfdfd; padding: 100px 5% 130px; position: relative; overflow: hidden;
@@ -385,9 +391,8 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
     .huge-premium-btn { padding: 18px 30px; width: 100%; justify-content: center; font-size: 1.1rem; }
 }
 
-
 .request-section {
-    background: linear-gradient(135deg, #020617 0%, #0a192f 100%);
+    background: linear-gradient(135deg, #0c2145 0%, #173b75 100%);
     padding: 100px 5%; position: relative; overflow: hidden;
 }
 .request-section::before {
@@ -437,7 +442,6 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
     .request-form-wrapper { width: 100%; padding: 40px 25px; }
     .form-row { flex-direction: column; gap: 20px; }
 }
-
 
 .premium-footer {
     background: linear-gradient(to bottom, #020617, #061126); 
@@ -493,8 +497,6 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
     .footer-logo { justify-content: center; }
 }
 
-
-
 .lang-option {
     width: 100%;
     display: flex;
@@ -520,8 +522,6 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
     visibility: visible;
     transform: scale(1);
 }
-
-/* ================= SUPABASE FORM STATUS ================= */
 
 .form-status {
     display: none;
