@@ -1,0 +1,2666 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Zendura – Alle Einträge</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
+
+    <style>
+        .sidebar-filter-button {
+            width: 100%;
+            border: 0;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .sidebar-record-count {
+            min-width: 27px;
+            height: 23px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            padding: 0 7px;
+            border-radius: 999px;
+            color: #226f9f;
+            background: #e9f7fd;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .nav-item.active .sidebar-record-count {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .record-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .record-card:focus {
+            outline: none;
+            border-color: #59afd3;
+            box-shadow:
+                0 0 0 4px rgba(64, 157, 200, 0.12),
+                0 16px 38px rgba(31, 76, 102, 0.12);
+        }
+
+        .record-card.newly-added {
+            animation: newRecordHighlight 2.2s ease;
+        }
+
+        @keyframes newRecordHighlight {
+            0% {
+                transform: translateY(-8px);
+                border-color: #48acd5;
+                box-shadow:
+                    0 0 0 5px rgba(72, 172, 213, 0.18),
+                    0 18px 42px rgba(31, 76, 102, 0.17);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        .record-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .record-delete-btn {
+            min-height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 0 11px;
+            border: 1px solid #f0c7cd;
+            border-radius: 9px;
+            color: #b23849;
+            background: #fff1f3;
+            font: inherit;
+            font-size: 0.74rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .record-delete-btn:hover {
+            color: #ffffff;
+            background: #d74458;
+            border-color: #d74458;
+            transform: translateY(-1px);
+        }
+
+        .record-delete-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+            transform: none;
+        }
+
+        .record-open-hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid #edf2f5;
+            color: #7993a2;
+            font-size: 0.72rem;
+        }
+
+        .record-open-hint i {
+            color: #3695c2;
+        }
+
+        .auto-refresh-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #668493;
+            font-size: 0.78rem;
+        }
+
+        .auto-refresh-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #41b883;
+            box-shadow: 0 0 0 4px rgba(65, 184, 131, 0.12);
+        }
+
+        .record-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            background: rgba(10, 31, 44, 0.55);
+            backdrop-filter: blur(7px);
+            transition:
+                opacity 0.25s ease,
+                visibility 0.25s ease;
+        }
+
+        .record-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .record-modal {
+            width: min(720px, 100%);
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+            border: 1px solid #dce9ef;
+            border-radius: 24px;
+            background: #ffffff;
+            box-shadow: 0 30px 90px rgba(7, 34, 51, 0.28);
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.25s ease;
+        }
+
+        .record-modal-overlay.active .record-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .record-modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 24px 26px;
+            border-bottom: 1px solid #e8eff3;
+        }
+
+        .record-modal-title-area {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .modal-customer-avatar {
+            width: 52px;
+            height: 52px;
+            flex: 0 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            color: #ffffff;
+            background: linear-gradient(135deg, #2f8fc8, #6cc4df);
+            font-weight: 800;
+        }
+
+        .record-modal-title-area h2 {
+            margin: 0 0 5px;
+            color: #173c53;
+            font-size: 1.25rem;
+        }
+
+        .record-modal-title-area p {
+            margin: 0;
+            color: #8298a4;
+            font-size: 0.82rem;
+        }
+
+        .record-modal-close {
+            width: 40px;
+            height: 40px;
+            flex: 0 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 12px;
+            color: #557585;
+            background: #eff5f8;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .record-modal-close:hover {
+            color: #ffffff;
+            background: #d94b5f;
+        }
+
+        .record-modal-body {
+            padding: 25px 26px;
+        }
+
+        .modal-status-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .modal-record-id {
+            color: #8aa0ac;
+            font-size: 0.75rem;
+        }
+
+        .modal-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .modal-detail-box {
+            min-width: 0;
+            padding: 15px;
+            border: 1px solid #e2ebf0;
+            border-radius: 14px;
+            background: #f9fcfd;
+        }
+
+        .modal-detail-box span {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 6px;
+            color: #8299a5;
+            font-size: 0.72rem;
+        }
+
+        .modal-detail-box span i {
+            color: #3c9ac6;
+        }
+
+        .modal-detail-box strong {
+            display: block;
+            overflow-wrap: anywhere;
+            color: #244a5f;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .modal-message-box {
+            margin-top: 15px;
+            padding: 17px;
+            border: 1px solid #e2ebf0;
+            border-radius: 14px;
+            background: #f9fcfd;
+        }
+
+        .modal-message-box span {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 9px;
+            color: #8299a5;
+            font-size: 0.72rem;
+        }
+
+        .modal-message-box span i {
+            color: #3c9ac6;
+        }
+
+        .modal-message-box p {
+            margin: 0;
+            color: #294f63;
+            font-size: 0.88rem;
+            line-height: 1.75;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .modal-feedback {
+            display: none;
+            margin-top: 17px;
+            padding: 12px 15px;
+            border-radius: 11px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .modal-feedback.show {
+            display: block;
+        }
+
+        .modal-feedback.success {
+            color: #247049;
+            background: #e7f7ee;
+            border: 1px solid #bce6ce;
+        }
+
+        .modal-feedback.error {
+            color: #9f3242;
+            background: #fff0f2;
+            border: 1px solid #f0c5cc;
+        }
+
+        .record-modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 20px 26px 25px;
+            border-top: 1px solid #e8eff3;
+        }
+
+        .modal-action-btn {
+            min-height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            border-radius: 13px;
+            font: inherit;
+            font-size: 0.87rem;
+            font-weight: 750;
+            cursor: pointer;
+            transition: 0.22s ease;
+        }
+
+        .modal-complete-btn {
+            border: 1px solid #a9ddc3;
+            color: #24704a;
+            background: #e7f7ee;
+        }
+
+        .modal-complete-btn:hover {
+            color: #ffffff;
+            background: #2d9a68;
+            border-color: #2d9a68;
+        }
+
+        .modal-cancel-btn {
+            border: 1px solid #f0c6cd;
+            color: #a33647;
+            background: #fff0f2;
+        }
+
+        .modal-cancel-btn:hover {
+            color: #ffffff;
+            background: #d84a5e;
+            border-color: #d84a5e;
+        }
+
+        .modal-action-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+
+
+        .app-toast {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 12000;
+            max-width: 360px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 17px;
+            border-radius: 13px;
+            color: #ffffff;
+            background: #17445f;
+            box-shadow: 0 18px 45px rgba(14, 52, 73, 0.25);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: 0.25s ease;
+        }
+
+        .app-toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .app-toast.success {
+            background: #277d58;
+        }
+
+        .app-toast.error {
+            background: #b43b4d;
+        }
+
+
+        @media (max-width: 700px) {
+            .record-modal-overlay {
+                padding: 12px;
+            }
+
+            .modal-details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .record-modal-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .record-card-footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .record-card-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body.mobile-menu-open {
+            overflow: hidden;
+        }
+
+        .dashboard-page,
+        .dashboard-main,
+        .topbar,
+        .records-toolbar,
+        .records-grid,
+        .record-card,
+        .record-customer,
+        .record-customer-name {
+            min-width: 0;
+        }
+
+        .mobile-menu-button,
+        .sidebar-close-button {
+            display: none;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1090;
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            background: rgba(8, 27, 40, 0.52);
+            backdrop-filter: blur(3px);
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+        @media (max-width: 1280px) {
+            .dashboard-page {
+                grid-template-columns: 245px minmax(0, 1fr);
+            }
+
+            .sidebar {
+                padding: 24px 17px;
+            }
+
+            .dashboard-main {
+                padding: 25px 25px 38px;
+            }
+
+            .records-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 980px) {
+            .dashboard-page {
+                display: block;
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+
+            .sidebar {
+                position: fixed;
+                inset: 0 auto 0 0;
+                z-index: 1100;
+                width: min(310px, 86vw);
+                height: 100vh;
+                height: 100dvh;
+                padding:
+                    max(22px, env(safe-area-inset-top))
+                    18px
+                    max(20px, env(safe-area-inset-bottom));
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                transform: translateX(-105%);
+                box-shadow: 24px 0 60px rgba(8, 32, 48, 0.26);
+                transition: transform 0.28s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay {
+                display: block;
+            }
+
+            .sidebar-brand {
+                padding-right: 48px;
+            }
+
+            .sidebar-close-button {
+                position: absolute;
+                top: max(18px, env(safe-area-inset-top));
+                right: 16px;
+                width: 40px;
+                height: 40px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                border-radius: 12px;
+                color: #ffffff;
+                background: rgba(255, 255, 255, 0.1);
+                font-size: 17px;
+                cursor: pointer;
+            }
+
+            .dashboard-main {
+                width: 100%;
+                min-height: 100vh;
+                min-height: 100dvh;
+                padding:
+                    max(20px, env(safe-area-inset-top))
+                    max(20px, env(safe-area-inset-right))
+                    max(30px, env(safe-area-inset-bottom))
+                    max(20px, env(safe-area-inset-left));
+            }
+
+            .topbar {
+                display: grid;
+                grid-template-columns: auto minmax(0, 1fr) auto;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 22px;
+            }
+
+            .mobile-menu-button {
+                width: 48px;
+                height: 48px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex: 0 0 48px;
+                padding: 0;
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                color: var(--primary-dark);
+                background: #ffffff;
+                box-shadow: var(--shadow-soft);
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            .topbar-copy h1 {
+                font-size: clamp(25px, 4vw, 31px);
+            }
+
+            .topbar-copy p {
+                line-height: 1.55;
+            }
+
+            .records-toolbar {
+                grid-template-columns: minmax(0, 1fr) auto;
+            }
+
+            .records-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .dashboard-main {
+                padding:
+                    max(16px, env(safe-area-inset-top))
+                    max(14px, env(safe-area-inset-right))
+                    max(26px, env(safe-area-inset-bottom))
+                    max(14px, env(safe-area-inset-left));
+            }
+
+            .topbar {
+                grid-template-columns: auto minmax(0, 1fr);
+                gap: 12px;
+                margin-bottom: 18px;
+            }
+
+            .topbar-actions {
+                grid-column: 1 / -1;
+                width: 100%;
+                padding-left: 60px;
+            }
+
+            .auto-refresh-status {
+                width: 100%;
+                align-items: flex-start;
+                padding: 10px 12px;
+                border: 1px solid #deebf1;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.75);
+                line-height: 1.45;
+            }
+
+            .auto-refresh-dot {
+                flex: 0 0 8px;
+                margin-top: 5px;
+            }
+
+            .records-toolbar {
+                grid-template-columns: 1fr;
+                gap: 11px;
+            }
+
+            .records-search,
+            .refresh-records-btn {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .records-search input {
+                min-width: 0;
+                font-size: 16px;
+            }
+
+            .refresh-records-btn {
+                min-height: 50px;
+            }
+
+            .records-summary {
+                width: 100%;
+            }
+
+            .records-summary > div {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .records-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .record-card {
+                padding: 17px;
+                border-radius: 18px;
+            }
+
+            .record-card-header {
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .record-customer {
+                align-items: flex-start;
+            }
+
+            .record-avatar {
+                width: 42px;
+                height: 42px;
+                flex-basis: 42px;
+                border-radius: 13px;
+            }
+
+            .record-customer-name h3 {
+                overflow-wrap: anywhere;
+                font-size: 0.94rem;
+            }
+
+            .record-customer-name span {
+                max-width: none;
+                white-space: normal;
+                overflow-wrap: anywhere;
+                line-height: 1.45;
+            }
+
+            .status-badge {
+                flex: 0 0 auto;
+                white-space: nowrap;
+            }
+
+            .record-details {
+                gap: 13px;
+                padding: 16px 0;
+            }
+
+            .record-detail-row {
+                grid-template-columns: 30px minmax(0, 1fr);
+            }
+
+            .record-detail-row strong,
+            .record-detail-row p {
+                overflow-wrap: anywhere;
+            }
+
+            .record-card-footer {
+                align-items: stretch;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .record-date {
+                line-height: 1.5;
+            }
+
+            .record-card-actions {
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .record-delete-btn {
+                min-height: 40px;
+                padding-inline: 14px;
+            }
+
+            .record-open-hint {
+                line-height: 1.45;
+            }
+
+            .records-message {
+                min-height: 92px;
+                padding: 20px 15px;
+                text-align: center;
+                line-height: 1.55;
+            }
+
+            .record-modal-overlay {
+                align-items: flex-end;
+                padding: 0;
+            }
+
+            .record-modal {
+                width: 100%;
+                max-height: 92vh;
+                max-height: 92dvh;
+                border-radius: 23px 23px 0 0;
+                border-bottom: 0;
+                transform: translateY(100%);
+            }
+
+            .record-modal-overlay.active .record-modal {
+                transform: translateY(0);
+            }
+
+            .record-modal-header {
+                position: sticky;
+                top: 0;
+                z-index: 2;
+                padding: 18px 16px;
+                background: rgba(255, 255, 255, 0.96);
+                backdrop-filter: blur(12px);
+            }
+
+            .record-modal-title-area {
+                gap: 11px;
+            }
+
+            .modal-customer-avatar {
+                width: 46px;
+                height: 46px;
+                flex-basis: 46px;
+                border-radius: 14px;
+            }
+
+            .record-modal-title-area > div:last-child {
+                min-width: 0;
+            }
+
+            .record-modal-title-area h2,
+            .record-modal-title-area p {
+                overflow-wrap: anywhere;
+            }
+
+            .record-modal-title-area h2 {
+                font-size: 1.08rem;
+            }
+
+            .record-modal-body {
+                padding: 18px 16px 22px;
+            }
+
+            .modal-status-row {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 17px;
+            }
+
+            .modal-record-id {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+
+            .modal-details-grid {
+                grid-template-columns: 1fr;
+                gap: 11px;
+            }
+
+            .modal-detail-box,
+            .modal-message-box {
+                padding: 14px;
+            }
+
+            .record-modal-actions {
+                position: sticky;
+                bottom: 0;
+                grid-template-columns: 1fr;
+                padding:
+                    14px
+                    16px
+                    max(16px, env(safe-area-inset-bottom));
+                background: rgba(255, 255, 255, 0.97);
+                backdrop-filter: blur(12px);
+            }
+
+            .app-toast {
+                right: 12px;
+                bottom: max(12px, env(safe-area-inset-bottom));
+                left: 12px;
+                width: auto;
+                max-width: none;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-main {
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+
+            .mobile-menu-button {
+                width: 44px;
+                height: 44px;
+                flex-basis: 44px;
+                border-radius: 13px;
+            }
+
+            .topbar {
+                gap: 10px;
+            }
+
+            .topbar-copy h1 {
+                font-size: 23px;
+            }
+
+            .topbar-copy p {
+                margin-top: 5px;
+                font-size: 12px;
+            }
+
+            .topbar-actions {
+                padding-left: 54px;
+            }
+
+            .auto-refresh-status {
+                font-size: 0.72rem;
+            }
+
+            .records-search {
+                padding-inline: 13px;
+            }
+
+            .record-card {
+                padding: 15px;
+            }
+
+            .record-card-header {
+                flex-direction: column;
+            }
+
+            .record-card-header > .status-badge {
+                margin-left: 53px;
+            }
+
+            .record-card-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .record-language {
+                width: fit-content;
+            }
+
+            .record-delete-btn {
+                width: 100%;
+                min-height: 44px;
+            }
+
+            .record-modal-close {
+                width: 38px;
+                height: 38px;
+                flex-basis: 38px;
+            }
+        }
+
+
+        @media (max-width: 360px) {
+            .dashboard-main {
+                padding-right: 7px;
+                padding-left: 7px;
+            }
+
+            .topbar-copy h1 {
+                font-size: 21px;
+            }
+
+            .topbar-copy p {
+                display: none;
+            }
+
+            .topbar-actions {
+                padding-left: 0;
+            }
+
+            .records-search input::placeholder {
+                color: transparent;
+            }
+
+            .records-search input::before {
+                content: "Suchen";
+            }
+
+            .record-card-header > .status-badge {
+                margin-left: 0;
+            }
+
+            .modal-customer-avatar {
+                width: 42px;
+                height: 42px;
+                flex-basis: 42px;
+            }
+        }
+
+    
+        @media (max-width: 950px) and (max-height: 560px) and (orientation: landscape) {
+            .sidebar {
+                width: min(340px, 72vw);
+            }
+
+            .dashboard-main {
+                padding-top: 12px;
+            }
+
+            .record-modal {
+                max-height: 96vh;
+                max-height: 96dvh;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .nav-item,
+            .mobile-menu-button,
+            .sidebar-close-button,
+            .logout-icon-btn,
+            .refresh-records-btn,
+            .record-delete-btn,
+            .record-modal-close {
+                min-height: 44px;
+            }
+
+            .record-card:hover,
+            .record-delete-btn:hover,
+            .refresh-records-btn:hover {
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+
+
+        .record-card {
+            cursor: default;
+        }
+
+        @media (max-width: 720px) {
+            .topbar {
+                grid-template-columns: auto minmax(0, 1fr);
+            }
+
+            .record-card-footer {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .records-search input::placeholder {
+                color: #9aabb5;
+                font-size: 0.78rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main class="dashboard-page">
+
+        <aside class="sidebar" id="dashboardSidebar">
+
+            <button
+                class="sidebar-close-button"
+                id="closeSidebarButton"
+                type="button"
+                aria-label="Menü schließen"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="sidebar-brand">
+
+                <img
+                    src="logo.png"
+                    alt="Zendura Logo"
+                >
+
+                <span>Zendura</span>
+
+            </div>
+
+            <div class="sidebar-section-label">
+                Verwaltung
+            </div>
+
+            <nav class="nav-menu">
+
+
+                <a
+                    href="new-record.html"
+                    class="nav-item sidebar-filter-button"
+                    id="newRecordsNav"
+                >
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                    </span>
+            
+                    <span>Neue Einträge</span>
+            
+                    <span
+                        class="sidebar-record-count"
+                        id="newRecordsCount"
+                    >
+                        0
+                    </span>
+                </a>
+            
+            
+     
+                <a
+                    href="all-records.html"
+                    class="nav-item sidebar-filter-button active"
+                    id="allRecordsNav"
+                >
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                    </span>
+            
+                    <span>Alle Einträge</span>
+            
+                    <span
+                        class="sidebar-record-count"
+                        id="allRecordsCount"
+                    >
+                        0
+                    </span>
+                </a>
+            
+            </nav>
+
+
+            <div class="sidebar-user">
+
+                <div class="sidebar-avatar">
+                    ZA
+                </div>
+
+                <div class="sidebar-user-text">
+
+                    <strong>Zendura Admin</strong>
+
+                    <span id="sidebarEmail">
+                        admin@zendura.com
+                    </span>
+
+                </div>
+
+                <button
+                    class="logout-icon-btn"
+                    id="logoutButton"
+                    type="button"
+                    title="Abmelden"
+                >
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+
+            </div>
+
+        </aside>
+
+        <div
+            class="sidebar-overlay"
+            id="sidebarOverlay"
+            aria-hidden="true"
+        ></div>
+
+
+
+        <section class="dashboard-main">
+
+
+            <header class="topbar">
+
+                <button
+                    class="mobile-menu-button"
+                    id="openSidebarButton"
+                    type="button"
+                    aria-label="Menü öffnen"
+                    aria-controls="dashboardSidebar"
+                    aria-expanded="false"
+                >
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="topbar-copy">
+
+                    <h1 id="pageTitle">
+                        Alle Einträge
+                    </h1>
+
+                    <p id="pageDescription">
+                        Alle Kundenanfragen aus der Zendura-Datenbank.
+                    </p>
+
+                </div>
+            </header>
+
+
+ 
+            <section class="records-toolbar">
+
+                <label class="records-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="search"
+                        id="recordsSearch"
+                        placeholder="Name, E-Mail, Telefon oder Adresse suchen..."
+                    >
+
+                </label>
+                
+                <button
+                    type="button"
+                    class="refresh-records-btn"
+                    id="refreshRecords"
+                >
+                    <i class="fa-solid fa-rotate-right"></i>
+                    Aktualisieren
+                </button>
+
+            </section>
+
+
+
+            <section class="records-summary">
+
+                <div>
+
+                    <span>Angezeigte Einträge</span>
+
+                    <strong id="recordsCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <div
+                class="records-message"
+                id="recordsMessage"
+            >
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Einträge werden geladen...
+            </div>
+
+
+            <section
+                class="records-grid"
+                id="recordsGrid"
+            ></section>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+
+
+    const SUPABASE_URL =
+        'https://mivmlczohqcyffnjqckz.supabase.co';
+
+    const SUPABASE_KEY =
+        'sb_publishable_GbR_jm4OlfY3gu5OgnpReA_IcU2FXYD';
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+
+    const recordsGrid =
+        document.getElementById('recordsGrid');
+
+    const recordsMessage =
+        document.getElementById('recordsMessage');
+
+    const recordsCount =
+        document.getElementById('recordsCount');
+
+    const recordsSearch =
+        document.getElementById('recordsSearch');
+
+    const refreshRecords =
+        document.getElementById('refreshRecords');
+
+    const logoutButton =
+        document.getElementById('logoutButton');
+
+    const sidebarEmail =
+        document.getElementById('sidebarEmail');
+
+    const newRecordsNav =
+        document.getElementById('newRecordsNav');
+
+    const newRecordsCount =
+        document.getElementById('newRecordsCount');
+
+    const allRecordsCount =
+        document.getElementById('allRecordsCount');
+
+
+
+
+    const recordModal =
+        document.getElementById('recordModal');
+
+    const closeRecordModalButton =
+        document.getElementById('closeRecordModal');
+
+    const modalCustomerAvatar =
+        document.getElementById('modalCustomerAvatar');
+
+    const modalCustomerName =
+        document.getElementById('modalCustomerName');
+
+    const modalCustomerEmail =
+        document.getElementById('modalCustomerEmail');
+
+    const modalStatusBadge =
+        document.getElementById('modalStatusBadge');
+
+    const modalRecordId =
+        document.getElementById('modalRecordId');
+
+    const modalPhone =
+        document.getElementById('modalPhone');
+
+    const modalAddress =
+        document.getElementById('modalAddress');
+
+    const modalLanguage =
+        document.getElementById('modalLanguage');
+
+    const modalCreatedAt =
+        document.getElementById('modalCreatedAt');
+
+    const modalMessage =
+        document.getElementById('modalMessage');
+
+    const modalFeedback =
+        document.getElementById('modalFeedback');
+
+    const appToast =
+        document.getElementById('appToast');
+
+    const dashboardSidebar =
+        document.getElementById('dashboardSidebar');
+
+    const sidebarOverlay =
+        document.getElementById('sidebarOverlay');
+
+    const openSidebarButton =
+        document.getElementById('openSidebarButton');
+
+    const closeSidebarButton =
+        document.getElementById('closeSidebarButton');
+
+
+
+    let allRecords = [];
+
+    let currentRecordId = null;
+
+    let knownRecordIds = new Set();
+
+    let hasLoadedRecords = false;
+
+    let loadingRecords = false;
+
+    let autoRefreshTimer = null;
+
+    let toastTimer = null;
+
+
+
+    function openMobileSidebar() {
+        if (!dashboardSidebar || window.innerWidth > 980) {
+            return;
+        }
+
+        dashboardSidebar.classList.add('open');
+
+        if (sidebarOverlay) {
+            sidebarOverlay.classList.add('active');
+            sidebarOverlay.setAttribute('aria-hidden', 'false');
+        }
+
+        if (openSidebarButton) {
+            openSidebarButton.setAttribute('aria-expanded', 'true');
+        }
+
+        document.body.classList.add('mobile-menu-open');
+    }
+
+
+    function closeMobileSidebar() {
+        if (!dashboardSidebar) {
+            return;
+        }
+
+        dashboardSidebar.classList.remove('open');
+
+        if (sidebarOverlay) {
+            sidebarOverlay.classList.remove('active');
+            sidebarOverlay.setAttribute('aria-hidden', 'true');
+        }
+
+        if (openSidebarButton) {
+            openSidebarButton.setAttribute('aria-expanded', 'false');
+        }
+
+        document.body.classList.remove('mobile-menu-open');
+    }
+
+
+    if (openSidebarButton) {
+        openSidebarButton.addEventListener('click', openMobileSidebar);
+    }
+
+    if (closeSidebarButton) {
+        closeSidebarButton.addEventListener('click', closeMobileSidebar);
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', closeMobileSidebar);
+    }
+
+    if (dashboardSidebar) {
+        dashboardSidebar.addEventListener('click', (event) => {
+            const navigationLink = event.target.closest('a.nav-item');
+
+            if (navigationLink && window.innerWidth <= 980) {
+                closeMobileSidebar();
+            }
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 980) {
+            closeMobileSidebar();
+        }
+    });
+
+    async function checkAuthentication() {
+        try {
+            const {
+                data: {
+                    session
+                },
+                error
+            } = await supabaseClient.auth.getSession();
+
+            if (error) {
+                throw error;
+            }
+
+            if (
+                !session ||
+                !session.user
+            ) {
+                window.location.replace(
+                    'login.html'
+                );
+
+                return false;
+            }
+
+            if (sidebarEmail) {
+                sidebarEmail.textContent =
+                    session.user.email ||
+                    'Zendura Admin';
+            }
+
+            return true;
+
+        } catch (error) {
+            console.error(
+                'Session check error:',
+                error
+            );
+
+            window.location.replace(
+                'login.html'
+            );
+
+            return false;
+        }
+    }
+
+
+    function escapeHTML(value) {
+        const element =
+            document.createElement('div');
+
+        element.textContent =
+            value ?? '';
+
+        return element.innerHTML;
+    }
+
+
+    function getInitials(
+        firstName,
+        lastName
+    ) {
+        const firstInitial =
+            firstName
+                ? firstName.charAt(0)
+                : '';
+
+        const lastInitial =
+            lastName
+                ? lastName.charAt(0)
+                : '';
+
+        return (
+            firstInitial +
+            lastInitial
+        ).toUpperCase() || 'ZR';
+    }
+
+
+    function formatDate(dateValue) {
+        if (!dateValue) {
+            return 'Kein Datum';
+        }
+
+        const parsedDate =
+            new Date(dateValue);
+
+        if (
+            Number.isNaN(
+                parsedDate.getTime()
+            )
+        ) {
+            return 'Ungültiges Datum';
+        }
+
+        return new Intl.DateTimeFormat(
+            'de-DE',
+            {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }
+        ).format(parsedDate);
+    }
+
+
+    function getStatusInformation(status) {
+        const statusMap = {
+            new: {
+                label: 'Neu',
+                className: 'status-new'
+            },
+
+            contacted: {
+                label: 'Kontaktiert',
+                className: 'status-contacted'
+            }
+        };
+
+        return statusMap[status] || {
+            label: 'Neu',
+            className: 'status-new'
+        };
+    }
+
+
+    function findRecord(recordId) {
+        return allRecords.find(
+            (record) =>
+                String(record.id) ===
+                String(recordId)
+        );
+    }
+
+
+    function showMessage(
+        message,
+        type = 'loading'
+    ) {
+        if (!recordsMessage) {
+            return;
+        }
+
+        recordsMessage.innerHTML = '';
+
+        recordsMessage.className =
+            `records-message ${type}`;
+
+        if (type === 'loading') {
+            recordsMessage.innerHTML = `
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                ${escapeHTML(message)}
+            `;
+        } else {
+            recordsMessage.textContent =
+                message;
+        }
+
+        recordsMessage.style.display =
+            'flex';
+    }
+
+
+    function hideMessage() {
+        if (!recordsMessage) {
+            return;
+        }
+
+        recordsMessage.style.display =
+            'none';
+    }
+
+
+    function showToast(
+        message,
+        type = ''
+    ) {
+        if (!appToast) {
+            return;
+        }
+
+        clearTimeout(toastTimer);
+
+        appToast.className =
+            `app-toast ${type}`;
+
+        appToast.innerHTML = `
+            <i class="fa-solid ${
+                type === 'error'
+                    ? 'fa-circle-exclamation'
+                    : 'fa-circle-check'
+            }"></i>
+
+            <span>
+                ${escapeHTML(message)}
+            </span>
+        `;
+
+        requestAnimationFrame(() => {
+            appToast.classList.add('show');
+        });
+
+        toastTimer = setTimeout(() => {
+            appToast.classList.remove('show');
+        }, 3500);
+    }
+
+
+    function showModalFeedback(
+        message,
+        type
+    ) {
+        if (!modalFeedback) {
+            return;
+        }
+
+        modalFeedback.textContent =
+            message;
+
+        modalFeedback.className =
+            `modal-feedback show ${type}`;
+    }
+
+
+    function clearModalFeedback() {
+        if (!modalFeedback) {
+            return;
+        }
+
+        modalFeedback.textContent = '';
+
+        modalFeedback.className =
+            'modal-feedback';
+    }
+
+
+    function updateSidebarCounts() {
+        const newCount =
+            allRecords.filter(
+                (record) =>
+                    record.status === 'new'
+            ).length;
+
+        if (newRecordsCount) {
+            newRecordsCount.textContent =
+                newCount;
+        }
+
+        if (allRecordsCount) {
+            allRecordsCount.textContent =
+                allRecords.length;
+        }
+    }
+
+
+    function renderRecords(
+        records,
+        highlightedRecordIds = new Set()
+    ) {
+        if (!recordsGrid) {
+            return;
+        }
+
+        recordsGrid.innerHTML = '';
+
+        if (recordsCount) {
+            recordsCount.textContent =
+                records.length;
+        }
+
+        if (records.length === 0) {
+            showMessage(
+                'Keine passenden Einträge gefunden.',
+                'empty'
+            );
+
+            return;
+        }
+
+        hideMessage();
+
+        records.forEach((record) => {
+            const status =
+                getStatusInformation(
+                    record.status
+                );
+
+            const fullName = `
+                ${record.first_name || ''}
+                ${record.last_name || ''}
+            `.trim() || 'Unbekannter Kunde';
+
+            const card =
+                document.createElement('article');
+
+            card.className =
+                'record-card';
+
+            if (
+                highlightedRecordIds.has(
+                    String(record.id)
+                )
+            ) {
+                card.classList.add(
+                    'newly-added'
+                );
+            }
+
+            card.dataset.recordId =
+                record.id;
+
+
+            card.innerHTML = `
+                <div class="record-card-header">
+
+                    <div class="record-customer">
+
+                        <div class="record-avatar">
+                            ${escapeHTML(
+                                getInitials(
+                                    record.first_name,
+                                    record.last_name
+                                )
+                            )}
+                        </div>
+
+                        <div class="record-customer-name">
+
+                            <h3>
+                                ${escapeHTML(
+                                    record.first_name
+                                )}
+
+                                ${escapeHTML(
+                                    record.last_name
+                                )}
+                            </h3>
+
+                            <span>
+                                ${escapeHTML(
+                                    record.email
+                                )}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <span class="status-badge ${status.className}">
+                        ● ${status.label}
+                    </span>
+
+                </div>
+
+
+                <div class="record-details">
+
+                    <div class="record-detail-row">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        <div>
+
+                            <span>Telefon</span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    record.phone
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="record-detail-row">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <div>
+
+                            <span>Adresse</span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    record.address
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="record-detail-row record-message-row">
+
+                        <i class="fa-solid fa-message"></i>
+
+                        <div>
+
+                            <span>Nachricht</span>
+
+                            <p>
+                                ${escapeHTML(
+                                    record.message
+                                )}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="record-card-footer">
+
+                    <span class="record-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        ${formatDate(
+                            record.created_at
+                        )}
+
+                    </span>
+
+                    <div class="record-card-actions">
+
+                        <span class="record-language">
+                            ${escapeHTML(
+                                (
+                                    record.language ||
+                                    'de'
+                                ).toUpperCase()
+                            )}
+                        </span>
+
+                        <button
+                            type="button"
+                            class="record-delete-btn"
+                            data-record-id="${escapeHTML(
+                                record.id
+                            )}"
+                            data-record-name="${escapeHTML(
+                                fullName
+                            )}"
+                            title="Eintrag löschen"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                            Löschen
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+            recordsGrid.appendChild(card);
+        });
+    }
+
+
+    function filterRecords(
+        highlightedRecordIds = new Set()
+    ) {
+        const query =
+            recordsSearch
+                ? recordsSearch.value
+                    .trim()
+                    .toLowerCase()
+                : '';
+
+        const filteredRecords =
+            allRecords.filter((record) => {
+                const searchableText = [
+                    record.first_name,
+                    record.last_name,
+                    record.email,
+                    record.phone,
+                    record.address,
+                    record.message,
+                    record.status
+                ]
+                    .filter(Boolean)
+                    .join(' ')
+                    .toLowerCase();
+
+                return searchableText.includes(query);
+            });
+
+        renderRecords(
+            filteredRecords,
+            highlightedRecordIds
+        );
+    }
+
+    async function loadAllRecords(
+        options = {}
+    ) {
+        const silent =
+            options.silent === true;
+
+        if (loadingRecords) {
+            return;
+        }
+
+        loadingRecords = true;
+
+        if (!silent) {
+            showMessage(
+                'Einträge werden geladen...',
+                'loading'
+            );
+
+            if (recordsGrid) {
+                recordsGrid.innerHTML = '';
+            }
+        }
+
+        if (refreshRecords) {
+            refreshRecords.disabled =
+                true;
+
+            refreshRecords.innerHTML = `
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Wird geladen...
+            `;
+        }
+
+        try {
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from('booking_requests')
+                .select('*')
+                .order(
+                    'created_at',
+                    {
+                        ascending: false
+                    }
+                );
+
+            if (error) {
+                throw error;
+            }
+
+            const incomingRecords =
+                data || [];
+
+            const highlightedRecordIds =
+                new Set();
+
+            if (hasLoadedRecords) {
+                incomingRecords.forEach(
+                    (record) => {
+                        const recordId =
+                            String(record.id);
+
+                        if (
+                            !knownRecordIds.has(
+                                recordId
+                            )
+                        ) {
+                            highlightedRecordIds.add(
+                                recordId
+                            );
+                        }
+                    }
+                );
+            }
+
+            knownRecordIds =
+                new Set(
+                    incomingRecords.map(
+                        (record) =>
+                            String(record.id)
+                    )
+                );
+
+            allRecords =
+                incomingRecords;
+
+            hasLoadedRecords =
+                true;
+
+            updateSidebarCounts();
+
+            filterRecords(
+                highlightedRecordIds
+            );
+
+            if (
+                highlightedRecordIds.size > 0
+            ) {
+                const amount =
+                    highlightedRecordIds.size;
+
+                showToast(
+                    amount === 1
+                        ? 'Ein neuer Eintrag wurde empfangen.'
+                        : `${amount} neue Einträge wurden empfangen.`,
+                    'success'
+                );
+            }
+
+            syncOpenModalAfterRefresh();
+
+        } catch (error) {
+            console.error(
+                'Records loading error:',
+                error
+            );
+
+            if (!silent) {
+                if (recordsCount) {
+                    recordsCount.textContent =
+                        '0';
+                }
+
+                showMessage(
+                    'Die Einträge konnten nicht geladen werden.',
+                    'error'
+                );
+            }
+
+        } finally {
+            loadingRecords =
+                false;
+
+            if (refreshRecords) {
+                refreshRecords.disabled =
+                    false;
+
+                refreshRecords.innerHTML = `
+                    <i class="fa-solid fa-rotate-right"></i>
+                    Aktualisieren
+                `;
+            }
+        }
+    }
+
+
+    async function updateRecordStatus(
+        recordId,
+        newStatus
+    ) {
+        if (
+            newStatus !== 'new' &&
+            newStatus !== 'contacted'
+        ) {
+            throw new Error(
+                'Ungültiger Status.'
+            );
+        }
+
+        const {
+            error
+        } = await supabaseClient
+            .from('booking_requests')
+            .update({
+                status: newStatus
+            })
+            .eq(
+                'id',
+                recordId
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        const recordIndex =
+            allRecords.findIndex(
+                (record) =>
+                    String(record.id) ===
+                    String(recordId)
+            );
+
+        if (recordIndex !== -1) {
+            allRecords[recordIndex] = {
+                ...allRecords[recordIndex],
+                status: newStatus
+            };
+        }
+
+        updateSidebarCounts();
+
+        filterRecords();
+
+        return findRecord(recordId);
+    }
+
+    function populateModal(record) {
+        if (!record) {
+            return;
+        }
+
+        const status =
+            getStatusInformation(
+                record.status
+            );
+
+        const fullName = `
+            ${record.first_name || ''}
+            ${record.last_name || ''}
+        `.trim() || 'Unbekannter Kunde';
+
+        if (modalCustomerAvatar) {
+            modalCustomerAvatar.textContent =
+                getInitials(
+                    record.first_name,
+                    record.last_name
+                );
+        }
+
+        if (modalCustomerName) {
+            modalCustomerName.textContent =
+                fullName;
+        }
+
+        if (modalCustomerEmail) {
+            modalCustomerEmail.textContent =
+                record.email ||
+                'Keine E-Mail';
+        }
+
+        if (modalStatusBadge) {
+            modalStatusBadge.className =
+                `status-badge ${status.className}`;
+
+            modalStatusBadge.textContent =
+                `● ${status.label}`;
+        }
+
+        if (modalRecordId) {
+            modalRecordId.textContent =
+                `ID: ${record.id}`;
+        }
+
+        if (modalPhone) {
+            modalPhone.textContent =
+                record.phone ||
+                'Keine Telefonnummer';
+        }
+
+        if (modalAddress) {
+            modalAddress.textContent =
+                record.address ||
+                'Keine Adresse';
+        }
+
+        if (modalLanguage) {
+            modalLanguage.textContent =
+                (
+                    record.language ||
+                    'de'
+                ).toUpperCase();
+        }
+
+        if (modalCreatedAt) {
+            modalCreatedAt.textContent =
+                formatDate(
+                    record.created_at
+                );
+        }
+
+        if (modalMessage) {
+            modalMessage.textContent =
+                record.message ||
+                'Keine Nachricht vorhanden.';
+        }
+    }
+
+
+    function showRecordModal(record) {
+        if (
+            !recordModal ||
+            !record
+        ) {
+            return;
+        }
+
+        currentRecordId =
+            record.id;
+
+        clearModalFeedback();
+
+        populateModal(record);
+
+        recordModal.classList.add(
+            'active'
+        );
+
+        recordModal.setAttribute(
+            'aria-hidden',
+            'false'
+        );
+
+        document.body.style.overflow =
+            'hidden';
+    }
+
+
+    function closeRecordModal() {
+        if (!recordModal) {
+            return;
+        }
+
+        recordModal.classList.remove(
+            'active'
+        );
+
+        recordModal.setAttribute(
+            'aria-hidden',
+            'true'
+        );
+
+        document.body.style.overflow =
+            '';
+
+        currentRecordId =
+            null;
+
+        clearModalFeedback();
+    }
+
+
+    async function openRecordDetails(
+        recordId
+    ) {
+        let record =
+            findRecord(recordId);
+
+        if (!record) {
+            return;
+        }
+
+
+        if (record.status === 'new') {
+            try {
+                record =
+                    await updateRecordStatus(
+                        record.id,
+                        'contacted'
+                    );
+
+                showRecordModal(record);
+
+                showModalFeedback(
+                    'Der Eintrag wurde automatisch als kontaktiert markiert.',
+                    'success'
+                );
+
+            } catch (error) {
+                console.error(
+                    'Contact status update error:',
+                    error
+                );
+
+                showRecordModal(record);
+
+                showModalFeedback(
+                    'Der Status konnte nicht auf „Kontaktiert“ geändert werden.',
+                    'error'
+                );
+            }
+
+            return;
+        }
+
+        showRecordModal(record);
+    }
+
+
+    function syncOpenModalAfterRefresh() {
+        if (
+            !recordModal ||
+            !recordModal.classList.contains(
+                'active'
+            ) ||
+            !currentRecordId
+        ) {
+            return;
+        }
+
+        const updatedRecord =
+            findRecord(
+                currentRecordId
+            );
+
+        if (!updatedRecord) {
+            closeRecordModal();
+
+            showToast(
+                'Dieser Eintrag ist nicht mehr verfügbar.',
+                'error'
+            );
+
+            return;
+        }
+
+        populateModal(
+            updatedRecord
+        );
+    }
+
+    async function deleteRecord(
+        recordId,
+        recordName,
+        deleteButton
+    ) {
+        const displayName =
+            recordName ||
+            'diesen Eintrag';
+
+        const confirmed =
+            window.confirm(
+                `Möchten Sie den Eintrag von "${displayName}" wirklich löschen?`
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        const originalButtonHTML =
+            deleteButton.innerHTML;
+
+        deleteButton.disabled =
+            true;
+
+        deleteButton.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Löschen...
+        `;
+
+        try {
+            const {
+                error
+            } = await supabaseClient
+                .from('booking_requests')
+                .delete()
+                .eq(
+                    'id',
+                    recordId
+                );
+
+            if (error) {
+                throw error;
+            }
+
+            allRecords =
+                allRecords.filter(
+                    (record) =>
+                        String(record.id) !==
+                        String(recordId)
+                );
+
+            knownRecordIds.delete(
+                String(recordId)
+            );
+
+            if (
+                String(currentRecordId) ===
+                String(recordId)
+            ) {
+                closeRecordModal();
+            }
+
+            updateSidebarCounts();
+
+            filterRecords();
+
+            showToast(
+                'Der Eintrag wurde gelöscht.',
+                'success'
+            );
+
+        } catch (error) {
+            console.error(
+                'Delete record error:',
+                error
+            );
+
+            showToast(
+                'Der Eintrag konnte nicht gelöscht werden.',
+                'error'
+            );
+
+            deleteButton.disabled =
+                false;
+
+            deleteButton.innerHTML =
+                originalButtonHTML;
+        }
+    }
+
+
+    if (recordsGrid) {
+        recordsGrid.addEventListener(
+            'click',
+            async (event) => {
+                const deleteButton =
+                    event.target.closest(
+                        '.record-delete-btn'
+                    );
+
+                if (!deleteButton) {
+                    return;
+                }
+
+                event.stopPropagation();
+
+                await deleteRecord(
+                    deleteButton.dataset.recordId,
+                    deleteButton.dataset.recordName,
+                    deleteButton
+                );
+            }
+        );
+    }
+
+
+    if (newRecordsNav) {
+        newRecordsNav.addEventListener(
+            'click',
+            () => {
+                window.location.href =
+                    'new-record.html';
+            }
+        );
+    }
+
+
+
+    if (recordsSearch) {
+        recordsSearch.addEventListener(
+            'input',
+            filterRecords
+        );
+    }
+
+    if (refreshRecords) {
+        refreshRecords.addEventListener(
+            'click',
+            () => {
+                loadAllRecords({
+                    silent: false
+                });
+            }
+        );
+    }
+
+    if (closeRecordModalButton) {
+        closeRecordModalButton.addEventListener(
+            'click',
+            closeRecordModal
+        );
+    }
+
+
+    if (recordModal) {
+        recordModal.addEventListener(
+            'click',
+            (event) => {
+                if (
+                    event.target ===
+                    recordModal
+                ) {
+                    closeRecordModal();
+                }
+            }
+        );
+    }
+
+
+    document.addEventListener(
+        'keydown',
+        (event) => {
+            if (event.key !== 'Escape') {
+                return;
+            }
+
+            if (
+                recordModal &&
+                recordModal.classList.contains(
+                    'active'
+                )
+            ) {
+                closeRecordModal();
+                return;
+            }
+
+            if (
+                dashboardSidebar &&
+                dashboardSidebar.classList.contains(
+                    'open'
+                )
+            ) {
+                closeMobileSidebar();
+            }
+        }
+    );
+
+    if (logoutButton) {
+        logoutButton.addEventListener(
+            'click',
+            async () => {
+                try {
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .auth
+                            .signOut();
+
+                    if (error) {
+                        throw error;
+                    }
+
+                } catch (error) {
+                    console.error(
+                        'Logout error:',
+                        error
+                    );
+                }
+
+                localStorage.removeItem(
+                    'zendura-session'
+                );
+
+                localStorage.removeItem(
+                    'zendura-admin-email'
+                );
+
+                window.location.replace(
+                    'login.html'
+                );
+            }
+        );
+    }
+
+    function startAutoRefresh() {
+        clearInterval(
+            autoRefreshTimer
+        );
+
+        autoRefreshTimer =
+            setInterval(() => {
+                loadAllRecords({
+                    silent: true
+                });
+            }, 5000);
+    }
+
+    async function initializePage() {
+        const authenticated =
+            await checkAuthentication();
+
+        if (!authenticated) {
+            return;
+        }
+
+        await loadAllRecords({
+            silent: false
+        });
+    }
+
+
+    window.addEventListener(
+        'beforeunload',
+        () => {
+            clearInterval(
+                autoRefreshTimer
+            );
+
+            clearTimeout(
+                toastTimer
+            );
+        }
+    );
+
+
+    initializePage();
+    </script>
+
+</body>
+
+</html>

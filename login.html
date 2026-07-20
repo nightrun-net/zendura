@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Zendura – Anmeldung</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-visual">
+
+            <a
+                class="visual-brand"
+                aria-label="Zendura"
+            >
+                <img
+                    src="logo.png"
+                    alt="Zendura Logo"
+                >
+
+                <span>Zendura</span>
+            </a>
+
+
+            <div class="login-copy">
+
+                <span class="eyebrow">
+                    Premium Home Care Management
+                </span>
+
+                <h1>
+                    Ruhe beginnt mit klarer Organisation.
+                </h1>
+
+                <p>
+                    Verwalten Sie Kundenanfragen, Termine, Teams
+                    und tägliche Abläufe in einer ruhigen,
+                    modernen Desktop-Umgebung.
+                </p>
+
+
+                <div class="visual-points">
+
+                    <div class="visual-point">
+
+                        <strong>24/7</strong>
+
+                        <span>
+                            Übersicht über neue Anfragen
+                        </span>
+
+                    </div>
+
+
+                    <div class="visual-point">
+
+                        <strong>100%</strong>
+
+                        <span>
+                            Klare, fokussierte Arbeitsabläufe
+                        </span>
+
+                    </div>
+
+
+                    <div class="visual-point">
+
+                        <strong>1 Ort</strong>
+
+                        <span>
+                            Für alle Zendura-Prozesse
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="visual-footer">
+                © 2026 Zendura Home Care
+            </div>
+
+        </section>
+
+
+        <section class="login-panel">
+
+            <form
+                class="login-card"
+                id="loginForm"
+                novalidate
+            >
+
+
+
+                <h2>
+                    Willkommen zurück
+                </h2>
+
+                <p>
+                    Melden Sie sich an, um Ihr
+                    Zendura-Dashboard zu öffnen.
+                </p>
+
+
+                <div
+                    class="login-error"
+                    id="loginError"
+                    role="alert"
+                    aria-live="polite"
+                ></div>
+
+                <div class="form-group">
+
+                    <label for="email">
+                        E-Mail-Adresse
+                    </label>
+
+                    <div class="input-shell">
+
+                        <i
+                            class="fa-regular fa-envelope input-icon"
+                            aria-hidden="true"
+                        ></i>
+
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value=""
+                            placeholder="admin@zendura.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Passwort
+                    </label>
+
+                    <div class="input-shell">
+
+                        <i
+                            class="fa-solid fa-lock input-icon"
+                            aria-hidden="true"
+                        ></i>
+
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Passwort"
+                            autocomplete="current-password"
+                            required
+                            minlength="6"
+                        >
+
+                        <button
+                            class="toggle-password"
+                            id="togglePassword"
+                            type="button"
+                            aria-label="Passwort anzeigen"
+                            aria-pressed="false"
+                        >
+                            <i
+                                class="fa-regular fa-eye"
+                                id="passwordEyeIcon"
+                                aria-hidden="true"
+                            ></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row-inline">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            checked
+                        >
+
+                        <span>
+                            Angemeldet bleiben
+                        </span>
+
+                    </label>
+
+                    <span>
+                        Desktop-Zugang
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    id="loginButton"
+                    type="submit"
+                >
+                    <span>Anmelden</span>
+
+                    <i
+                        class="fa-solid fa-arrow-right"
+                        aria-hidden="true"
+                    ></i>
+                </button>
+
+
+                
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>
