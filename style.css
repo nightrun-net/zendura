@@ -4,15 +4,15 @@ body {
     background: #fcfdfd; 
     overflow-x: hidden; 
     line-height: 1.6; 
-    color: #333;  
+    color: #333; 
     overflow-wrap: break-word;
-    word-wrap: break-word; 
+    word-wrap: break-word;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
 }
 html { scroll-behavior: smooth; }
- 
+
 .text-gradient-dark-light {
     background: linear-gradient(135deg, #0a192f 0%, #1E3A8A 50%, #3498db 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -29,7 +29,7 @@ html { scroll-behavior: smooth; }
     justify-content: center;
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
 }
-    
+
 #splash-screen.hidden {
     opacity: 0;
     visibility: hidden;
@@ -208,7 +208,6 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
     opacity: 0;
     transform: translateY(60px);
     animation: slideUpFade 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    /* Nivîs piştî wêneyê derdikeve, dema derengbûnê hate zêdekirin */
     animation-delay: 2.7s; 
 }
 .hero-text h2 { font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 800; line-height: 1.15; margin-bottom: 25px; letter-spacing: -1px; text-shadow: 0 10px 40px rgba(0,0,0,0.8); }
@@ -234,7 +233,6 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
     opacity: 0;
     transform: translateY(60px);
     animation: slideUpFade 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    /* Wêne destpêkê derdikeve, dema derengbûnê hate kêmkirin */
     animation-delay: 2.2s; 
 }
 
@@ -254,9 +252,7 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
 @media (max-width: 950px) {
     .hero { padding-top: 130px; }
     .hero-container { flex-direction: column; text-align: center; gap: 15px; margin-top: 0; }
-    /* order: 2 dike ku nivîs li jêr be */
     .hero-text { order: 2; display: flex; flex-direction: column; align-items: center; } 
-    /* order: 1 dike ku wêne (logo) li jor be */
     .hero-image { order: 1; margin-top: 0; } 
     .hero-text h2 { margin-bottom: 15px; } 
     .hero-text p { max-width: 100%; margin-bottom: 20px; } 
@@ -579,4 +575,124 @@ header.hide-header { transform: translateX(-50%) translateY(-150%); }
 .footer-contact a[href^="mailto:"]:hover {
     color: #39a9db;
     text-decoration: underline;
+}
+
+/* ================= NEW PEACE STEPS LIST & BUTTON ================= */
+.peace-steps-container {
+    width: 100%;
+    position: relative;
+    z-index: 5;
+    margin-bottom: 40px;
+}
+
+.peace-steps-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 45px;
+}
+
+.peace-steps-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    background: transparent;
+    padding: 15px 0;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+}
+
+.peace-steps-list li:hover {
+    transform: translateX(10px);
+}
+
+.step-num {
+    min-width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #1E3A8A, #3498db);
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+}
+
+.step-text h3 {
+    font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.step-text p {
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* LÊZÊDEKIRINA NÛ JI BO BIŞKOKA DAXWAZIYÊ (REQUEST BUTTON) */
+.peace-action-btn {
+    display: flex;
+    justify-content: center; /* Ji bo laptopê diçe navendê (center) */
+    margin-top: 0px; 
+    margin-bottom: 85px; /* Nêzîktirî texta jêr dibe */
+    width: 100%;
+}
+
+.beautiful-request-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 80px; /* Ji bo laptopê firehiya wê mezintir e */
+    min-width: 350px; /* Bingeha firehiyê */
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 15px 30px rgba(79, 172, 254, 0.4);
+    transition: all 0.4s ease;
+}
+
+.beautiful-request-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(79, 172, 254, 0.6);
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    color: #ffffff;
+}
+
+.beautiful-request-btn i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.beautiful-request-btn:hover i {
+    transform: translateX(5px) scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .peace-action-btn {
+        margin-bottom: 75px; /* Li ser mobîlê hinekî cih lazim e */
+    }
+    .beautiful-request-btn {
+        width: 100%; /* Li ser mobîlê 100% tijî dibe */
+        min-width: auto;
+        padding: 16px 30px;
+    }
+    .peace-steps-list li {
+        flex-direction: column;
+        gap: 15px;
+        padding: 25px 20px;
+        align-items: center;
+        text-align: center;
+    }
 }
