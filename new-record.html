@@ -50,7 +50,6 @@
             background: rgba(255, 255, 255, 0.22);
         }
 
-
         .record-card {
             position: relative;
             cursor: pointer;
@@ -81,7 +80,6 @@
                 transform: translateY(0);
             }
         }
-
 
         .record-card-actions {
             display: flex;
@@ -134,7 +132,6 @@
         .record-open-hint i {
             color: #3695c2;
         }
-
 
         .auto-refresh-status {
             display: inline-flex;
@@ -410,7 +407,6 @@
             opacity: 0.55;
         }
 
-
         .app-toast {
             position: fixed;
             right: 24px;
@@ -445,7 +441,6 @@
             background: #b43b4d;
         }
 
-
         @media (max-width: 700px) {
             .record-modal-overlay {
                 padding: 12px;
@@ -469,7 +464,6 @@
                 justify-content: space-between;
             }
         }
-
 
         html,
         body {
@@ -515,7 +509,6 @@
             visibility: visible;
         }
 
-        
         @media (max-width: 1280px) {
             .dashboard-page {
                 grid-template-columns: 245px minmax(0, 1fr);
@@ -534,7 +527,6 @@
             }
         }
 
-        
         @media (max-width: 980px) {
             .dashboard-page {
                 display: block;
@@ -643,7 +635,6 @@
             }
         }
 
-        
         @media (max-width: 720px) {
             .dashboard-main {
                 padding:
@@ -898,7 +889,6 @@
             }
         }
 
-       
         @media (max-width: 480px) {
             .dashboard-main {
                 padding-right: 10px;
@@ -970,7 +960,6 @@
             }
         }
 
-    
         @media (max-width: 360px) {
             .dashboard-main {
                 padding-right: 7px;
@@ -1008,7 +997,6 @@
             }
         }
 
-      
         @media (max-width: 950px) and (max-height: 560px) and (orientation: landscape) {
             .sidebar {
                 width: min(340px, 72vw);
@@ -1053,6 +1041,29 @@
             }
         }
 
+    
+
+        .sidebar-brand img {
+            width: clamp(86px, 8vw, 104px) !important;
+            height: clamp(86px, 8vw, 104px) !important;
+            min-width: clamp(86px, 8vw, 104px) !important;
+            min-height: clamp(86px, 8vw, 104px) !important;
+            flex: 0 0 clamp(86px, 8vw, 104px) !important;
+            display: block;
+            object-fit: contain;
+            aspect-ratio: 1 / 1;
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-brand img {
+                width: 86px !important;
+                height: 86px !important;
+                min-width: 86px !important;
+                min-height: 86px !important;
+                flex-basis: 86px !important;
+            }
+        }
+
     </style>
 </head>
 
@@ -1060,7 +1071,6 @@
 
     <main class="dashboard-page">
 
-       
         <aside class="sidebar" id="dashboardSidebar">
 
             <button
@@ -1089,7 +1099,6 @@
 
             <nav class="nav-menu">
 
-    
                 <a
                     href="new-record.html"
                     class="nav-item sidebar-filter-button active"
@@ -1108,8 +1117,7 @@
                         0
                     </span>
                 </a>
-            
-            
+
                 <a
                     href="all-records.html"
                     class="nav-item sidebar-filter-button "
@@ -1130,7 +1138,6 @@
                 </a>
             
             </nav>
-
 
             <div class="sidebar-user">
 
@@ -1167,9 +1174,7 @@
             aria-hidden="true"
         ></div>
 
-
         <section class="dashboard-main">
-
 
             <header class="topbar">
 
@@ -1212,7 +1217,6 @@
 
             </header>
 
-
             <section class="records-toolbar">
 
                 <label class="records-search">
@@ -1238,7 +1242,6 @@
 
             </section>
 
-
             <section class="records-summary">
 
                 <div>
@@ -1253,7 +1256,6 @@
 
             </section>
 
-
             <div
                 class="records-message"
                 id="recordsMessage"
@@ -1261,7 +1263,6 @@
                 <i class="fa-solid fa-spinner fa-spin"></i>
                 Einträge werden geladen...
             </div>
-
 
             <section
                 class="records-grid"
@@ -1271,7 +1272,6 @@
         </section>
 
     </main>
-
 
     <div
         class="record-modal-overlay"
@@ -1322,7 +1322,6 @@
 
             </div>
 
-
             <div class="record-modal-body">
 
                 <div class="modal-status-row">
@@ -1343,7 +1342,6 @@
 
                 </div>
 
-
                 <div class="modal-details-grid">
 
                     <div class="modal-detail-box">
@@ -1359,7 +1357,6 @@
 
                     </div>
 
-
                     <div class="modal-detail-box">
 
                         <span>
@@ -1373,7 +1370,6 @@
 
                     </div>
 
-
                     <div class="modal-detail-box">
 
                         <span>
@@ -1386,7 +1382,6 @@
                         </strong>
 
                     </div>
-
 
                     <div class="modal-detail-box">
 
@@ -1403,7 +1398,6 @@
 
                 </div>
 
-
                 <div class="modal-message-box">
 
                     <span>
@@ -1417,7 +1411,6 @@
 
                 </div>
 
-
                 <div
                     class="modal-feedback"
                     id="modalFeedback"
@@ -1429,18 +1422,14 @@
 
     </div>
 
-
     <div
         class="app-toast"
         id="appToast"
     ></div>
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
 
 const SUPABASE_URL =
     'https://mivmlczohqcyffnjqckz.supabase.co';
@@ -1453,8 +1442,6 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_KEY
     );
-
-
 
 const recordsGrid =
     document.getElementById('recordsGrid');
@@ -1485,8 +1472,6 @@ const newRecordsCount =
 
 const allRecordsCount =
     document.getElementById('allRecordsCount');
-
-
 
 const recordModal =
     document.getElementById('recordModal');
@@ -1542,7 +1527,6 @@ const openSidebarButton =
 const closeSidebarButton =
     document.getElementById('closeSidebarButton');
 
-
 let allRecords = [];
 
 let currentRecordId = null;
@@ -1556,8 +1540,6 @@ let loadingRecords = false;
 let autoRefreshTimer = null;
 
 let toastTimer = null;
-
-
 
 function openMobileSidebar() {
     if (!dashboardSidebar || window.innerWidth > 980) {
@@ -1578,7 +1560,6 @@ function openMobileSidebar() {
     document.body.classList.add('mobile-menu-open');
 }
 
-
 function closeMobileSidebar() {
     if (!dashboardSidebar) {
         return;
@@ -1597,7 +1578,6 @@ function closeMobileSidebar() {
 
     document.body.classList.remove('mobile-menu-open');
 }
-
 
 if (openSidebarButton) {
     openSidebarButton.addEventListener('click', openMobileSidebar);
@@ -1626,7 +1606,6 @@ window.addEventListener('resize', () => {
         closeMobileSidebar();
     }
 });
-
 
 async function checkAuthentication() {
     try {
@@ -1674,8 +1653,6 @@ async function checkAuthentication() {
     }
 }
 
-
-
 function escapeHTML(value) {
     const element =
         document.createElement('div');
@@ -1685,7 +1662,6 @@ function escapeHTML(value) {
 
     return element.innerHTML;
 }
-
 
 function getInitials(
     firstName,
@@ -1706,7 +1682,6 @@ function getInitials(
         lastInitial
     ).toUpperCase() || 'ZR';
 }
-
 
 function formatDate(dateValue) {
     if (!dateValue) {
@@ -1736,8 +1711,6 @@ function formatDate(dateValue) {
     ).format(parsedDate);
 }
 
-
-
 function getStatusInformation(status) {
     const statusMap = {
         new: {
@@ -1757,7 +1730,6 @@ function getStatusInformation(status) {
     };
 }
 
-
 function findRecord(recordId) {
     return allRecords.find(
         (record) =>
@@ -1765,7 +1737,6 @@ function findRecord(recordId) {
             String(recordId)
     );
 }
-
 
 function showMessage(
     message,
@@ -1794,7 +1765,6 @@ function showMessage(
         'flex';
 }
 
-
 function hideMessage() {
     if (!recordsMessage) {
         return;
@@ -1803,7 +1773,6 @@ function hideMessage() {
     recordsMessage.style.display =
         'none';
 }
-
 
 function showToast(
     message,
@@ -1839,7 +1808,6 @@ function showToast(
     }, 3500);
 }
 
-
 function showModalFeedback(
     message,
     type
@@ -1855,7 +1823,6 @@ function showModalFeedback(
         `modal-feedback show ${type}`;
 }
 
-
 function clearModalFeedback() {
     if (!modalFeedback) {
         return;
@@ -1866,7 +1833,6 @@ function clearModalFeedback() {
     modalFeedback.className =
         'modal-feedback';
 }
-
 
 function updateSidebarCounts() {
     const newCount =
@@ -1885,7 +1851,6 @@ function updateSidebarCounts() {
             allRecords.length;
     }
 }
-
 
 function renderRecords(
     records,
@@ -1997,7 +1962,6 @@ function renderRecords(
 
             </div>
 
-
             <div class="record-details">
 
                 <div class="record-detail-row">
@@ -2018,7 +1982,6 @@ function renderRecords(
 
                 </div>
 
-
                 <div class="record-detail-row">
 
                     <i class="fa-solid fa-location-dot"></i>
@@ -2036,7 +1999,6 @@ function renderRecords(
                     </div>
 
                 </div>
-
 
                 <div class="record-detail-row record-message-row">
 
@@ -2057,7 +2019,6 @@ function renderRecords(
                 </div>
 
             </div>
-
 
             <div class="record-card-footer">
 
@@ -2113,7 +2074,6 @@ function renderRecords(
         recordsGrid.appendChild(card);
     });
 }
-
 
 function filterRecords(
     highlightedRecordIds = new Set()
@@ -2304,7 +2264,6 @@ async function loadAllRecords(
     }
 }
 
-
 async function updateRecordStatus(
     recordId,
     newStatus
@@ -2354,7 +2313,6 @@ async function updateRecordStatus(
 
     return findRecord(recordId);
 }
-
 
 function populateModal(record) {
     if (!record) {
@@ -2437,7 +2395,6 @@ function populateModal(record) {
     }
 }
 
-
 function showRecordModal(record) {
     if (
         !recordModal ||
@@ -2466,7 +2423,6 @@ function showRecordModal(record) {
         'hidden';
 }
 
-
 function closeRecordModal() {
     if (!recordModal) {
         return;
@@ -2490,7 +2446,6 @@ function closeRecordModal() {
     clearModalFeedback();
 }
 
-
 async function openRecordDetails(
     recordId
 ) {
@@ -2500,7 +2455,6 @@ async function openRecordDetails(
     if (!record) {
         return;
     }
-
 
     if (record.status === 'new') {
         try {
@@ -2537,7 +2491,6 @@ async function openRecordDetails(
     showRecordModal(record);
 }
 
-
 function syncOpenModalAfterRefresh() {
     if (
         !recordModal ||
@@ -2569,8 +2522,6 @@ function syncOpenModalAfterRefresh() {
         updatedRecord
     );
 }
-
-
 
 async function deleteRecord(
     recordId,
@@ -2662,8 +2613,6 @@ async function deleteRecord(
     }
 }
 
-
-
 if (recordsGrid) {
     recordsGrid.addEventListener(
         'click',
@@ -2699,7 +2648,6 @@ if (recordsGrid) {
             );
         }
     );
-
 
     recordsGrid.addEventListener(
         'keydown',
@@ -2737,8 +2685,6 @@ if (recordsGrid) {
     );
 }
 
-
-
 if (newRecordsNav) {
     newRecordsNav.addEventListener(
         'click',
@@ -2749,15 +2695,12 @@ if (newRecordsNav) {
     );
 }
 
-
-
 if (recordsSearch) {
     recordsSearch.addEventListener(
         'input',
         filterRecords
     );
 }
-
 
 if (refreshRecords) {
     refreshRecords.addEventListener(
@@ -2777,7 +2720,6 @@ if (closeRecordModalButton) {
     );
 }
 
-
 if (recordModal) {
     recordModal.addEventListener(
         'click',
@@ -2791,7 +2733,6 @@ if (recordModal) {
         }
     );
 }
-
 
 document.addEventListener(
     'keydown',
@@ -2859,7 +2800,6 @@ if (logoutButton) {
     );
 }
 
-
 function startAutoRefresh() {
     clearInterval(
         autoRefreshTimer
@@ -2872,7 +2812,6 @@ function startAutoRefresh() {
             });
         }, 5000);
 }
-
 
 async function initializePage() {
     const authenticated =
@@ -2889,7 +2828,6 @@ async function initializePage() {
     startAutoRefresh();
 }
 
-
 window.addEventListener(
     'beforeunload',
     () => {
@@ -2902,7 +2840,6 @@ window.addEventListener(
         );
     }
 );
-
 
 initializePage();
 </script>
