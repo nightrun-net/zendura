@@ -22,6 +22,7 @@
     >
 
     <style>
+
         .sidebar-filter-button {
             width: 100%;
             border: 0;
@@ -49,6 +50,8 @@
             color: #ffffff;
             background: rgba(255, 255, 255, 0.22);
         }
+
+        
 
         .record-card {
             position: relative;
@@ -81,6 +84,7 @@
             }
         }
 
+        
 
         .record-card-actions {
             display: flex;
@@ -134,6 +138,8 @@
             color: #3695c2;
         }
 
+        
+
         .auto-refresh-status {
             display: inline-flex;
             align-items: center;
@@ -149,6 +155,8 @@
             background: #41b883;
             box-shadow: 0 0 0 4px rgba(65, 184, 131, 0.12);
         }
+
+        
 
         .record-modal-overlay {
             position: fixed;
@@ -408,6 +416,7 @@
             opacity: 0.55;
         }
 
+        
 
         .app-toast {
             position: fixed;
@@ -443,6 +452,7 @@
             background: #b43b4d;
         }
 
+        
 
         @media (max-width: 700px) {
             .record-modal-overlay {
@@ -467,7 +477,6 @@
                 justify-content: space-between;
             }
         }
-
 
         html,
         body {
@@ -512,7 +521,6 @@
             opacity: 1;
             visibility: visible;
         }
-
 
         @media (max-width: 1280px) {
             .dashboard-page {
@@ -965,7 +973,6 @@
             }
         }
 
-
         @media (max-width: 360px) {
             .dashboard-main {
                 padding-right: 7px;
@@ -1003,7 +1010,6 @@
             }
         }
 
-    
         @media (max-width: 950px) and (max-height: 560px) and (orientation: landscape) {
             .sidebar {
                 width: min(340px, 72vw);
@@ -1048,8 +1054,7 @@
             }
         }
 
-
-
+        
         .record-card {
             cursor: default;
         }
@@ -1068,6 +1073,29 @@
             .records-search input::placeholder {
                 color: #9aabb5;
                 font-size: 0.78rem;
+            }
+        }
+
+        
+
+        .sidebar-brand img {
+            width: clamp(86px, 8vw, 104px) !important;
+            height: clamp(86px, 8vw, 104px) !important;
+            min-width: clamp(86px, 8vw, 104px) !important;
+            min-height: clamp(86px, 8vw, 104px) !important;
+            flex: 0 0 clamp(86px, 8vw, 104px) !important;
+            display: block;
+            object-fit: contain;
+            aspect-ratio: 1 / 1;
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-brand img {
+                width: 86px !important;
+                height: 86px !important;
+                min-width: 86px !important;
+                min-height: 86px !important;
+                flex-basis: 86px !important;
             }
         }
 
@@ -1106,7 +1134,6 @@
 
             <nav class="nav-menu">
 
-
                 <a
                     href="new-record.html"
                     class="nav-item sidebar-filter-button"
@@ -1125,9 +1152,8 @@
                         0
                     </span>
                 </a>
-            
-            
-     
+
+                
                 <a
                     href="all-records.html"
                     class="nav-item sidebar-filter-button active"
@@ -1148,7 +1174,6 @@
                 </a>
             
             </nav>
-
 
             <div class="sidebar-user">
 
@@ -1185,10 +1210,8 @@
             aria-hidden="true"
         ></div>
 
-
-
+        
         <section class="dashboard-main">
-
 
             <header class="topbar">
 
@@ -1214,10 +1237,9 @@
                     </p>
 
                 </div>
-            </header>
+</header>
 
-
- 
+            
             <section class="records-toolbar">
 
                 <label class="records-search">
@@ -1243,8 +1265,7 @@
 
             </section>
 
-
-
+            
             <section class="records-summary">
 
                 <div>
@@ -1259,7 +1280,7 @@
 
             </section>
 
-
+            
             <div
                 class="records-message"
                 id="recordsMessage"
@@ -1268,7 +1289,7 @@
                 Einträge werden geladen...
             </div>
 
-
+            
             <section
                 class="records-grid"
                 id="recordsGrid"
@@ -1278,901 +1299,459 @@
 
     </main>
 
-
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script>
+<script>
 
+const SUPABASE_URL =
+    'https://mivmlczohqcyffnjqckz.supabase.co';
 
-    const SUPABASE_URL =
-        'https://mivmlczohqcyffnjqckz.supabase.co';
+const SUPABASE_KEY =
+    'sb_publishable_GbR_jm4OlfY3gu5OgnpReA_IcU2FXYD';
 
-    const SUPABASE_KEY =
-        'sb_publishable_GbR_jm4OlfY3gu5OgnpReA_IcU2FXYD';
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
-    const supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-        );
+const recordsGrid =
+    document.getElementById('recordsGrid');
 
+const recordsMessage =
+    document.getElementById('recordsMessage');
 
+const recordsCount =
+    document.getElementById('recordsCount');
 
-    const recordsGrid =
-        document.getElementById('recordsGrid');
+const recordsSearch =
+    document.getElementById('recordsSearch');
 
-    const recordsMessage =
-        document.getElementById('recordsMessage');
+const refreshRecords =
+    document.getElementById('refreshRecords');
 
-    const recordsCount =
-        document.getElementById('recordsCount');
+const logoutButton =
+    document.getElementById('logoutButton');
 
-    const recordsSearch =
-        document.getElementById('recordsSearch');
+const sidebarEmail =
+    document.getElementById('sidebarEmail');
 
-    const refreshRecords =
-        document.getElementById('refreshRecords');
+const newRecordsNav =
+    document.getElementById('newRecordsNav');
 
-    const logoutButton =
-        document.getElementById('logoutButton');
+const newRecordsCount =
+    document.getElementById('newRecordsCount');
 
-    const sidebarEmail =
-        document.getElementById('sidebarEmail');
+const allRecordsCount =
+    document.getElementById('allRecordsCount');
 
-    const newRecordsNav =
-        document.getElementById('newRecordsNav');
+const recordModal =
+    document.getElementById('recordModal');
 
-    const newRecordsCount =
-        document.getElementById('newRecordsCount');
+const closeRecordModalButton =
+    document.getElementById('closeRecordModal');
 
-    const allRecordsCount =
-        document.getElementById('allRecordsCount');
+const modalCustomerAvatar =
+    document.getElementById('modalCustomerAvatar');
 
+const modalCustomerName =
+    document.getElementById('modalCustomerName');
 
+const modalCustomerEmail =
+    document.getElementById('modalCustomerEmail');
 
+const modalStatusBadge =
+    document.getElementById('modalStatusBadge');
 
-    const recordModal =
-        document.getElementById('recordModal');
+const modalRecordId =
+    document.getElementById('modalRecordId');
 
-    const closeRecordModalButton =
-        document.getElementById('closeRecordModal');
+const modalPhone =
+    document.getElementById('modalPhone');
 
-    const modalCustomerAvatar =
-        document.getElementById('modalCustomerAvatar');
+const modalAddress =
+    document.getElementById('modalAddress');
 
-    const modalCustomerName =
-        document.getElementById('modalCustomerName');
+const modalLanguage =
+    document.getElementById('modalLanguage');
 
-    const modalCustomerEmail =
-        document.getElementById('modalCustomerEmail');
+const modalCreatedAt =
+    document.getElementById('modalCreatedAt');
 
-    const modalStatusBadge =
-        document.getElementById('modalStatusBadge');
+const modalMessage =
+    document.getElementById('modalMessage');
 
-    const modalRecordId =
-        document.getElementById('modalRecordId');
+const modalFeedback =
+    document.getElementById('modalFeedback');
 
-    const modalPhone =
-        document.getElementById('modalPhone');
+const appToast =
+    document.getElementById('appToast');
 
-    const modalAddress =
-        document.getElementById('modalAddress');
+const dashboardSidebar =
+    document.getElementById('dashboardSidebar');
 
-    const modalLanguage =
-        document.getElementById('modalLanguage');
+const sidebarOverlay =
+    document.getElementById('sidebarOverlay');
 
-    const modalCreatedAt =
-        document.getElementById('modalCreatedAt');
+const openSidebarButton =
+    document.getElementById('openSidebarButton');
 
-    const modalMessage =
-        document.getElementById('modalMessage');
+const closeSidebarButton =
+    document.getElementById('closeSidebarButton');
 
-    const modalFeedback =
-        document.getElementById('modalFeedback');
+let allRecords = [];
 
-    const appToast =
-        document.getElementById('appToast');
+let currentRecordId = null;
 
-    const dashboardSidebar =
-        document.getElementById('dashboardSidebar');
+let knownRecordIds = new Set();
 
-    const sidebarOverlay =
-        document.getElementById('sidebarOverlay');
+let hasLoadedRecords = false;
 
-    const openSidebarButton =
-        document.getElementById('openSidebarButton');
+let loadingRecords = false;
 
-    const closeSidebarButton =
-        document.getElementById('closeSidebarButton');
+let autoRefreshTimer = null;
 
+let toastTimer = null;
 
-
-    let allRecords = [];
-
-    let currentRecordId = null;
-
-    let knownRecordIds = new Set();
-
-    let hasLoadedRecords = false;
-
-    let loadingRecords = false;
-
-    let autoRefreshTimer = null;
-
-    let toastTimer = null;
-
-
-
-    function openMobileSidebar() {
-        if (!dashboardSidebar || window.innerWidth > 980) {
-            return;
-        }
-
-        dashboardSidebar.classList.add('open');
-
-        if (sidebarOverlay) {
-            sidebarOverlay.classList.add('active');
-            sidebarOverlay.setAttribute('aria-hidden', 'false');
-        }
-
-        if (openSidebarButton) {
-            openSidebarButton.setAttribute('aria-expanded', 'true');
-        }
-
-        document.body.classList.add('mobile-menu-open');
+function openMobileSidebar() {
+    if (!dashboardSidebar || window.innerWidth > 980) {
+        return;
     }
 
-
-    function closeMobileSidebar() {
-        if (!dashboardSidebar) {
-            return;
-        }
-
-        dashboardSidebar.classList.remove('open');
-
-        if (sidebarOverlay) {
-            sidebarOverlay.classList.remove('active');
-            sidebarOverlay.setAttribute('aria-hidden', 'true');
-        }
-
-        if (openSidebarButton) {
-            openSidebarButton.setAttribute('aria-expanded', 'false');
-        }
-
-        document.body.classList.remove('mobile-menu-open');
-    }
-
-
-    if (openSidebarButton) {
-        openSidebarButton.addEventListener('click', openMobileSidebar);
-    }
-
-    if (closeSidebarButton) {
-        closeSidebarButton.addEventListener('click', closeMobileSidebar);
-    }
+    dashboardSidebar.classList.add('open');
 
     if (sidebarOverlay) {
-        sidebarOverlay.addEventListener('click', closeMobileSidebar);
+        sidebarOverlay.classList.add('active');
+        sidebarOverlay.setAttribute('aria-hidden', 'false');
     }
 
-    if (dashboardSidebar) {
-        dashboardSidebar.addEventListener('click', (event) => {
-            const navigationLink = event.target.closest('a.nav-item');
-
-            if (navigationLink && window.innerWidth <= 980) {
-                closeMobileSidebar();
-            }
-        });
+    if (openSidebarButton) {
+        openSidebarButton.setAttribute('aria-expanded', 'true');
     }
 
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 980) {
+    document.body.classList.add('mobile-menu-open');
+}
+
+function closeMobileSidebar() {
+    if (!dashboardSidebar) {
+        return;
+    }
+
+    dashboardSidebar.classList.remove('open');
+
+    if (sidebarOverlay) {
+        sidebarOverlay.classList.remove('active');
+        sidebarOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    if (openSidebarButton) {
+        openSidebarButton.setAttribute('aria-expanded', 'false');
+    }
+
+    document.body.classList.remove('mobile-menu-open');
+}
+
+if (openSidebarButton) {
+    openSidebarButton.addEventListener('click', openMobileSidebar);
+}
+
+if (closeSidebarButton) {
+    closeSidebarButton.addEventListener('click', closeMobileSidebar);
+}
+
+if (sidebarOverlay) {
+    sidebarOverlay.addEventListener('click', closeMobileSidebar);
+}
+
+if (dashboardSidebar) {
+    dashboardSidebar.addEventListener('click', (event) => {
+        const navigationLink = event.target.closest('a.nav-item');
+
+        if (navigationLink && window.innerWidth <= 980) {
             closeMobileSidebar();
         }
     });
+}
 
-    async function checkAuthentication() {
-        try {
-            const {
-                data: {
-                    session
-                },
-                error
-            } = await supabaseClient.auth.getSession();
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 980) {
+        closeMobileSidebar();
+    }
+});
 
-            if (error) {
-                throw error;
-            }
+async function checkAuthentication() {
+    try {
+        const {
+            data: {
+                session
+            },
+            error
+        } = await supabaseClient.auth.getSession();
 
-            if (
-                !session ||
-                !session.user
-            ) {
-                window.location.replace(
-                    'login.html'
-                );
+        if (error) {
+            throw error;
+        }
 
-                return false;
-            }
-
-            if (sidebarEmail) {
-                sidebarEmail.textContent =
-                    session.user.email ||
-                    'Zendura Admin';
-            }
-
-            return true;
-
-        } catch (error) {
-            console.error(
-                'Session check error:',
-                error
-            );
-
+        if (
+            !session ||
+            !session.user
+        ) {
             window.location.replace(
                 'login.html'
             );
 
             return false;
         }
+
+        if (sidebarEmail) {
+            sidebarEmail.textContent =
+                session.user.email ||
+                'Zendura Admin';
+        }
+
+        return true;
+
+    } catch (error) {
+        console.error(
+            'Session check error:',
+            error
+        );
+
+        window.location.replace(
+            'login.html'
+        );
+
+        return false;
     }
+}
 
+function escapeHTML(value) {
+    const element =
+        document.createElement('div');
 
-    function escapeHTML(value) {
-        const element =
-            document.createElement('div');
+    element.textContent =
+        value ?? '';
 
-        element.textContent =
-            value ?? '';
+    return element.innerHTML;
+}
 
-        return element.innerHTML;
-    }
+function getInitials(
+    firstName,
+    lastName
+) {
+    const firstInitial =
+        firstName
+            ? firstName.charAt(0)
+            : '';
 
-
-    function getInitials(
-        firstName,
+    const lastInitial =
         lastName
+            ? lastName.charAt(0)
+            : '';
+
+    return (
+        firstInitial +
+        lastInitial
+    ).toUpperCase() || 'ZR';
+}
+
+function formatDate(dateValue) {
+    if (!dateValue) {
+        return 'Kein Datum';
+    }
+
+    const parsedDate =
+        new Date(dateValue);
+
+    if (
+        Number.isNaN(
+            parsedDate.getTime()
+        )
     ) {
-        const firstInitial =
-            firstName
-                ? firstName.charAt(0)
-                : '';
-
-        const lastInitial =
-            lastName
-                ? lastName.charAt(0)
-                : '';
-
-        return (
-            firstInitial +
-            lastInitial
-        ).toUpperCase() || 'ZR';
+        return 'Ungültiges Datum';
     }
 
-
-    function formatDate(dateValue) {
-        if (!dateValue) {
-            return 'Kein Datum';
+    return new Intl.DateTimeFormat(
+        'de-DE',
+        {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
         }
+    ).format(parsedDate);
+}
 
-        const parsedDate =
-            new Date(dateValue);
-
-        if (
-            Number.isNaN(
-                parsedDate.getTime()
-            )
-        ) {
-            return 'Ungültiges Datum';
-        }
-
-        return new Intl.DateTimeFormat(
-            'de-DE',
-            {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            }
-        ).format(parsedDate);
-    }
-
-
-    function getStatusInformation(status) {
-        const statusMap = {
-            new: {
-                label: 'Neu',
-                className: 'status-new'
-            },
-
-            contacted: {
-                label: 'Kontaktiert',
-                className: 'status-contacted'
-            }
-        };
-
-        return statusMap[status] || {
+function getStatusInformation(status) {
+    const statusMap = {
+        new: {
             label: 'Neu',
             className: 'status-new'
-        };
+        },
+
+        contacted: {
+            label: 'Kontaktiert',
+            className: 'status-contacted'
+        }
+    };
+
+    return statusMap[status] || {
+        label: 'Neu',
+        className: 'status-new'
+    };
+}
+
+function findRecord(recordId) {
+    return allRecords.find(
+        (record) =>
+            String(record.id) ===
+            String(recordId)
+    );
+}
+
+function showMessage(
+    message,
+    type = 'loading'
+) {
+    if (!recordsMessage) {
+        return;
     }
 
+    recordsMessage.innerHTML = '';
 
-    function findRecord(recordId) {
-        return allRecords.find(
-            (record) =>
-                String(record.id) ===
-                String(recordId)
-        );
-    }
+    recordsMessage.className =
+        `records-message ${type}`;
 
-
-    function showMessage(
-        message,
-        type = 'loading'
-    ) {
-        if (!recordsMessage) {
-            return;
-        }
-
-        recordsMessage.innerHTML = '';
-
-        recordsMessage.className =
-            `records-message ${type}`;
-
-        if (type === 'loading') {
-            recordsMessage.innerHTML = `
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                ${escapeHTML(message)}
-            `;
-        } else {
-            recordsMessage.textContent =
-                message;
-        }
-
-        recordsMessage.style.display =
-            'flex';
-    }
-
-
-    function hideMessage() {
-        if (!recordsMessage) {
-            return;
-        }
-
-        recordsMessage.style.display =
-            'none';
-    }
-
-
-    function showToast(
-        message,
-        type = ''
-    ) {
-        if (!appToast) {
-            return;
-        }
-
-        clearTimeout(toastTimer);
-
-        appToast.className =
-            `app-toast ${type}`;
-
-        appToast.innerHTML = `
-            <i class="fa-solid ${
-                type === 'error'
-                    ? 'fa-circle-exclamation'
-                    : 'fa-circle-check'
-            }"></i>
-
-            <span>
-                ${escapeHTML(message)}
-            </span>
+    if (type === 'loading') {
+        recordsMessage.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            ${escapeHTML(message)}
         `;
-
-        requestAnimationFrame(() => {
-            appToast.classList.add('show');
-        });
-
-        toastTimer = setTimeout(() => {
-            appToast.classList.remove('show');
-        }, 3500);
-    }
-
-
-    function showModalFeedback(
-        message,
-        type
-    ) {
-        if (!modalFeedback) {
-            return;
-        }
-
-        modalFeedback.textContent =
+    } else {
+        recordsMessage.textContent =
             message;
-
-        modalFeedback.className =
-            `modal-feedback show ${type}`;
     }
 
+    recordsMessage.style.display =
+        'flex';
+}
 
-    function clearModalFeedback() {
-        if (!modalFeedback) {
-            return;
-        }
-
-        modalFeedback.textContent = '';
-
-        modalFeedback.className =
-            'modal-feedback';
+function hideMessage() {
+    if (!recordsMessage) {
+        return;
     }
 
+    recordsMessage.style.display =
+        'none';
+}
 
-    function updateSidebarCounts() {
-        const newCount =
-            allRecords.filter(
-                (record) =>
-                    record.status === 'new'
-            ).length;
-
-        if (newRecordsCount) {
-            newRecordsCount.textContent =
-                newCount;
-        }
-
-        if (allRecordsCount) {
-            allRecordsCount.textContent =
-                allRecords.length;
-        }
+function showToast(
+    message,
+    type = ''
+) {
+    if (!appToast) {
+        return;
     }
 
+    clearTimeout(toastTimer);
 
-    function renderRecords(
-        records,
-        highlightedRecordIds = new Set()
-    ) {
-        if (!recordsGrid) {
-            return;
-        }
+    appToast.className =
+        `app-toast ${type}`;
 
-        recordsGrid.innerHTML = '';
+    appToast.innerHTML = `
+        <i class="fa-solid ${
+            type === 'error'
+                ? 'fa-circle-exclamation'
+                : 'fa-circle-check'
+        }"></i>
 
-        if (recordsCount) {
-            recordsCount.textContent =
-                records.length;
-        }
+        <span>
+            ${escapeHTML(message)}
+        </span>
+    `;
 
-        if (records.length === 0) {
-            showMessage(
-                'Keine passenden Einträge gefunden.',
-                'empty'
-            );
+    requestAnimationFrame(() => {
+        appToast.classList.add('show');
+    });
 
-            return;
-        }
+    toastTimer = setTimeout(() => {
+        appToast.classList.remove('show');
+    }, 3500);
+}
 
-        hideMessage();
-
-        records.forEach((record) => {
-            const status =
-                getStatusInformation(
-                    record.status
-                );
-
-            const fullName = `
-                ${record.first_name || ''}
-                ${record.last_name || ''}
-            `.trim() || 'Unbekannter Kunde';
-
-            const card =
-                document.createElement('article');
-
-            card.className =
-                'record-card';
-
-            if (
-                highlightedRecordIds.has(
-                    String(record.id)
-                )
-            ) {
-                card.classList.add(
-                    'newly-added'
-                );
-            }
-
-            card.dataset.recordId =
-                record.id;
-
-
-            card.innerHTML = `
-                <div class="record-card-header">
-
-                    <div class="record-customer">
-
-                        <div class="record-avatar">
-                            ${escapeHTML(
-                                getInitials(
-                                    record.first_name,
-                                    record.last_name
-                                )
-                            )}
-                        </div>
-
-                        <div class="record-customer-name">
-
-                            <h3>
-                                ${escapeHTML(
-                                    record.first_name
-                                )}
-
-                                ${escapeHTML(
-                                    record.last_name
-                                )}
-                            </h3>
-
-                            <span>
-                                ${escapeHTML(
-                                    record.email
-                                )}
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                    <span class="status-badge ${status.className}">
-                        ● ${status.label}
-                    </span>
-
-                </div>
-
-
-                <div class="record-details">
-
-                    <div class="record-detail-row">
-
-                        <i class="fa-solid fa-phone"></i>
-
-                        <div>
-
-                            <span>Telefon</span>
-
-                            <strong>
-                                ${escapeHTML(
-                                    record.phone
-                                )}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="record-detail-row">
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                        <div>
-
-                            <span>Adresse</span>
-
-                            <strong>
-                                ${escapeHTML(
-                                    record.address
-                                )}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="record-detail-row record-message-row">
-
-                        <i class="fa-solid fa-message"></i>
-
-                        <div>
-
-                            <span>Nachricht</span>
-
-                            <p>
-                                ${escapeHTML(
-                                    record.message
-                                )}
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="record-card-footer">
-
-                    <span class="record-date">
-
-                        <i class="fa-regular fa-calendar"></i>
-
-                        ${formatDate(
-                            record.created_at
-                        )}
-
-                    </span>
-
-                    <div class="record-card-actions">
-
-                        <span class="record-language">
-                            ${escapeHTML(
-                                (
-                                    record.language ||
-                                    'de'
-                                ).toUpperCase()
-                            )}
-                        </span>
-
-                        <button
-                            type="button"
-                            class="record-delete-btn"
-                            data-record-id="${escapeHTML(
-                                record.id
-                            )}"
-                            data-record-name="${escapeHTML(
-                                fullName
-                            )}"
-                            title="Eintrag löschen"
-                        >
-                            <i class="fa-solid fa-trash"></i>
-                            Löschen
-                        </button>
-
-                    </div>
-
-                </div>
-            `;
-
-            recordsGrid.appendChild(card);
-        });
+function showModalFeedback(
+    message,
+    type
+) {
+    if (!modalFeedback) {
+        return;
     }
 
+    modalFeedback.textContent =
+        message;
 
-    function filterRecords(
-        highlightedRecordIds = new Set()
-    ) {
-        const query =
-            recordsSearch
-                ? recordsSearch.value
-                    .trim()
-                    .toLowerCase()
-                : '';
+    modalFeedback.className =
+        `modal-feedback show ${type}`;
+}
 
-        const filteredRecords =
-            allRecords.filter((record) => {
-                const searchableText = [
-                    record.first_name,
-                    record.last_name,
-                    record.email,
-                    record.phone,
-                    record.address,
-                    record.message,
-                    record.status
-                ]
-                    .filter(Boolean)
-                    .join(' ')
-                    .toLowerCase();
+function clearModalFeedback() {
+    if (!modalFeedback) {
+        return;
+    }
 
-                return searchableText.includes(query);
-            });
+    modalFeedback.textContent = '';
 
-        renderRecords(
-            filteredRecords,
-            highlightedRecordIds
+    modalFeedback.className =
+        'modal-feedback';
+}
+
+function updateSidebarCounts() {
+    const newCount =
+        allRecords.filter(
+            (record) =>
+                record.status === 'new'
+        ).length;
+
+    if (newRecordsCount) {
+        newRecordsCount.textContent =
+            newCount;
+    }
+
+    if (allRecordsCount) {
+        allRecordsCount.textContent =
+            allRecords.length;
+    }
+}
+
+function renderRecords(
+    records,
+    highlightedRecordIds = new Set()
+) {
+    if (!recordsGrid) {
+        return;
+    }
+
+    recordsGrid.innerHTML = '';
+
+    if (recordsCount) {
+        recordsCount.textContent =
+            records.length;
+    }
+
+    if (records.length === 0) {
+        showMessage(
+            'Keine passenden Einträge gefunden.',
+            'empty'
         );
+
+        return;
     }
 
-    async function loadAllRecords(
-        options = {}
-    ) {
-        const silent =
-            options.silent === true;
+    hideMessage();
 
-        if (loadingRecords) {
-            return;
-        }
-
-        loadingRecords = true;
-
-        if (!silent) {
-            showMessage(
-                'Einträge werden geladen...',
-                'loading'
-            );
-
-            if (recordsGrid) {
-                recordsGrid.innerHTML = '';
-            }
-        }
-
-        if (refreshRecords) {
-            refreshRecords.disabled =
-                true;
-
-            refreshRecords.innerHTML = `
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                Wird geladen...
-            `;
-        }
-
-        try {
-            const {
-                data,
-                error
-            } = await supabaseClient
-                .from('booking_requests')
-                .select('*')
-                .order(
-                    'created_at',
-                    {
-                        ascending: false
-                    }
-                );
-
-            if (error) {
-                throw error;
-            }
-
-            const incomingRecords =
-                data || [];
-
-            const highlightedRecordIds =
-                new Set();
-
-            if (hasLoadedRecords) {
-                incomingRecords.forEach(
-                    (record) => {
-                        const recordId =
-                            String(record.id);
-
-                        if (
-                            !knownRecordIds.has(
-                                recordId
-                            )
-                        ) {
-                            highlightedRecordIds.add(
-                                recordId
-                            );
-                        }
-                    }
-                );
-            }
-
-            knownRecordIds =
-                new Set(
-                    incomingRecords.map(
-                        (record) =>
-                            String(record.id)
-                    )
-                );
-
-            allRecords =
-                incomingRecords;
-
-            hasLoadedRecords =
-                true;
-
-            updateSidebarCounts();
-
-            filterRecords(
-                highlightedRecordIds
-            );
-
-            if (
-                highlightedRecordIds.size > 0
-            ) {
-                const amount =
-                    highlightedRecordIds.size;
-
-                showToast(
-                    amount === 1
-                        ? 'Ein neuer Eintrag wurde empfangen.'
-                        : `${amount} neue Einträge wurden empfangen.`,
-                    'success'
-                );
-            }
-
-            syncOpenModalAfterRefresh();
-
-        } catch (error) {
-            console.error(
-                'Records loading error:',
-                error
-            );
-
-            if (!silent) {
-                if (recordsCount) {
-                    recordsCount.textContent =
-                        '0';
-                }
-
-                showMessage(
-                    'Die Einträge konnten nicht geladen werden.',
-                    'error'
-                );
-            }
-
-        } finally {
-            loadingRecords =
-                false;
-
-            if (refreshRecords) {
-                refreshRecords.disabled =
-                    false;
-
-                refreshRecords.innerHTML = `
-                    <i class="fa-solid fa-rotate-right"></i>
-                    Aktualisieren
-                `;
-            }
-        }
-    }
-
-
-    async function updateRecordStatus(
-        recordId,
-        newStatus
-    ) {
-        if (
-            newStatus !== 'new' &&
-            newStatus !== 'contacted'
-        ) {
-            throw new Error(
-                'Ungültiger Status.'
-            );
-        }
-
-        const {
-            error
-        } = await supabaseClient
-            .from('booking_requests')
-            .update({
-                status: newStatus
-            })
-            .eq(
-                'id',
-                recordId
-            );
-
-        if (error) {
-            throw error;
-        }
-
-        const recordIndex =
-            allRecords.findIndex(
-                (record) =>
-                    String(record.id) ===
-                    String(recordId)
-            );
-
-        if (recordIndex !== -1) {
-            allRecords[recordIndex] = {
-                ...allRecords[recordIndex],
-                status: newStatus
-            };
-        }
-
-        updateSidebarCounts();
-
-        filterRecords();
-
-        return findRecord(recordId);
-    }
-
-    function populateModal(record) {
-        if (!record) {
-            return;
-        }
-
+    records.forEach((record) => {
         const status =
             getStatusInformation(
                 record.status
@@ -2183,483 +1762,881 @@
             ${record.last_name || ''}
         `.trim() || 'Unbekannter Kunde';
 
-        if (modalCustomerAvatar) {
-            modalCustomerAvatar.textContent =
-                getInitials(
-                    record.first_name,
-                    record.last_name
-                );
-        }
+        const card =
+            document.createElement('article');
 
-        if (modalCustomerName) {
-            modalCustomerName.textContent =
-                fullName;
-        }
+        card.className =
+            'record-card';
 
-        if (modalCustomerEmail) {
-            modalCustomerEmail.textContent =
-                record.email ||
-                'Keine E-Mail';
-        }
-
-        if (modalStatusBadge) {
-            modalStatusBadge.className =
-                `status-badge ${status.className}`;
-
-            modalStatusBadge.textContent =
-                `● ${status.label}`;
-        }
-
-        if (modalRecordId) {
-            modalRecordId.textContent =
-                `ID: ${record.id}`;
-        }
-
-        if (modalPhone) {
-            modalPhone.textContent =
-                record.phone ||
-                'Keine Telefonnummer';
-        }
-
-        if (modalAddress) {
-            modalAddress.textContent =
-                record.address ||
-                'Keine Adresse';
-        }
-
-        if (modalLanguage) {
-            modalLanguage.textContent =
-                (
-                    record.language ||
-                    'de'
-                ).toUpperCase();
-        }
-
-        if (modalCreatedAt) {
-            modalCreatedAt.textContent =
-                formatDate(
-                    record.created_at
-                );
-        }
-
-        if (modalMessage) {
-            modalMessage.textContent =
-                record.message ||
-                'Keine Nachricht vorhanden.';
-        }
-    }
-
-
-    function showRecordModal(record) {
         if (
-            !recordModal ||
-            !record
+            highlightedRecordIds.has(
+                String(record.id)
+            )
         ) {
-            return;
+            card.classList.add(
+                'newly-added'
+            );
         }
 
-        currentRecordId =
+        card.dataset.recordId =
             record.id;
 
-        clearModalFeedback();
+        card.innerHTML = `
+            <div class="record-card-header">
 
-        populateModal(record);
+                <div class="record-customer">
 
-        recordModal.classList.add(
-            'active'
-        );
+                    <div class="record-avatar">
+                        ${escapeHTML(
+                            getInitials(
+                                record.first_name,
+                                record.last_name
+                            )
+                        )}
+                    </div>
 
-        recordModal.setAttribute(
-            'aria-hidden',
-            'false'
-        );
+                    <div class="record-customer-name">
 
-        document.body.style.overflow =
-            'hidden';
-    }
+                        <h3>
+                            ${escapeHTML(
+                                record.first_name
+                            )}
 
+                            ${escapeHTML(
+                                record.last_name
+                            )}
+                        </h3>
 
-    function closeRecordModal() {
-        if (!recordModal) {
-            return;
-        }
+                        <span>
+                            ${escapeHTML(
+                                record.email
+                            )}
+                        </span>
 
-        recordModal.classList.remove(
-            'active'
-        );
+                    </div>
 
-        recordModal.setAttribute(
-            'aria-hidden',
-            'true'
-        );
+                </div>
 
-        document.body.style.overflow =
-            '';
+                <span class="status-badge ${status.className}">
+                    ● ${status.label}
+                </span>
 
-        currentRecordId =
-            null;
+            </div>
 
-        clearModalFeedback();
-    }
+            <div class="record-details">
 
+                <div class="record-detail-row">
 
-    async function openRecordDetails(
-        recordId
-    ) {
-        let record =
-            findRecord(recordId);
+                    <i class="fa-solid fa-phone"></i>
 
-        if (!record) {
-            return;
-        }
+                    <div>
 
+                        <span>Telefon</span>
 
-        if (record.status === 'new') {
-            try {
-                record =
-                    await updateRecordStatus(
-                        record.id,
-                        'contacted'
-                    );
+                        <strong>
+                            ${escapeHTML(
+                                record.phone
+                            )}
+                        </strong>
 
-                showRecordModal(record);
+                    </div>
 
-                showModalFeedback(
-                    'Der Eintrag wurde automatisch als kontaktiert markiert.',
-                    'success'
-                );
+                </div>
 
-            } catch (error) {
-                console.error(
-                    'Contact status update error:',
-                    error
-                );
+                <div class="record-detail-row">
 
-                showRecordModal(record);
+                    <i class="fa-solid fa-location-dot"></i>
 
-                showModalFeedback(
-                    'Der Status konnte nicht auf „Kontaktiert“ geändert werden.',
-                    'error'
-                );
-            }
+                    <div>
 
-            return;
-        }
+                        <span>Adresse</span>
 
-        showRecordModal(record);
-    }
+                        <strong>
+                            ${escapeHTML(
+                                record.address
+                            )}
+                        </strong>
 
+                    </div>
 
-    function syncOpenModalAfterRefresh() {
-        if (
-            !recordModal ||
-            !recordModal.classList.contains(
-                'active'
-            ) ||
-            !currentRecordId
-        ) {
-            return;
-        }
+                </div>
 
-        const updatedRecord =
-            findRecord(
-                currentRecordId
-            );
+                <div class="record-detail-row record-message-row">
 
-        if (!updatedRecord) {
-            closeRecordModal();
+                    <i class="fa-solid fa-message"></i>
 
-            showToast(
-                'Dieser Eintrag ist nicht mehr verfügbar.',
-                'error'
-            );
+                    <div>
 
-            return;
-        }
+                        <span>Nachricht</span>
 
-        populateModal(
-            updatedRecord
-        );
-    }
+                        <p>
+                            ${escapeHTML(
+                                record.message
+                            )}
+                        </p>
 
-    async function deleteRecord(
-        recordId,
-        recordName,
-        deleteButton
-    ) {
-        const displayName =
-            recordName ||
-            'diesen Eintrag';
+                    </div>
 
-        const confirmed =
-            window.confirm(
-                `Möchten Sie den Eintrag von "${displayName}" wirklich löschen?`
-            );
+                </div>
 
-        if (!confirmed) {
-            return;
-        }
+            </div>
 
-        const originalButtonHTML =
-            deleteButton.innerHTML;
+            <div class="record-card-footer">
 
-        deleteButton.disabled =
-            true;
+                <span class="record-date">
 
-        deleteButton.innerHTML = `
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            Löschen...
+                    <i class="fa-regular fa-calendar"></i>
+
+                    ${formatDate(
+                        record.created_at
+                    )}
+
+                </span>
+
+                <div class="record-card-actions">
+
+                    <span class="record-language">
+                        ${escapeHTML(
+                            (
+                                record.language ||
+                                'de'
+                            ).toUpperCase()
+                        )}
+                    </span>
+
+                    <button
+                        type="button"
+                        class="record-delete-btn"
+                        data-record-id="${escapeHTML(
+                            record.id
+                        )}"
+                        data-record-name="${escapeHTML(
+                            fullName
+                        )}"
+                        title="Eintrag löschen"
+                    >
+                        <i class="fa-solid fa-trash"></i>
+                        Löschen
+                    </button>
+
+                </div>
+
+            </div>
         `;
 
-        try {
-            const {
-                error
-            } = await supabaseClient
-                .from('booking_requests')
-                .delete()
-                .eq(
-                    'id',
-                    recordId
-                );
+        recordsGrid.appendChild(card);
+    });
+}
 
-            if (error) {
-                throw error;
-            }
+function filterRecords(
+    highlightedRecordIds = new Set()
+) {
+    const query =
+        recordsSearch
+            ? recordsSearch.value
+                .trim()
+                .toLowerCase()
+            : '';
 
-            allRecords =
-                allRecords.filter(
-                    (record) =>
-                        String(record.id) !==
-                        String(recordId)
-                );
+    const filteredRecords =
+        allRecords.filter((record) => {
+            const searchableText = [
+                record.first_name,
+                record.last_name,
+                record.email,
+                record.phone,
+                record.address,
+                record.message,
+                record.status
+            ]
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase();
 
-            knownRecordIds.delete(
-                String(recordId)
+            return searchableText.includes(query);
+        });
+
+    renderRecords(
+        filteredRecords,
+        highlightedRecordIds
+    );
+}
+
+async function loadAllRecords(
+    options = {}
+) {
+    const silent =
+        options.silent === true;
+
+    if (loadingRecords) {
+        return;
+    }
+
+    loadingRecords = true;
+
+    if (!silent) {
+        showMessage(
+            'Einträge werden geladen...',
+            'loading'
+        );
+
+        if (recordsGrid) {
+            recordsGrid.innerHTML = '';
+        }
+    }
+
+    if (refreshRecords) {
+        refreshRecords.disabled =
+            true;
+
+        refreshRecords.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Wird geladen...
+        `;
+    }
+
+    try {
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from('booking_requests')
+            .select('*')
+            .order(
+                'created_at',
+                {
+                    ascending: false
+                }
             );
 
-            if (
-                String(currentRecordId) ===
-                String(recordId)
-            ) {
-                closeRecordModal();
-            }
+        if (error) {
+            throw error;
+        }
 
-            updateSidebarCounts();
+        const incomingRecords =
+            data || [];
 
-            filterRecords();
+        const highlightedRecordIds =
+            new Set();
+
+        if (hasLoadedRecords) {
+            incomingRecords.forEach(
+                (record) => {
+                    const recordId =
+                        String(record.id);
+
+                    if (
+                        !knownRecordIds.has(
+                            recordId
+                        )
+                    ) {
+                        highlightedRecordIds.add(
+                            recordId
+                        );
+                    }
+                }
+            );
+        }
+
+        knownRecordIds =
+            new Set(
+                incomingRecords.map(
+                    (record) =>
+                        String(record.id)
+                )
+            );
+
+        allRecords =
+            incomingRecords;
+
+        hasLoadedRecords =
+            true;
+
+        updateSidebarCounts();
+
+        filterRecords(
+            highlightedRecordIds
+        );
+
+        if (
+            highlightedRecordIds.size > 0
+        ) {
+            const amount =
+                highlightedRecordIds.size;
 
             showToast(
-                'Der Eintrag wurde gelöscht.',
+                amount === 1
+                    ? 'Ein neuer Eintrag wurde empfangen.'
+                    : `${amount} neue Einträge wurden empfangen.`,
+                'success'
+            );
+        }
+
+        syncOpenModalAfterRefresh();
+
+    } catch (error) {
+        console.error(
+            'Records loading error:',
+            error
+        );
+
+        if (!silent) {
+            if (recordsCount) {
+                recordsCount.textContent =
+                    '0';
+            }
+
+            showMessage(
+                'Die Einträge konnten nicht geladen werden.',
+                'error'
+            );
+        }
+
+    } finally {
+        loadingRecords =
+            false;
+
+        if (refreshRecords) {
+            refreshRecords.disabled =
+                false;
+
+            refreshRecords.innerHTML = `
+                <i class="fa-solid fa-rotate-right"></i>
+                Aktualisieren
+            `;
+        }
+    }
+}
+
+async function updateRecordStatus(
+    recordId,
+    newStatus
+) {
+    if (
+        newStatus !== 'new' &&
+        newStatus !== 'contacted'
+    ) {
+        throw new Error(
+            'Ungültiger Status.'
+        );
+    }
+
+    const {
+        error
+    } = await supabaseClient
+        .from('booking_requests')
+        .update({
+            status: newStatus
+        })
+        .eq(
+            'id',
+            recordId
+        );
+
+    if (error) {
+        throw error;
+    }
+
+    const recordIndex =
+        allRecords.findIndex(
+            (record) =>
+                String(record.id) ===
+                String(recordId)
+        );
+
+    if (recordIndex !== -1) {
+        allRecords[recordIndex] = {
+            ...allRecords[recordIndex],
+            status: newStatus
+        };
+    }
+
+    updateSidebarCounts();
+
+    filterRecords();
+
+    return findRecord(recordId);
+}
+
+function populateModal(record) {
+    if (!record) {
+        return;
+    }
+
+    const status =
+        getStatusInformation(
+            record.status
+        );
+
+    const fullName = `
+        ${record.first_name || ''}
+        ${record.last_name || ''}
+    `.trim() || 'Unbekannter Kunde';
+
+    if (modalCustomerAvatar) {
+        modalCustomerAvatar.textContent =
+            getInitials(
+                record.first_name,
+                record.last_name
+            );
+    }
+
+    if (modalCustomerName) {
+        modalCustomerName.textContent =
+            fullName;
+    }
+
+    if (modalCustomerEmail) {
+        modalCustomerEmail.textContent =
+            record.email ||
+            'Keine E-Mail';
+    }
+
+    if (modalStatusBadge) {
+        modalStatusBadge.className =
+            `status-badge ${status.className}`;
+
+        modalStatusBadge.textContent =
+            `● ${status.label}`;
+    }
+
+    if (modalRecordId) {
+        modalRecordId.textContent =
+            `ID: ${record.id}`;
+    }
+
+    if (modalPhone) {
+        modalPhone.textContent =
+            record.phone ||
+            'Keine Telefonnummer';
+    }
+
+    if (modalAddress) {
+        modalAddress.textContent =
+            record.address ||
+            'Keine Adresse';
+    }
+
+    if (modalLanguage) {
+        modalLanguage.textContent =
+            (
+                record.language ||
+                'de'
+            ).toUpperCase();
+    }
+
+    if (modalCreatedAt) {
+        modalCreatedAt.textContent =
+            formatDate(
+                record.created_at
+            );
+    }
+
+    if (modalMessage) {
+        modalMessage.textContent =
+            record.message ||
+            'Keine Nachricht vorhanden.';
+    }
+}
+
+function showRecordModal(record) {
+    if (
+        !recordModal ||
+        !record
+    ) {
+        return;
+    }
+
+    currentRecordId =
+        record.id;
+
+    clearModalFeedback();
+
+    populateModal(record);
+
+    recordModal.classList.add(
+        'active'
+    );
+
+    recordModal.setAttribute(
+        'aria-hidden',
+        'false'
+    );
+
+    document.body.style.overflow =
+        'hidden';
+}
+
+function closeRecordModal() {
+    if (!recordModal) {
+        return;
+    }
+
+    recordModal.classList.remove(
+        'active'
+    );
+
+    recordModal.setAttribute(
+        'aria-hidden',
+        'true'
+    );
+
+    document.body.style.overflow =
+        '';
+
+    currentRecordId =
+        null;
+
+    clearModalFeedback();
+}
+
+async function openRecordDetails(
+    recordId
+) {
+    let record =
+        findRecord(recordId);
+
+    if (!record) {
+        return;
+    }
+
+    if (record.status === 'new') {
+        try {
+            record =
+                await updateRecordStatus(
+                    record.id,
+                    'contacted'
+                );
+
+            showRecordModal(record);
+
+            showModalFeedback(
+                'Der Eintrag wurde automatisch als kontaktiert markiert.',
                 'success'
             );
 
         } catch (error) {
             console.error(
-                'Delete record error:',
+                'Contact status update error:',
                 error
             );
 
-            showToast(
-                'Der Eintrag konnte nicht gelöscht werden.',
+            showRecordModal(record);
+
+            showModalFeedback(
+                'Der Status konnte nicht auf „Kontaktiert“ geändert werden.',
                 'error'
             );
-
-            deleteButton.disabled =
-                false;
-
-            deleteButton.innerHTML =
-                originalButtonHTML;
         }
+
+        return;
     }
 
+    showRecordModal(record);
+}
 
-    if (recordsGrid) {
-        recordsGrid.addEventListener(
-            'click',
-            async (event) => {
-                const deleteButton =
-                    event.target.closest(
-                        '.record-delete-btn'
-                    );
+function syncOpenModalAfterRefresh() {
+    if (
+        !recordModal ||
+        !recordModal.classList.contains(
+            'active'
+        ) ||
+        !currentRecordId
+    ) {
+        return;
+    }
 
-                if (!deleteButton) {
-                    return;
-                }
+    const updatedRecord =
+        findRecord(
+            currentRecordId
+        );
 
-                event.stopPropagation();
+    if (!updatedRecord) {
+        closeRecordModal();
 
-                await deleteRecord(
-                    deleteButton.dataset.recordId,
-                    deleteButton.dataset.recordName,
-                    deleteButton
+        showToast(
+            'Dieser Eintrag ist nicht mehr verfügbar.',
+            'error'
+        );
+
+        return;
+    }
+
+    populateModal(
+        updatedRecord
+    );
+}
+
+async function deleteRecord(
+    recordId,
+    recordName,
+    deleteButton
+) {
+    const displayName =
+        recordName ||
+        'diesen Eintrag';
+
+    const confirmed =
+        window.confirm(
+            `Möchten Sie den Eintrag von "${displayName}" wirklich löschen?`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const originalButtonHTML =
+        deleteButton.innerHTML;
+
+    deleteButton.disabled =
+        true;
+
+    deleteButton.innerHTML = `
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Löschen...
+    `;
+
+    try {
+        const {
+            error
+        } = await supabaseClient
+            .from('booking_requests')
+            .delete()
+            .eq(
+                'id',
+                recordId
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        allRecords =
+            allRecords.filter(
+                (record) =>
+                    String(record.id) !==
+                    String(recordId)
+            );
+
+        knownRecordIds.delete(
+            String(recordId)
+        );
+
+        if (
+            String(currentRecordId) ===
+            String(recordId)
+        ) {
+            closeRecordModal();
+        }
+
+        updateSidebarCounts();
+
+        filterRecords();
+
+        showToast(
+            'Der Eintrag wurde gelöscht.',
+            'success'
+        );
+
+    } catch (error) {
+        console.error(
+            'Delete record error:',
+            error
+        );
+
+        showToast(
+            'Der Eintrag konnte nicht gelöscht werden.',
+            'error'
+        );
+
+        deleteButton.disabled =
+            false;
+
+        deleteButton.innerHTML =
+            originalButtonHTML;
+    }
+}
+
+if (recordsGrid) {
+    recordsGrid.addEventListener(
+        'click',
+        async (event) => {
+            const deleteButton =
+                event.target.closest(
+                    '.record-delete-btn'
                 );
-            }
-        );
-    }
 
-
-    if (newRecordsNav) {
-        newRecordsNav.addEventListener(
-            'click',
-            () => {
-                window.location.href =
-                    'new-record.html';
-            }
-        );
-    }
-
-
-
-    if (recordsSearch) {
-        recordsSearch.addEventListener(
-            'input',
-            filterRecords
-        );
-    }
-
-    if (refreshRecords) {
-        refreshRecords.addEventListener(
-            'click',
-            () => {
-                loadAllRecords({
-                    silent: false
-                });
-            }
-        );
-    }
-
-    if (closeRecordModalButton) {
-        closeRecordModalButton.addEventListener(
-            'click',
-            closeRecordModal
-        );
-    }
-
-
-    if (recordModal) {
-        recordModal.addEventListener(
-            'click',
-            (event) => {
-                if (
-                    event.target ===
-                    recordModal
-                ) {
-                    closeRecordModal();
-                }
-            }
-        );
-    }
-
-
-    document.addEventListener(
-        'keydown',
-        (event) => {
-            if (event.key !== 'Escape') {
+            if (!deleteButton) {
                 return;
             }
 
+            event.stopPropagation();
+
+            await deleteRecord(
+                deleteButton.dataset.recordId,
+                deleteButton.dataset.recordName,
+                deleteButton
+            );
+        }
+    );
+}
+
+if (newRecordsNav) {
+    newRecordsNav.addEventListener(
+        'click',
+        () => {
+            window.location.href =
+                'new-record.html';
+        }
+    );
+}
+
+if (recordsSearch) {
+    recordsSearch.addEventListener(
+        'input',
+        filterRecords
+    );
+}
+
+if (refreshRecords) {
+    refreshRecords.addEventListener(
+        'click',
+        () => {
+            loadAllRecords({
+                silent: false
+            });
+        }
+    );
+}
+
+if (closeRecordModalButton) {
+    closeRecordModalButton.addEventListener(
+        'click',
+        closeRecordModal
+    );
+}
+
+if (recordModal) {
+    recordModal.addEventListener(
+        'click',
+        (event) => {
             if (
-                recordModal &&
-                recordModal.classList.contains(
-                    'active'
-                )
+                event.target ===
+                recordModal
             ) {
                 closeRecordModal();
-                return;
-            }
-
-            if (
-                dashboardSidebar &&
-                dashboardSidebar.classList.contains(
-                    'open'
-                )
-            ) {
-                closeMobileSidebar();
             }
         }
     );
+}
 
-    if (logoutButton) {
-        logoutButton.addEventListener(
-            'click',
-            async () => {
-                try {
-                    const {
-                        error
-                    } =
-                        await supabaseClient
-                            .auth
-                            .signOut();
+document.addEventListener(
+    'keydown',
+    (event) => {
+        if (event.key !== 'Escape') {
+            return;
+        }
 
-                    if (error) {
-                        throw error;
-                    }
+        if (
+            recordModal &&
+            recordModal.classList.contains(
+                'active'
+            )
+        ) {
+            closeRecordModal();
+            return;
+        }
 
-                } catch (error) {
-                    console.error(
-                        'Logout error:',
-                        error
-                    );
+        if (
+            dashboardSidebar &&
+            dashboardSidebar.classList.contains(
+                'open'
+            )
+        ) {
+            closeMobileSidebar();
+        }
+    }
+);
+
+if (logoutButton) {
+    logoutButton.addEventListener(
+        'click',
+        async () => {
+            try {
+                const {
+                    error
+                } =
+                    await supabaseClient
+                        .auth
+                        .signOut();
+
+                if (error) {
+                    throw error;
                 }
 
-                localStorage.removeItem(
-                    'zendura-session'
-                );
-
-                localStorage.removeItem(
-                    'zendura-admin-email'
-                );
-
-                window.location.replace(
-                    'login.html'
+            } catch (error) {
+                console.error(
+                    'Logout error:',
+                    error
                 );
             }
-        );
+
+            localStorage.removeItem(
+                'zendura-session'
+            );
+
+            localStorage.removeItem(
+                'zendura-admin-email'
+            );
+
+            window.location.replace(
+                'login.html'
+            );
+        }
+    );
+}
+
+function startAutoRefresh() {
+    clearInterval(
+        autoRefreshTimer
+    );
+
+    autoRefreshTimer =
+        setInterval(() => {
+            loadAllRecords({
+                silent: true
+            });
+        }, 5000);
+}
+
+async function initializePage() {
+    const authenticated =
+        await checkAuthentication();
+
+    if (!authenticated) {
+        return;
     }
 
-    function startAutoRefresh() {
+    await loadAllRecords({
+        silent: false
+    });
+}
+
+window.addEventListener(
+    'beforeunload',
+    () => {
         clearInterval(
             autoRefreshTimer
         );
 
-        autoRefreshTimer =
-            setInterval(() => {
-                loadAllRecords({
-                    silent: true
-                });
-            }, 5000);
+        clearTimeout(
+            toastTimer
+        );
     }
+);
 
-    async function initializePage() {
-        const authenticated =
-            await checkAuthentication();
-
-        if (!authenticated) {
-            return;
-        }
-
-        await loadAllRecords({
-            silent: false
-        });
-    }
-
-
-    window.addEventListener(
-        'beforeunload',
-        () => {
-            clearInterval(
-                autoRefreshTimer
-            );
-
-            clearTimeout(
-                toastTimer
-            );
-        }
-    );
-
-
-    initializePage();
-    </script>
+initializePage();
+</script>
 
 </body>
 
