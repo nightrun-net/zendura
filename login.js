@@ -11,7 +11,6 @@ const supabaseClient =
     );
 
 
-
 const loginForm =
     document.getElementById('loginForm');
 
@@ -37,6 +36,10 @@ const rememberMe =
     document.getElementById('rememberMe');
 
 
+/* ==================================================
+   CHECK EXISTING SESSION
+================================================== */
+
 async function checkExistingSession() {
     try {
         const {
@@ -52,10 +55,20 @@ async function checkExistingSession() {
             throw error;
         }
 
-        if (session && session.user) {
+        /*
+            If the user is already logged in,
+            open new-record.html immediately.
+        */
+
+        if (
+            session &&
+            session.user
+        ) {
             window.location.replace(
-                'all-records.html'
+                'new-record.html'
             );
+
+            return;
         }
 
     } catch (error) {
@@ -66,6 +79,10 @@ async function checkExistingSession() {
     }
 }
 
+
+/* ==================================================
+   PASSWORD VISIBILITY
+================================================== */
 
 if (
     togglePassword &&
@@ -110,6 +127,10 @@ if (
 }
 
 
+/* ==================================================
+   LOGIN ERROR
+================================================== */
+
 function showLoginError(message) {
     if (!loginError) {
         return;
@@ -136,6 +157,10 @@ function clearLoginError() {
     );
 }
 
+
+/* ==================================================
+   LOGIN BUTTON LOADING
+================================================== */
 
 function setLoginLoading(isLoading) {
     if (!loginButton) {
@@ -166,6 +191,10 @@ function setLoginLoading(isLoading) {
     }
 }
 
+
+/* ==================================================
+   LOGIN
+================================================== */
 
 if (
     loginForm &&
@@ -230,8 +259,13 @@ if (
                         : 'false'
                 );
 
+                /*
+                    After successful login,
+                    open new-record.html first.
+                */
+
                 window.location.replace(
-                    'all-records.html'
+                    'new-record.html'
                 );
 
             } catch (error) {
@@ -251,5 +285,9 @@ if (
     );
 }
 
+
+/* ==================================================
+   INITIALIZE
+================================================== */
 
 checkExistingSession();
